@@ -1,9 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { AdminLanguageSwitcher } from './AdminLanguageSwitcher';
 import { Shield, Eye, Bell, User } from 'lucide-react';
 
 export const AdminHeader: React.FC = () => {
+  const { t } = useTranslation();
+
   const { t } = useTranslation();
 
   return (
@@ -39,8 +42,8 @@ export const AdminHeader: React.FC = () => {
             </div>
             <div className="hidden sm:block">
               <div className="text-sm font-medium text-gray-900">Admin User</div>
-              <div className="text-xs text-gray-500">System Administrator</div>
-            </div>
+            <div className="text-sm font-medium text-gray-900">{t('adminUser')}</div>
+            <div className="text-xs text-gray-500">{t('systemAdministrator')}</div>
           </div>
         </div>
       </div>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatDate, formatCurrency, formatRelativeTime } from '../../i18n';
+import { useTranslation } from 'react-i18next';
+import { formatDate, formatCurrency, formatRelativeTime } from '../../i18n';
 import { AdminUser, AdminAlert } from '../../types/admin';
 import { 
   X, 
@@ -32,6 +34,8 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
   alert, 
   onClose 
 }) => {
+  const { t } = useTranslation();
+
   const { t } = useTranslation();
 
   const getStatusColor = (status: string) => {
@@ -109,12 +113,12 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
             <span className="font-medium">{formatRelativeTime(user!.lastActive)}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-600">Role:</span>
+            <span className="text-gray-600">{t('role')}:</span>
             <span className="font-medium capitalize">{user!.role}</span>
           </div>
           {user!.profile?.phone && (
             <div className="flex justify-between">
-              <span className="text-gray-600">Phone:</span>
+              <span className="text-gray-600">{t('phone')}:</span>
               <span className="font-medium">{user!.profile.phone}</span>
             </div>
           )}
@@ -155,13 +159,13 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
           <div className="space-y-3 text-sm">
             {user!.profile.farmName && (
               <div className="flex justify-between">
-                <span className="text-gray-600">Farm Name:</span>
+                <span className="text-gray-600">{t('farmName')}:</span>
                 <span className="font-medium">{user!.profile.farmName}</span>
               </div>
             )}
             {user!.profile.farmType && (
               <div className="flex justify-between">
-                <span className="text-gray-600">Farm Type:</span>
+                <span className="text-gray-600">{t('farmType')}:</span>
                 <span className="font-medium capitalize">{user!.profile.farmType}</span>
               </div>
             )}
@@ -179,7 +183,7 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
             </div>
             {user!.profile.certifications && (
               <div>
-                <span className="text-gray-600 block mb-1">Certifications:</span>
+                <span className="text-gray-600 block mb-1">{t('certifications')}:</span>
                 <div className="flex flex-wrap gap-1">
                   {user!.profile.certifications.map(cert => (
                     <span key={cert} className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
@@ -253,7 +257,7 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Expiry Date:</span>
+              <span className="text-gray-600">{t('expiryDate')}:</span>
               <span className="font-medium">{formatDate(user!.subscription.expiryDate)}</span>
             </div>
           </div>
@@ -285,10 +289,10 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
       <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
         <div className="flex items-center gap-2">
           <Eye className="w-4 h-4 text-amber-600" />
-          <p className="text-sm text-amber-800 font-medium">Read-Only View</p>
+          <p className="text-sm text-amber-800 font-medium">{t('readOnlyView')}</p>
         </div>
         <p className="text-xs text-amber-700 mt-1">
-          This is a monitoring interface. No changes can be made to user accounts or settings.
+          {t('readOnlyViewDescription')}
         </p>
       </div>
     </div>
@@ -321,17 +325,17 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
         </h4>
         <div className="space-y-3 text-sm">
           <div className="flex justify-between">
-            <span className="text-gray-600">Alert ID:</span>
+            <span className="text-gray-600">{t('alertId')}:</span>
             <span className="font-mono text-xs">{alert!.id}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-600">Type:</span>
+            <span className="text-gray-600">{t('type')}:</span>
             <span className="font-medium capitalize">{alert!.type.replace('_', ' ')}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-600">{t('severity')}:</span>
             <span className={`px-2 py-1 rounded-full text-xs font-medium ${getSeverityColor(alert!.severity)}`}>
-              {alert!.severity}
+              {t(alert!.severity)}
             </span>
           </div>
           <div className="flex justify-between">
@@ -339,12 +343,12 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
             <span className="font-medium text-end">{alert!.source}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-600">Created:</span>
+            <span className="text-gray-600">{t('created')}:</span>
             <span className="font-medium">{formatDate(alert!.created_at)}</span>
           </div>
           {alert!.acknowledged && (
             <div className="flex justify-between">
-              <span className="text-gray-600">Acknowledged:</span>
+              <span className="text-gray-600">{t('acknowledged')}:</span>
               <span className="font-medium text-green-600">
                 {formatRelativeTime(alert!.acknowledged_at!)}
               </span>
@@ -356,7 +360,7 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
       {/* Metadata */}
       {alert!.metadata && Object.keys(alert!.metadata).length > 0 && (
         <div className="bg-white border border-gray-200 rounded-lg p-4">
-          <h4 className="font-semibold text-gray-900 mb-3">Additional Information</h4>
+          <h4 className="font-semibold text-gray-900 mb-3">{t('additionalInformation')}</h4>
           <div className="space-y-2 text-sm">
             {Object.entries(alert!.metadata).map(([key, value]) => (
               <div key={key} className="flex justify-between">
@@ -370,10 +374,10 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
 
       {/* Status Information */}
       <div className="bg-white border border-gray-200 rounded-lg p-4">
-        <h4 className="font-semibold text-gray-900 mb-3">Status Information</h4>
+        <h4 className="font-semibold text-gray-900 mb-3">{t('statusInformation')}</h4>
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">Acknowledged:</span>
+            <span className="text-sm text-gray-600">{t('acknowledged')}:</span>
             <div className="flex items-center gap-2">
               {alert!.acknowledged ? (
                 <CheckCircle className="w-4 h-4 text-green-600" />
@@ -381,13 +385,13 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
                 <Clock className="w-4 h-4 text-gray-400" />
               )}
               <span className="text-sm font-medium">
-                {alert!.acknowledged ? 'Yes' : 'No'}
+                {alert!.acknowledged ? t('yes') : t('no')}
               </span>
             </div>
           </div>
           
           <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">Resolved:</span>
+            <span className="text-sm text-gray-600">{t('resolved')}:</span>
             <div className="flex items-center gap-2">
               {alert!.resolved ? (
                 <CheckCircle className="w-4 h-4 text-green-600" />
@@ -395,7 +399,7 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
                 <Clock className="w-4 h-4 text-gray-400" />
               )}
               <span className="text-sm font-medium">
-                {alert!.resolved ? 'Yes' : 'No'}
+                {alert!.resolved ? t('yes') : t('no')}
               </span>
             </div>
           </div>
@@ -406,10 +410,10 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
       <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
         <div className="flex items-center gap-2">
           <Eye className="w-4 h-4 text-amber-600" />
-          <p className="text-sm text-amber-800 font-medium">Read-Only View</p>
+          <p className="text-sm text-amber-800 font-medium">{t('readOnlyView')}</p>
         </div>
         <p className="text-xs text-amber-700 mt-1">
-          This is a monitoring interface. Alerts cannot be acknowledged or resolved from this view.
+          {t('readOnlyAlertDescription')}
         </p>
       </div>
     </div>

@@ -361,6 +361,137 @@ const resources = {
       "helpAndSupport": "Help & Support",
       "notifications": "Notifications",
       "smartFarmingFingerTips": "Smart farming at your fingertips"
+      
+      // Admin Dashboard
+      "hasadAdminPanel": "HASAD Admin Panel",
+      "adminPortal": "Admin Portal",
+      "monitoringOnly": "Monitoring Only",
+      "adminReadOnlyNotice": "This is a read-only administrative interface. No changes can be made to user accounts or system settings.",
+      
+      // Navigation
+      "reports": "Reports",
+      
+      // KPI Cards
+      "totalFarmers": "Total Farmers",
+      "totalConsumers": "Total Consumers", 
+      "activeDevices": "Active Devices",
+      "openAlerts": "Open Alerts",
+      "monthlyRevenue": "Monthly Revenue",
+      "systemUptime": "System Uptime",
+      "dataProcessed": "Data Processed",
+      "avgResponseTime": "Avg Response Time",
+      
+      // Table Headers & Actions
+      "name": "Name",
+      "status": "Status",
+      "location": "Location",
+      "joinDate": "Join Date",
+      "lastActive": "Last Active",
+      "farmSites": "Farm Sites",
+      "totalOrders": "Total Orders",
+      "revenue": "Revenue",
+      "devices": "Devices",
+      "subscription": "Subscription",
+      "tier": "Tier",
+      "actions": "Actions",
+      "view": "View",
+      
+      // Status Values
+      "active": "Active",
+      "inactive": "Inactive",
+      "suspended": "Suspended",
+      "pending": "Pending",
+      "verified": "Verified",
+      "unverified": "Unverified",
+      "online": "Online",
+      "offline": "Offline",
+      "maintenance": "Maintenance",
+      
+      // Subscription Tiers
+      "basic": "Basic",
+      "premium": "Premium",
+      "enterprise": "Enterprise",
+      "trial": "Trial",
+      
+      // Search & Filters
+      "searchUsers": "Search users...",
+      "searchFarmers": "Search farmers...",
+      "searchConsumers": "Search consumers...",
+      "allStatuses": "All Statuses",
+      "allLocations": "All Locations",
+      "allTiers": "All Tiers",
+      
+      // Detail Drawer
+      "userDetails": "User Details",
+      "accountInformation": "Account Information",
+      "contactInformation": "Contact Information",
+      "farmInformation": "Farm Information",
+      "deviceStatus": "Device Status",
+      "recentActivity": "Recent Activity",
+      "subscriptionDetails": "Subscription Details",
+      
+      // Alerts
+      "criticalAlerts": "Critical Alerts",
+      "warningAlerts": "Warning Alerts",
+      "infoAlerts": "Info Alerts",
+      "alertDetails": "Alert Details",
+      "severity": "Severity",
+      "timestamp": "Timestamp",
+      "source": "Source",
+      "message": "Message",
+      
+      // Pagination
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page",
+      "of": "of",
+      "showing": "Showing",
+      "to": "to",
+      "entries": "entries",
+      
+      // Empty States
+      "noFarmersFound": "No farmers found",
+      "noConsumersFound": "No consumers found",
+      "noAlertsFound": "No alerts found",
+      
+      // Accessibility
+      "viewUserDetails": "View user details",
+      "switchTo": "Switch to ",
+      
+      // Additional Admin Strings
+      "adminUser": "Admin User",
+      "systemAdministrator": "System Administrator",
+      "adjustSearchCriteria": "Try adjusting your search or filter criteria",
+      "allSeverities": "All Severities",
+      "allTypes": "All Types",
+      "critical": "Critical",
+      "warning": "Warning",
+      "info": "Info",
+      "deviceFaults": "Device Faults",
+      "thresholdAlerts": "Threshold Alerts",
+      "maintenanceDue": "Maintenance",
+      "connectivityIssues": "Connectivity",
+      "harvestReady": "Harvest Ready",
+      "systemUpdates": "System Updates",
+      "acknowledged": "Acknowledged",
+      "readOnlyView": "Read-Only View",
+      "readOnlyViewDescription": "This is a monitoring interface. No changes can be made to user accounts or settings.",
+      "readOnlyAlertDescription": "This is a monitoring interface. Alerts cannot be acknowledged or resolved from this view.",
+      "alertId": "Alert ID",
+      "type": "Type",
+      "created": "Created",
+      "additionalInformation": "Additional Information",
+      "statusInformation": "Status Information",
+      "resolved": "Resolved",
+      "yes": "Yes",
+      "no": "No",
+      "role": "Role",
+      "phone": "Phone",
+      "farmName": "Farm Name",
+      "farmType": "Farm Type",
+      "certifications": "Certifications",
+      "lastUpdate": "Last Update",
+      "expiryDate": "Expiry Date"
     }
   },
   ar: {
@@ -721,6 +852,137 @@ const resources = {
       "helpAndSupport": "المساعدة والدعم",
       "notifications": "الإشعارات",
       "smartFarmingFingerTips": "الزراعة الذكية في متناول يدك"
+      
+      // Admin Dashboard
+      "hasadAdminPanel": "لوحة إدارة حصاد",
+      "adminPortal": "بوابة الإدارة",
+      "monitoringOnly": "للمراقبة فقط",
+      "adminReadOnlyNotice": "هذه واجهة إدارية للقراءة فقط. لا يمكن إجراء تغييرات على حسابات المستخدمين أو إعدادات النظام.",
+      
+      // Navigation
+      "reports": "التقارير",
+      
+      // KPI Cards
+      "totalFarmers": "إجمالي المزارعين",
+      "totalConsumers": "إجمالي المستهلكين",
+      "activeDevices": "الأجهزة النشطة",
+      "openAlerts": "التنبيهات المفتوحة",
+      "monthlyRevenue": "الإيرادات الشهرية",
+      "systemUptime": "وقت تشغيل النظام",
+      "dataProcessed": "البيانات المعالجة",
+      "avgResponseTime": "متوسط وقت الاستجابة",
+      
+      // Table Headers & Actions
+      "name": "الاسم",
+      "status": "الحالة",
+      "location": "الموقع",
+      "joinDate": "تاريخ الانضمام",
+      "lastActive": "آخر نشاط",
+      "farmSites": "مواقع المزارع",
+      "totalOrders": "إجمالي الطلبات",
+      "revenue": "الإيرادات",
+      "devices": "الأجهزة",
+      "subscription": "الاشتراك",
+      "tier": "المستوى",
+      "actions": "الإجراءات",
+      "view": "عرض",
+      
+      // Status Values
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "suspended": "معلق",
+      "pending": "معلق",
+      "verified": "موثق",
+      "unverified": "غير موثق",
+      "online": "متصل",
+      "offline": "غير متصل",
+      "maintenance": "صيانة",
+      
+      // Subscription Tiers
+      "basic": "أساسي",
+      "premium": "مميز",
+      "enterprise": "مؤسسي",
+      "trial": "تجريبي",
+      
+      // Search & Filters
+      "searchUsers": "البحث عن المستخدمين...",
+      "searchFarmers": "البحث عن المزارعين...",
+      "searchConsumers": "البحث عن المستهلكين...",
+      "allStatuses": "جميع الحالات",
+      "allLocations": "جميع المواقع",
+      "allTiers": "جميع المستويات",
+      
+      // Detail Drawer
+      "userDetails": "تفاصيل المستخدم",
+      "accountInformation": "معلومات الحساب",
+      "contactInformation": "معلومات الاتصال",
+      "farmInformation": "معلومات المزرعة",
+      "deviceStatus": "حالة الأجهزة",
+      "recentActivity": "النشاط الأخير",
+      "subscriptionDetails": "تفاصيل الاشتراك",
+      
+      // Alerts
+      "criticalAlerts": "تنبيهات حرجة",
+      "warningAlerts": "تنبيهات تحذيرية",
+      "infoAlerts": "تنبيهات إعلامية",
+      "alertDetails": "تفاصيل التنبيه",
+      "severity": "الخطورة",
+      "timestamp": "الطابع الزمني",
+      "source": "المصدر",
+      "message": "الرسالة",
+      
+      // Pagination
+      "previous": "السابق",
+      "next": "التالي",
+      "page": "صفحة",
+      "of": "من",
+      "showing": "عرض",
+      "to": "إلى",
+      "entries": "إدخالات",
+      
+      // Empty States
+      "noFarmersFound": "لم يتم العثور على مزارعين",
+      "noConsumersFound": "لم يتم العثور على مستهلكين",
+      "noAlertsFound": "لم يتم العثور على تنبيهات",
+      
+      // Accessibility
+      "viewUserDetails": "عرض تفاصيل المستخدم",
+      "switchTo": "التبديل إلى ",
+      
+      // Additional Admin Strings
+      "adminUser": "مستخدم إداري",
+      "systemAdministrator": "مدير النظام",
+      "adjustSearchCriteria": "جرب تعديل معايير البحث أو التصفية",
+      "allSeverities": "جميع مستويات الخطورة",
+      "allTypes": "جميع الأنواع",
+      "critical": "حرج",
+      "warning": "تحذير",
+      "info": "معلومات",
+      "deviceFaults": "أعطال الأجهزة",
+      "thresholdAlerts": "تنبيهات العتبة",
+      "maintenanceDue": "صيانة مستحقة",
+      "connectivityIssues": "مشاكل الاتصال",
+      "harvestReady": "جاهز للحصاد",
+      "systemUpdates": "تحديثات النظام",
+      "acknowledged": "مقر",
+      "readOnlyView": "عرض للقراءة فقط",
+      "readOnlyViewDescription": "هذه واجهة مراقبة. لا يمكن إجراء تغييرات على حسابات المستخدمين أو الإعدادات.",
+      "readOnlyAlertDescription": "هذه واجهة مراقبة. لا يمكن إقرار التنبيهات أو حلها من هذا العرض.",
+      "alertId": "معرف التنبيه",
+      "type": "النوع",
+      "created": "تم الإنشاء",
+      "additionalInformation": "معلومات إضافية",
+      "statusInformation": "معلومات الحالة",
+      "resolved": "تم الحل",
+      "yes": "نعم",
+      "no": "لا",
+      "role": "الدور",
+      "phone": "الهاتف",
+      "farmName": "اسم المزرعة",
+      "farmType": "نوع المزرعة",
+      "certifications": "الشهادات",
+      "lastUpdate": "آخر تحديث",
+      "expiryDate": "تاريخ الانتهاء"
     }
   }
 };

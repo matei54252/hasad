@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatRelativeTime } from '../../i18n';
+import { useTranslation } from 'react-i18next';
+import { formatRelativeTime } from '../../i18n';
 import { AdminAlert } from '../../types/admin';
 import { 
   AlertTriangle, 
@@ -16,6 +18,7 @@ interface AdminAlertsPanelProps {
 }
 
 export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelect }) => {
+  const { t } = useTranslation();
   const { t } = useTranslation();
   const [alerts, setAlerts] = useState<AdminAlert[]>([]);
   const [filteredAlerts, setFilteredAlerts] = useState<AdminAlert[]>([]);
@@ -217,10 +220,10 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
             onChange={(e) => setSeverityFilter(e.target.value)}
             className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
           >
-            <option value="all">All Severities</option>
-            <option value="critical">{t('criticalAlerts')}</option>
-            <option value="warning">{t('warningAlerts')}</option>
-            <option value="info">{t('infoAlerts')}</option>
+            <option value="all">{t('allSeverities')}</option>
+            <option value="critical">{t('critical')}</option>
+            <option value="warning">{t('warning')}</option>
+            <option value="info">{t('info')}</option>
           </select>
           
           <select
@@ -228,13 +231,13 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
             onChange={(e) => setTypeFilter(e.target.value)}
             className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
           >
-            <option value="all">All Types</option>
-            <option value="device_fault">Device Faults</option>
-            <option value="threshold_exceeded">Threshold Alerts</option>
-            <option value="maintenance_due">Maintenance</option>
-            <option value="connectivity_issue">Connectivity</option>
-            <option value="harvest_ready">Harvest Ready</option>
-            <option value="system_update">System Updates</option>
+            <option value="all">{t('allTypes')}</option>
+            <option value="device_fault">{t('deviceFaults')}</option>
+            <option value="threshold_exceeded">{t('thresholdAlerts')}</option>
+            <option value="maintenance_due">{t('maintenanceDue')}</option>
+            <option value="connectivity_issue">{t('connectivityIssues')}</option>
+            <option value="harvest_ready">{t('harvestReady')}</option>
+            <option value="system_update">{t('systemUpdates')}</option>
           </select>
         </div>
       </div>
@@ -281,7 +284,7 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
                     
                     {alert.acknowledged && (
                       <div className="mt-2 text-xs opacity-60">
-                        ✓ Acknowledged {formatRelativeTime(alert.acknowledged_at!)}
+                        ✓ {t('acknowledged')} {formatRelativeTime(alert.acknowledged_at!)}
                       </div>
                     )}
                   </div>
@@ -299,19 +302,19 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
             <div className="text-lg font-bold text-red-600">
               {alerts.filter(a => a.severity === 'critical').length}
             </div>
-            <div className="text-xs text-gray-600">Critical</div>
+            <div className="text-xs text-gray-600">{t('critical')}</div>
           </div>
           <div>
             <div className="text-lg font-bold text-yellow-600">
               {alerts.filter(a => a.severity === 'warning').length}
             </div>
-            <div className="text-xs text-gray-600">Warning</div>
+            <div className="text-xs text-gray-600">{t('warning')}</div>
           </div>
           <div>
             <div className="text-lg font-bold text-blue-600">
               {alerts.filter(a => a.severity === 'info').length}
             </div>
-            <div className="text-xs text-gray-600">Info</div>
+            <div className="text-xs text-gray-600">{t('info')}</div>
           </div>
         </div>
       </div>

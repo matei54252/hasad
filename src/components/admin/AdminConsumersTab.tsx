@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatDate, formatCurrency, formatNumber } from '../../i18n';
+import { useTranslation } from 'react-i18next';
+import { formatDate, formatCurrency, formatNumber } from '../../i18n';
 import { AdminUser } from '../../types/admin';
 import { Search, Filter, Eye, ChevronUp, ChevronDown, MapPin, ShoppingCart } from 'lucide-react';
 
@@ -9,6 +11,7 @@ interface AdminConsumersTabProps {
 }
 
 export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSelect }) => {
+  const { t } = useTranslation();
   const { t } = useTranslation();
   const [consumers, setConsumers] = useState<AdminUser[]>([]);
   const [filteredConsumers, setFilteredConsumers] = useState<AdminUser[]>([]);
@@ -457,7 +460,7 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
           <div className="text-center">
             <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">{t('noConsumersFound')}</h3>
-            <p className="text-gray-500">Try adjusting your search or filter criteria</p>
+            <p className="text-gray-500">{t('adjustSearchCriteria')}</p>
           </div>
         </div>
       )}

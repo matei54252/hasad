@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { 
   BarChart3, 
   Users, 
@@ -12,6 +13,8 @@ import {
 } from 'lucide-react';
 
 export const AdminSidebar: React.FC = () => {
+  const { t } = useTranslation();
+
   const { t } = useTranslation();
 
   const navigationItems = [
@@ -38,7 +41,7 @@ export const AdminSidebar: React.FC = () => {
     },
     {
       id: 'orders',
-      label: 'Orders',
+      label: t('orders'),
       icon: ShoppingCart,
       active: false,
       badge: '89'
@@ -68,8 +71,8 @@ export const AdminSidebar: React.FC = () => {
             <Sprout className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-gray-900">HASAD</h2>
-            <p className="text-xs text-gray-500">Admin Portal</p>
+            <h2 className="text-lg font-bold text-gray-900">{t('hasadAdminPanel')}</h2>
+            <p className="text-xs text-gray-500">{t('adminPortal')}</p>
           </div>
         </div>
       </div>
@@ -106,8 +109,8 @@ export const AdminSidebar: React.FC = () => {
         <div className="flex items-center gap-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
           <Shield className="w-4 h-4 text-blue-600" />
           <div>
-            <div className="text-xs font-medium text-blue-800">Read-Only Mode</div>
-            <div className="text-xs text-blue-600">Monitoring Only</div>
+            <div className="text-xs font-medium text-blue-800">{t('readOnly')}</div>
+            <div className="text-xs text-blue-600">{t('monitoringOnly')}</div>
           </div>
         </div>
       </div>
