@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AdminDashboard } from './components/admin/AdminDashboard';
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
 import { LoginScreen } from './components/auth/LoginScreen';
@@ -30,6 +31,7 @@ import './App.css';
 function AppContent() {
   const { user } = useAuth();
   const [currentScreen, setCurrentScreen] = useState('home');
+  const [showAdminDashboard, setShowAdminDashboard] = useState(false);
   const [selectedFarmSite, setSelectedFarmSite] = useState<FarmSite>({
     id: 'site1',
     name: 'Green Valley Rooftop Farm',
@@ -66,6 +68,14 @@ function AppContent() {
       updated_at: '2024-02-10T00:00:00Z'
     }
   ];
+
+  // Check if user is admin (mock check - replace with actual role check)
+  const isAdmin = user?.email === 'admin@hasad.com';
+
+  // Show admin dashboard if user is admin
+  if (isAdmin && showAdminDashboard) {
+    return <AdminDashboard />;
+  }
 
   if (!user) {
     return (
@@ -110,6 +120,12 @@ function AppContent() {
         return <CartScreen />;
       case 'messages':
         return <MessagesScreen />;
+      case 'admin':
+        if (isAdmin) {
+          setShowAdminDashboard(true);
+          return null;
+        }
+        return <HomeScreen />;
       default:
         return <HomeScreen />;
     }
@@ -118,13 +134,36 @@ function AppContent() {
   return (
     <div className="app-container">
       <div className="screen-content">
+        {/* Admin Dashboard Toggle for Demo */}
+        {isAdmin && !showAdminDashboard && (
+          <div className="fixed top-4 end-4 z-50">
+            <button
+              onClick={() => setShowAdminDashboard(true)}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition-colors"
+            >
+              Admin Dashboard
+            </button>
+          </div>
+        )}
+        {showAdminDashboard && isAdmin && (
+          <div className="fixed top-4 end-4 z-50">
+            <button
+              onClick={() => setShowAdminDashboard(false)}
+              className="px-4 py-2 bg-gray-600 text-white rounded-lg shadow-lg hover:bg-gray-700 transition-colors"
+            >
+              Back to App
+            </button>
+          </div>
+        )}
         {renderScreen()}
       </div>
-      <BottomNavigation 
-        currentScreen={currentScreen} 
-        onScreenChange={setCurrentScreen}
-        userType={user.type || 'consumer'}
-      />
+      {!showAdminDashboard && (
+        <BottomNavigation 
+          currentScreen={currentScreen} 
+          onScreenChange={setCurrentScreen}
+          userType={user.type || 'consumer'}
+        />
+      )}
     </div>
   );
 }
