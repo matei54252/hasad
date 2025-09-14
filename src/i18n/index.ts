@@ -360,7 +360,7 @@ const resources = {
       "appPreferences": "App Preferences",
       "helpAndSupport": "Help & Support",
       "notifications": "Notifications",
-      "smartFarmingFingerTips": "Smart farming at your fingertips"
+      "smartFarmingFingerTips": "Smart farming at your fingertips",
       
       // Admin Dashboard
       "hasadAdminPanel": "HASAD Admin Panel",
