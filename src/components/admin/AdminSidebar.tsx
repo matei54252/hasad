@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useTranslation } from 'react-i18next';
 import { 
   BarChart3, 
   Users, 
@@ -15,7 +14,6 @@ import {
 export const AdminSidebar: React.FC = () => {
   const { t } = useTranslation();
 
-  const { t } = useTranslation();
 
   const navigationItems = [
     {

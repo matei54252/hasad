@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatRelativeTime } from '../../i18n';
-import { useTranslation } from 'react-i18next';
-import { formatRelativeTime } from '../../i18n';
 import { AdminAlert } from '../../types/admin';
 import { 
   AlertTriangle, 
@@ -18,7 +16,6 @@ interface AdminAlertsPanelProps {
 }
 
 export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelect }) => {
-  const { t } = useTranslation();
   const { t } = useTranslation();
   const [alerts, setAlerts] = useState<AdminAlert[]>([]);
   const [filteredAlerts, setFilteredAlerts] = useState<AdminAlert[]>([]);

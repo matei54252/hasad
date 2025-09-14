@@ -1,8 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatDate, formatCurrency, formatRelativeTime } from '../../i18n';
-import { useTranslation } from 'react-i18next';
-import { formatDate, formatCurrency, formatRelativeTime } from '../../i18n';
 import { AdminUser, AdminAlert } from '../../types/admin';
 import { 
   X, 
@@ -36,7 +34,6 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { t } = useTranslation();
 
   const getStatusColor = (status: string) => {
     switch (status) {
