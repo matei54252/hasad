@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSettings } from '../../contexts/SettingsContext';
 import { useAuth } from '../../contexts/AuthContext';
 
 interface ProfileScreenProps {
@@ -8,6 +9,7 @@ interface ProfileScreenProps {
 
 export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettings }) => {
   const { t } = useTranslation();
+  const { formatCurrency } = useSettings();
   const { user, logout, updateProfile } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -43,9 +45,9 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
     { icon: '📊', title: t('analytics'), subtitle: t('viewYourPerformance'), show: user?.type === 'farmer' },
     { icon: '💳', title: t('paymentMethods'), subtitle: t('manageYourCards') },
     { icon: '📍', title: t('addresses'), subtitle: t('deliveryAddresses'), show: user?.type === 'consumer' },
-    { icon: '🔔', title: t('notifications'), subtitle: t('managePreferences') },
+    { icon: '🔔', title: t('notificationSettings'), subtitle: t('managePreferences') },
     { icon: '❓', title: t('helpAndSupport'), subtitle: t('getAssistance') },
-    { icon: '⚙️', title: t('settings'), subtitle: t('appPreferences'), action: onNavigateToSettings },
+    { icon: '⚙️', title: t('appPreferences'), subtitle: t('appPreferences'), action: onNavigateToSettings },
     { icon: '📋', title: t('termsAndPrivacy'), subtitle: t('legalInformation') }
   ];
 
@@ -54,7 +56,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
       {/* Header */}
       <div className="mb-6">
         <h1 className="heading-lg mb-2">{t('profile')} 👤</h1>
-        <p className="body-md text-gray-600">{t('manageContacts')}</p>
+        <p className="body-md text-gray-600">{t('manageYourAccount')}</p>
       </div>
 
       {/* Profile Card */}
@@ -65,12 +67,12 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
           </div>
           <div className="flex-1">
             <h2 className="text-xl font-bold mb-1">{user?.name}</h2>
-            <p className="text-green-100 mb-1">{user?.email}</p>
+            <p className="text-green-100 mb-1" dir="ltr">{user?.email}</p>
             <div className="flex items-center gap-2">
               <span className="px-2 py-1 bg-white/20 rounded-full text-xs font-medium">
-                {user?.type === 'farmer' ? '👨‍🌾 Farmer' : '🛒 Consumer'}
+                {user?.type === 'farmer' ? `👨‍🌾 ${t('farmer')}` : `🛒 ${t('consumer')}`}
               </span>
-              <span className="text-green-100 text-sm">⭐ 4.8 Rating</span>
+              <span className="text-green-100 text-sm" dir="ltr">⭐ 4.8 {t('rating')}</span>
             </div>
           </div>
           <button
@@ -85,7 +87,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
       {/* Edit Profile Form */}
       {isEditing && (
         <div className="card mb-6">
-          <h3 className="heading-md mb-4">{t('edit')} {t('profile')}</h3>
+          <h3 className="heading-md mb-4">{t('editProfile')}</h3>
           <div className="space-y-4">
             <div className="form-group">
               <label className="form-label">{t('name')}</label>
@@ -119,7 +121,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
             </div>
             <div className="form-group">
               <label className="form-label">
-                {user?.type === 'farmer' ? 'Farm Location' : t('address')}
+                {user?.type === 'farmer' ? t('farmLocation') : t('address')}
               </label>
               <input
                 type="text"
@@ -131,7 +133,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
             </div>
             <div className="flex gap-3">
               <button onClick={handleSave} className="btn btn-primary flex-1">
-                {t('save')} Changes
+                {t('saveChanges')}
               </button>
               <button onClick={handleCancel} className="btn btn-outline flex-1">
                 {t('cancel')}
@@ -145,15 +147,15 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
       {user?.type === 'farmer' && (
         <div className="grid grid-cols-3 gap-3 mb-6">
           <div className="card text-center">
-            <div className="text-2xl font-bold text-green-600">24</div>
+            <div className="text-2xl font-bold text-green-600" dir="ltr">24</div>
             <p className="body-sm text-gray-600">{t('productsListed')}</p>
           </div>
           <div className="card text-center">
-            <div className="text-2xl font-bold text-blue-600">156</div>
+            <div className="text-2xl font-bold text-blue-600" dir="ltr">156</div>
             <p className="body-sm text-gray-600">{t('ordersCompleted')}</p>
           </div>
           <div className="card text-center">
-            <div className="text-2xl font-bold text-orange-600">{formatCurrency(8450)}</div>
+            <div className="text-2xl font-bold text-orange-600" dir="ltr">{formatCurrency(8450)}</div>
             <p className="body-sm text-gray-600">{t('totalEarnings')}</p>
           </div>
         </div>
@@ -205,7 +207,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
 
       {/* App Version */}
       <div className="text-center mt-6">
-        <p className="body-sm text-gray-500">HASAD v1.0.0</p>
+        <p className="body-sm text-gray-500" dir="ltr">HASAD v1.0.0</p>
         <p className="body-sm text-gray-400">{t('smartFarmingFingerTips')}</p>
       </div>
     </div>

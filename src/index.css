@@ -78,11 +78,54 @@ a.no-underline:hover {
   transform: translateY(1px);
 }
 
+/* Profile page RTL enhancements */
+.profile-menu-item {
+  text-align: start;
+}
+
+[dir="rtl"] .profile-menu-item {
+  text-align: start;
+}
+
+[dir="ltr"] .profile-menu-item {
+  text-align: start;
+}
+
+/* Bidi isolation for mixed content */
+.bidi-isolate {
+  unicode-bidi: isolate;
+}
+
+.bidi-isolate-override {
+  unicode-bidi: isolate-override;
+}
+
+/* Profile stats grid RTL support */
+.profile-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+[dir="rtl"] .profile-stats-grid {
+  direction: rtl;
+}
+
+/* Profile card content alignment */
+.profile-card-content {
+  text-align: start;
+}
+
+[dir="rtl"] .profile-card-content {
+  text-align: start;
+}
+
 /* Prevent layout shifts during language switching */
 .layout-container, 
 .main-container, 
 .app-container,
 .settings-container,
+.profile-container,
 nav,
 header,
 main {
