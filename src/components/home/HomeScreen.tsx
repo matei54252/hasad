@@ -329,7 +329,8 @@ export const HomeScreen: React.FC = () => {
                   activity.status === 'success' ? 'bg-green-100' :
                   activity.status === 'info' ? 'bg-blue-100' :
                   'bg-orange-100'
-                }`}>
+                }`}
+                >
                   <span className="text-lg">{activity.icon}</span>
                 </div>
                 <div className="flex-1">

@@ -60,7 +60,8 @@ export const FarmerDashboard: React.FC = () => {
               <span className="text-2xl">{stat.icon}</span>
               <span className={`body-sm font-medium ${
                 stat.change.startsWith('+') ? 'text-green-600' : 'text-red-600'
-              }`}>
+              }`}
+              >
                 {stat.change}
               </span>
             </div>
@@ -85,7 +86,8 @@ export const FarmerDashboard: React.FC = () => {
                       crop.status === 'Harvest Ready' ? 'status-success' :
                       crop.status === 'Growing' ? 'status-info' :
                       'status-warning'
-                    }`}>
+                    }`}
+                    >
                       {crop.status === 'Harvest Ready' ? '✅' :
                        crop.status === 'Growing' ? '🌱' : '🌰'} {crop.status}
                     </span>
@@ -95,7 +97,7 @@ export const FarmerDashboard: React.FC = () => {
                     <div 
                       className="progress-fill" 
                       style={{ width: `${crop.progress}%` }}
-                    ></div>
+                    />
                   </div>
                   
                   <div className="flex justify-between body-sm text-gray-600">
@@ -126,7 +128,8 @@ export const FarmerDashboard: React.FC = () => {
                   order.status === 'Delivered' ? 'status-success' :
                   order.status === 'Shipped' ? 'status-info' :
                   'status-warning'
-                }`}>
+                }`}
+                >
                   {order.status === 'Delivered' ? '✅' :
                    order.status === 'Shipped' ? '🚚' : '⏳'} {order.status}
                 </span>

@@ -186,7 +186,8 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       formatCurrency,
       notifications,
       updateNotifications
-    }}>
+    }}
+    >
       {children}
     </SettingsContext.Provider>
   );

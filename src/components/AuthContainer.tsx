@@ -50,17 +50,18 @@ export const AuthContainer: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4 relative preserve-position">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600" />
       </div>
       
       {/* Main Content */}
       <div className="w-full max-w-md relative z-10 preserve-position">
-        <React.Suspense fallback={
+        <React.Suspense fallback={(
           <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4" />
             <p className="text-gray-600">Loading...</p>
           </div>
-        }>
+        )}
+        >
           {isLogin ? (
             <LoginForm onToggleMode={toggleMode} />
           ) : (

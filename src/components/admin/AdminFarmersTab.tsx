@@ -258,7 +258,7 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
       </div>
     );
   }
@@ -429,7 +429,7 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
                     </div>
                     {(farmer.deviceStatus?.offline || 0) > 0 && (
                       <div className="flex items-center gap-1">
-                        <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                        <div className="w-2 h-2 bg-red-500 rounded-full" />
                         <span className="text-sm text-red-600">
                           {farmer.deviceStatus?.offline}
                         </span>

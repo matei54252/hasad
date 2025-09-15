@@ -210,7 +210,7 @@ export const SubscriptionPlans: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600" />
       </div>
     );
   }
@@ -338,9 +338,13 @@ export const SubscriptionPlans: React.FC = () => {
         
         <div className="grid gap-4 md:grid-cols-2">
           {availablePlans.map(plan => (
-            <div key={plan.id} className={`border-2 rounded-xl p-4 sm:p-6 relative ${
+            <div
+              key={plan.id}
+              className={`border-2 rounded-xl p-4 sm:p-6 relative ${
               plan.popular ? 'border-green-500 bg-green-50' : 'border-gray-200'
-            }`} dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
+            }`}
+              dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}
+            >
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                   <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">

@@ -124,7 +124,8 @@ export const Dashboard: React.FC = () => {
                       contact.contact_type === 'consumer' ? 'bg-blue-100 text-blue-800' :
                       contact.contact_type === 'institutional' ? 'bg-green-100 text-green-800' :
                       'bg-purple-100 text-purple-800'
-                    }`}>
+                    }`}
+                    >
                       {t(contact.contact_type)}
                     </span>
                     {contact.contact_mobile && (

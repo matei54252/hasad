@@ -311,7 +311,7 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
         <div className="space-y-3">
           {activity.details.careHistory.map((care: any, index: number) => (
             <div key={index} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <div className="w-2 h-2 bg-green-500 rounded-full" />
               <div className="flex-1">
                 <p className="font-medium text-gray-900">{care.action}</p>
                 <p className="text-sm text-gray-600">
@@ -335,7 +335,8 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
               activity.status === 'success' ? 'bg-green-100' :
               activity.status === 'info' ? 'bg-blue-100' :
               'bg-orange-100'
-            }`}>
+            }`}
+            >
               <span className="text-xl">{activity.icon}</span>
             </div>
             <div>

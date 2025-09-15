@@ -237,7 +237,7 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
       </div>
     );
   }
@@ -388,7 +388,8 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
                     </span>
                     <span className={`text-xs ${
                       consumer.subscription?.status === 'active' ? 'text-green-600' : 'text-red-600'
-                    }`}>
+                    }`}
+                    >
                       {t(consumer.subscription?.status || 'inactive')}
                     </span>
                   </div>

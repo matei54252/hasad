@@ -138,7 +138,7 @@ export const FarmDashboard: React.FC<FarmDashboardProps> = ({
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600" />
       </div>
     );
   }
@@ -171,7 +171,8 @@ export const FarmDashboard: React.FC<FarmDashboardProps> = ({
             <div className={`w-2 h-2 rounded-full ${
               selectedSite.status === 'active' ? 'bg-green-500' :
               selectedSite.status === 'maintenance' ? 'bg-yellow-500' : 'bg-red-500'
-            }`} />
+            }`}
+            />
             {selectedSite.status}
           </span>
           <span>{selectedSite.location.address}</span>

@@ -95,7 +95,8 @@ export const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({ produc
             <div className={`status-indicator ${
               product.inStock > 10 ? 'status-success' :
               product.inStock > 0 ? 'status-warning' : 'status-error'
-            }`}>
+            }`}
+            >
               {product.inStock > 10 ? '✅ In Stock' :
                product.inStock > 0 ? '⚠️ Low Stock' : '❌ Out of Stock'}
             </div>

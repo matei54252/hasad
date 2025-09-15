@@ -96,7 +96,7 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600" />
       </div>
     );
   }
@@ -244,28 +244,28 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
       <div className="bg-white rounded-xl shadow-lg p-4">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Top Selling Products</h3>
         
-         <div className="space-y-3">
-           {analytics.metrics.top_selling_products.map((product) => (
-             <div key={product.product_id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg min-w-0">
-               <div className="flex items-center gap-3 min-w-0 flex-1">
-                 <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-sm font-bold text-green-600 shrink-0">
-                   {product.name.charAt(0)}
-                 </div>
-                 <div className="min-w-0 flex-1">
-                   <h4 className="font-medium text-gray-900 truncate">{product.name}</h4>
-                   <p className="text-sm text-gray-600 truncate">{product.quantity_sold} units sold</p>
-                 </div>
-               </div>
-               <div className="text-right shrink-0">
-                 <div className="font-bold text-green-600">
-                   {formatCurrency(product.revenue)}
-                 </div>
-                 <div className="text-sm text-gray-500">Revenue</div>
-               </div>
-             </div>
+        <div className="space-y-3">
+          {analytics.metrics.top_selling_products.map((product) => (
+            <div key={product.product_id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg min-w-0">
+              <div className="flex items-center gap-3 min-w-0 flex-1">
+                <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-sm font-bold text-green-600 shrink-0">
+                  {product.name.charAt(0)}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h4 className="font-medium text-gray-900 truncate">{product.name}</h4>
+                  <p className="text-sm text-gray-600 truncate">{product.quantity_sold} units sold</p>
+                </div>
+              </div>
+              <div className="text-right shrink-0">
+                <div className="font-bold text-green-600">
+                  {formatCurrency(product.revenue)}
+                </div>
+                <div className="text-sm text-gray-500">Revenue</div>
+              </div>
+            </div>
            ))}
-         </div>
         </div>
+      </div>
 
       {/* Customer Analytics */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

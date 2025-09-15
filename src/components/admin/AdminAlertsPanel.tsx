@@ -191,7 +191,7 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
   if (loading) {
     return (
       <div className="h-full flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
       </div>
     );
   }
@@ -203,7 +203,7 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-900">{t('alerts')}</h3>
           <div className="flex items-center gap-1 px-2 py-1 bg-red-50 border border-red-200 rounded-full">
-            <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+            <div className="w-2 h-2 bg-red-500 rounded-full" />
             <span className="text-xs font-medium text-red-700">
               {alerts.filter(a => !a.acknowledged).length}
             </span>
