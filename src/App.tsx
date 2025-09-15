@@ -20,6 +20,7 @@ import { TasksAndMaintenance } from './components/farm/TasksAndMaintenance';
 import { ProductCatalog } from './components/marketplace/ProductCatalog';
 import { AnalyticsReports } from './components/shared/AnalyticsReports';
 import { SettingsScreen } from './components/settings/SettingsScreen';
+import { SubscriptionPlans } from './components/marketplace/SubscriptionPlans';
 import { SettingsProvider } from './contexts/SettingsContext';
 import { useAuth } from './contexts/AuthContext';
 import { FarmSite } from './types';
