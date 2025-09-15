@@ -6,8 +6,6 @@ import { CartProvider } from './contexts/CartContext';
 import { LoginScreen } from './components/auth/LoginScreen';
 import { RegisterScreen } from './components/auth/RegisterScreen';
 import { HomeScreen } from './components/home/HomeScreen';
-import { MarketplaceScreen } from './components/marketplace/MarketplaceScreen';
-import { ProductDetailScreen } from './components/products/ProductDetailScreen';
 import { CartScreen } from './components/cart/CartScreen';
 import { ProfileScreen } from './components/profile/ProfileScreen';
 import { FarmerDashboard } from './components/farmer/FarmerDashboard';
@@ -20,7 +18,6 @@ import { IoTControls } from './components/farm/IoTControls';
 import { CropManagement } from './components/farm/CropManagement';
 import { TasksAndMaintenance } from './components/farm/TasksAndMaintenance';
 import { ProductCatalog } from './components/marketplace/ProductCatalog';
-import { SubscriptionPlans } from './components/marketplace/SubscriptionPlans';
 import { AnalyticsReports } from './components/shared/AnalyticsReports';
 import { SettingsScreen } from './components/settings/SettingsScreen';
 import { SettingsProvider } from './contexts/SettingsContext';
@@ -91,11 +88,11 @@ function AppContent() {
   const renderScreen = () => {
     switch (currentScreen) {
       case 'home':
-        return <HomeScreen />;
+        return <HomeScreen />; 
       case 'marketplace':
-        return <MarketplaceScreen />;
+        return <ProductCatalog />; // Use ProductCatalog for marketplace
       case 'subscriptions':
-        return <SubscriptionPlans />;
+        return <SubscriptionPlans />; // Assuming SubscriptionPlans is used elsewhere or will be re-added
       case 'orders':
         return <OrdersScreen />;
       case 'profile':
