@@ -374,7 +374,7 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
                       <div className="text-sm font-medium text-gray-900 truncate">
                         {farmer.name}
                       </div>
-                      <div className="text-sm text-gray-500 truncate">
+                      <div className="text-sm text-gray-500 truncate" dir="ltr">
                         {farmer.email}
                       </div>
                       {farmer.profile?.farmName && (
@@ -406,7 +406,7 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
                 <td className="px-6 py-4 text-sm text-gray-900">
                   <div className="flex items-center gap-2">
                     <span className="font-medium">{formatNumber(farmer.farmSites || 0)}</span>
-                    <span className="text-xs text-gray-500">sites</span>
+                    <span className="text-xs text-gray-500">{t('sites')}</span>
                   </div>
                 </td>
                 <td className="px-6 py-4">
@@ -415,7 +415,7 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
                       {formatCurrency(farmer.revenue || 0)}
                     </div>
                     <div className="text-xs text-gray-500">
-                      {formatNumber(farmer.totalOrders || 0)} orders
+                      {formatNumber(farmer.totalOrders || 0)} {t('ordersCount')}
                     </div>
                   </div>
                 </td>
@@ -463,8 +463,9 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
           <button
             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}
-            className="px-3 py-1 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-3 py-1 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
           >
+            <span className="rtl:rotate-180">←</span>
             {t('previous')}
           </button>
           
@@ -475,9 +476,10 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
           <button
             onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
             disabled={currentPage === totalPages}
-            className="px-3 py-1 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-3 py-1 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
           >
             {t('next')}
+            <span className="rtl:rotate-180">→</span>
           </button>
         </div>
       </div>
@@ -486,7 +488,9 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
       {filteredFarmers.length === 0 && !loading && (
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
-            <Sprout className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <div className="w-12 h-12 text-gray-400 mx-auto mb-4 flex items-center justify-center">
+              <Sprout className="w-12 h-12" />
+            </div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">{t('noFarmersFound')}</h3>
             <p className="text-gray-500">{t('adjustSearchCriteria')}</p>
           </div>

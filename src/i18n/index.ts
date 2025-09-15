@@ -366,7 +366,32 @@ const resources = {
       "hasadAdminPanel": "HASAD Admin Panel",
       "adminPortal": "Admin Portal",
       "monitoringOnly": "Monitoring Only",
-      "adminReadOnlyNotice": "This is a read-only administrative interface. No changes can be made to user accounts or system settings.",
+      
+      // Table and UI Labels
+      "farmName": "Farm Name",
+      "farmType": "Farm Type",
+      "phone": "Phone",
+      "role": "Role",
+      "expiryDate": "Expiry Date",
+      "alertId": "Alert ID",
+      "created": "Created",
+      "additionalInformation": "Additional Information",
+      "statusInformation": "Status Information",
+      "resolved": "Resolved",
+      "yes": "Yes",
+      "no": "No",
+      "lastUpdate": "Last Update",
+      "readOnlyView": "Read-Only View",
+      "readOnlyViewDescription": "This is a monitoring interface. No changes can be made to user accounts or settings.",
+      "readOnlyAlertDescription": "This is a monitoring interface. Alerts cannot be acknowledged or resolved from this view.",
+      
+      // Bidi-safe content labels
+      "emailAddress": "Email Address",
+      "phoneNumber": "Phone Number",
+      "userId": "User ID",
+      "deviceId": "Device ID",
+      "referenceNumber": "Reference Number",
+      "trackingNumber": "Tracking Number",
       
       // Navigation
       "reports": "Reports",
@@ -851,7 +876,38 @@ const resources = {
       "appPreferences": "تفضيلات التطبيق",
       "helpAndSupport": "المساعدة والدعم",
       "notifications": "الإشعارات",
-      "smartFarmingFingerTips": "الزراعة الذكية في متناول يدك"
+      "smartFarmingFingerTips": "الزراعة الذكية في متناول يدك",
+      
+      // Admin Dashboard
+      "hasadAdminPanel": "لوحة إدارة حصاد",
+      "adminPortal": "بوابة الإدارة",
+      "monitoringOnly": "للمراقبة فقط",
+      
+      // Table and UI Labels
+      "farmName": "اسم المزرعة",
+      "farmType": "نوع المزرعة",
+      "phone": "الهاتف",
+      "role": "الدور",
+      "expiryDate": "تاريخ الانتهاء",
+      "alertId": "معرف التنبيه",
+      "created": "تم الإنشاء",
+      "additionalInformation": "معلومات إضافية",
+      "statusInformation": "معلومات الحالة",
+      "resolved": "تم الحل",
+      "yes": "نعم",
+      "no": "لا",
+      "lastUpdate": "آخر تحديث",
+      "readOnlyView": "عرض للقراءة فقط",
+      "readOnlyViewDescription": "هذه واجهة مراقبة. لا يمكن إجراء تغييرات على حسابات المستخدمين أو الإعدادات.",
+      "readOnlyAlertDescription": "هذه واجهة مراقبة. لا يمكن إقرار التنبيهات أو حلها من هذا العرض.",
+      
+      // Bidi-safe content labels
+      "emailAddress": "عنوان البريد الإلكتروني",
+      "phoneNumber": "رقم الهاتف",
+      "userId": "معرف المستخدم",
+      "deviceId": "معرف الجهاز",
+      "referenceNumber": "الرقم المرجعي",
+      "trackingNumber": "رقم التتبع"
     }
   }
 };

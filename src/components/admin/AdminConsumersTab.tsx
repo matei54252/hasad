@@ -354,7 +354,7 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
                       <div className="text-sm font-medium text-gray-900 truncate">
                         {consumer.name}
                       </div>
-                      <div className="text-sm text-gray-500 truncate">
+                      <div className="text-sm text-gray-500 truncate" dir="ltr">
                         {consumer.email}
                       </div>
                       <div className="text-xs text-gray-400">
@@ -432,8 +432,9 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
           <button
             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}
-            className="px-3 py-1 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-3 py-1 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
           >
+            <span className="rtl:rotate-180">←</span>
             {t('previous')}
           </button>
           
@@ -444,9 +445,10 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
           <button
             onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
             disabled={currentPage === totalPages}
-            className="px-3 py-1 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-3 py-1 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
           >
             {t('next')}
+            <span className="rtl:rotate-180">→</span>
           </button>
         </div>
       </div>
@@ -455,7 +457,9 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
       {filteredConsumers.length === 0 && !loading && (
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
-            <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            <div className="w-12 h-12 text-gray-400 mx-auto mb-4 flex items-center justify-center">
+              <Users className="w-12 h-12" />
+            </div>
             <h3 className="text-lg font-medium text-gray-900 mb-2">{t('noConsumersFound')}</h3>
             <p className="text-gray-500">{t('adjustSearchCriteria')}</p>
           </div>

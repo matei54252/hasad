@@ -83,7 +83,7 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
               <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(user!.status)}`}>
                 {t(user!.status)}
               </span>
-              {user!.profile?.verified && (
+              <p className="text-gray-600" dir="ltr">{user!.email}</p>
                 <span className="flex items-center gap-1 text-xs text-green-600">
                   <CheckCircle className="w-3 h-3" />
                   {t('verified')}
@@ -111,12 +111,12 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
           </div>
           <div className="flex justify-between">
             <span className="text-gray-600">{t('role')}:</span>
-            <span className="font-medium capitalize">{user!.role}</span>
+            <span className="font-medium capitalize">{t(user!.role)}</span>
           </div>
           {user!.profile?.phone && (
             <div className="flex justify-between">
               <span className="text-gray-600">{t('phone')}:</span>
-              <span className="font-medium">{user!.profile.phone}</span>
+              <span className="font-medium" dir="ltr">{user!.profile.phone}</span>
             </div>
           )}
         </div>
@@ -131,12 +131,12 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
         <div className="space-y-2">
           <div className="flex items-center gap-2">
             <Mail className="w-4 h-4 text-gray-500" />
-            <span className="text-sm text-gray-600 break-all">{user!.email}</span>
+            <span className="text-sm text-gray-600 break-all" dir="ltr">{user!.email}</span>
           </div>
           {user!.profile?.phone && (
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-gray-500" />
-              <span className="text-sm text-gray-600">{user!.profile.phone}</span>
+              <span className="text-sm text-gray-600" dir="ltr">{user!.profile.phone}</span>
             </div>
           )}
           <div className="flex items-center gap-2">
@@ -163,7 +163,7 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
             {user!.profile.farmType && (
               <div className="flex justify-between">
                 <span className="text-gray-600">{t('farmType')}:</span>
-                <span className="font-medium capitalize">{user!.profile.farmType}</span>
+                <span className="font-medium capitalize">{t(user!.profile.farmType)}</span>
               </div>
             )}
             <div className="flex justify-between">
@@ -323,11 +323,11 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
         <div className="space-y-3 text-sm">
           <div className="flex justify-between">
             <span className="text-gray-600">{t('alertId')}:</span>
-            <span className="font-mono text-xs">{alert!.id}</span>
+            <span className="font-mono text-xs" dir="ltr">{alert!.id}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-600">{t('type')}:</span>
-            <span className="font-medium capitalize">{alert!.type.replace('_', ' ')}</span>
+            <span className="font-medium capitalize">{t(alert!.type)}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-600">{t('severity')}:</span>
@@ -362,7 +362,7 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
             {Object.entries(alert!.metadata).map(([key, value]) => (
               <div key={key} className="flex justify-between">
                 <span className="text-gray-600 capitalize">{key.replace('_', ' ')}:</span>
-                <span className="font-medium text-end">{String(value)}</span>
+                <span className="font-medium text-end" dir="ltr">{String(value)}</span>
               </div>
             ))}
           </div>
