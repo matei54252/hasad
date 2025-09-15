@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { formatNumber, formatCurrency } from '../../i18n';
+import { formatNumber } from '../../i18n';
+import { useSettings } from '../../contexts/SettingsContext';
 import {
   Users,
   Sprout,
@@ -68,6 +69,7 @@ const KPICard: React.FC<KPICardProps> = ({ title, value, change, changeType, ico
 
 export const AdminKPICards: React.FC = () => {
   const { t } = useTranslation();
+  const { formatCurrency } = useSettings();
 
   // Mock KPI data - replace with actual API calls
   const kpiData = [

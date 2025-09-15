@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { formatDate, formatCurrency, formatNumber } from '../../i18n';
+import { formatDate, formatNumber } from '../../i18n';
+import { useSettings } from '../../contexts/SettingsContext';
 import { AdminUser } from '../../types/admin';
 import { Search, Filter, Eye, ChevronUp, ChevronDown, MapPin, Wifi } from 'lucide-react';
 
@@ -10,6 +11,7 @@ interface AdminFarmersTabProps {
 
 export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }) => {
   const { t } = useTranslation();
+  const { formatCurrency } = useSettings();
   const [farmers, setFarmers] = useState<AdminUser[]>([]);
   const [filteredFarmers, setFilteredFarmers] = useState<AdminUser[]>([]);
   const [searchQuery, setSearchQuery] = useState('');

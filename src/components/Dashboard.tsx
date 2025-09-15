@@ -2,12 +2,14 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/useAuth';
 import { useContacts } from '../hooks/useContacts';
+import { useSettings } from '../contexts/SettingsContext';
 import { Users, UserPlus, Building, Building2, TrendingUp } from 'lucide-react';
 
 export const Dashboard: React.FC = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const { contacts } = useContacts();
+  const { formatCurrency } = useSettings();
 
   const stats = [
     {
