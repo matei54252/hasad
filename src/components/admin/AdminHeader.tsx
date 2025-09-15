@@ -55,5 +55,3 @@ export const AdminHeader: React.FC = () => {
     </header>
   );
 };
-  )
-}
