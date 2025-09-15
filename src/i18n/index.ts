@@ -1358,6 +1358,11 @@ const initI18n = async () => {
       resources,
       lng: initialLanguage,
       fallbackLng: 'en',
+      // Custom missing key handler
+      missingKeyHandler: (lng, ns, key, fallbackValue) => {
+        missingKeyTracker.track(key, ns);
+        return fallbackValue || key;
+      },
       interpolation: {
         escapeValue: false
       },
