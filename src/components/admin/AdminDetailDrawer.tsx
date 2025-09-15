@@ -34,7 +34,6 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
 }) => {
   const { t } = useTranslation();
 
-
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'active': return 'bg-green-100 text-green-800';
@@ -78,12 +77,12 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
           </div>
           <div className="flex-1">
             <h3 className="text-xl font-bold text-gray-900">{user!.name}</h3>
-            <p className="text-gray-600">{user!.email}</p>
+            <p className="text-gray-600" dir="ltr">{user!.email}</p>
             <div className="flex items-center gap-2 mt-2">
               <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(user!.status)}`}>
                 {t(user!.status)}
               </span>
-              <p className="text-gray-600" dir="ltr">{user!.email}</p>
+              {user!.profile?.verified && (
                 <span className="flex items-center gap-1 text-xs text-green-600">
                   <CheckCircle className="w-3 h-3" />
                   {t('verified')}
@@ -271,7 +270,7 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
           <div className="space-y-3">
             {user!.recentActivity.map((activity) => (
               <div key={activity.id} className="flex items-start gap-3 p-2 bg-gray-50 rounded-lg">
-                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2" />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-gray-900">{activity.description}</p>
                   <p className="text-xs text-gray-500">{formatRelativeTime(activity.timestamp)}</p>
