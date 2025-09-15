@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Globe, ChevronDown, Check } from 'lucide-react';
-import { changeLanguage } from '../../i18n';
+import { changeLanguage as changeI18nLanguage } from '../../i18n';
 
 export const AdminLanguageSwitcher: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -27,7 +27,7 @@ export const AdminLanguageSwitcher: React.FC = () => {
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
 
   const handleLanguageChange = (languageCode: 'ar' | 'en') => {
-    changeLanguage(languageCode);
+    changeI18nLanguage(languageCode);
     setIsOpen(false);
   };
 

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AdminDashboard } from './components/admin/AdminDashboard';
 import { AuthProvider } from './contexts/AuthContext';
@@ -27,6 +29,7 @@ import { FarmSite } from './types';
 import './App.css';
 
 function AppContent() {
+  const { i18n } = useTranslation();
   const { user } = useAuth();
   const [currentScreen, setCurrentScreen] = useState('home');
   const [showAdminDashboard, setShowAdminDashboard] = useState(false);
@@ -66,6 +69,25 @@ function AppContent() {
       updated_at: '2024-02-10T00:00:00Z'
     }
   ];
+
+  // Listen for language changes and update document direction
+  useEffect(() => {
+    const handleLanguageChange = (event: CustomEvent) => {
+      const { language } = event.detail;
+      document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = language;
+    };
+
+    window.addEventListener('languageChanged', handleLanguageChange as EventListener);
+    
+    // Set initial direction based on current language
+    document.documentElement.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = i18n.language;
+
+    return () => {
+      window.removeEventListener('languageChanged', handleLanguageChange as EventListener);
+    };
+  }, [i18n.language]);
 
   // Check if user is admin (mock check - replace with actual role check)
   const isAdmin = user?.email === 'admin@hasad.com';

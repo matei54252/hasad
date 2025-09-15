@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
 import { secureStorage } from '../../lib/secureStorage';
+import { changeLanguage as changeI18nLanguage } from '../../i18n';
 import { RememberMeInfo } from './RememberMeInfo';
 import { PasswordResetModal } from './PasswordResetModal';
 import { Mail, Lock, Eye, EyeOff, Globe, ChevronDown } from 'lucide-react';
@@ -49,17 +50,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
 
   const toggleLanguage = () => {
     const newLang = i18n.language === 'ar' ? 'en' : 'ar';
-    i18n.changeLanguage(newLang);
-    
-    // Only update document direction and language attribute
-    document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = newLang;
-    
-    try {
-      localStorage.setItem('hasad-language', newLang);
-    } catch (error) {
-      console.warn('Could not save language preference:', error);
-    }
+    changeI18nLanguage(newLang);
   };
 
   const handleForgotPassword = () => {
@@ -107,14 +98,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
 
   const handleLanguageSelect = (langCode: string) => {
-    i18n.changeLanguage(langCode);
-    document.dir = langCode === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = langCode;
-    try {
-      localStorage.setItem('hasad-language', langCode);
-    } catch (error) {
-      console.warn('Could not save language preference:', error);
-    }
+    changeI18nLanguage(langCode as 'ar' | 'en');
     setShowLanguageDropdown(false);
   };
 

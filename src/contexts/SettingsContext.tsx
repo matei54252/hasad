@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { changeLanguage as changeI18nLanguage } from '../i18n';
 
 interface Currency {
   code: string;
@@ -123,17 +124,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const changeLanguage = (lang: 'ar' | 'en') => {
     setLanguage(lang);
-    i18n.changeLanguage(lang);
-    
-    // Only update document direction and language attribute
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = lang;
-    
-    try {
-      localStorage.setItem('hasad-language', lang);
-    } catch (error) {
-      console.warn('Failed to save language preference:', error);
-    }
+    changeI18nLanguage(lang);
   };
 
   const changeCurrency = (newCurrency: Currency) => {

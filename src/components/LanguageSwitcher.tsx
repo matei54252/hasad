@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { changeLanguage as changeI18nLanguage } from '../i18n';
 import { Globe, Check } from 'lucide-react';
 
 interface LanguageSwitcherProps {
@@ -10,18 +11,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = 'h
   const { i18n } = useTranslation();
 
   const changeLanguage = (newLang: string) => {
-    i18n.changeLanguage(newLang);
-    
-    // Only update document direction and language attribute
-    document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = newLang;
-    
-    // Store language preference in localStorage
-    try {
-      localStorage.setItem('hasad-language', newLang);
-    } catch (error) {
-      console.warn('Could not save language preference:', error);
-    }
+    changeI18nLanguage(newLang as 'ar' | 'en');
   };
 
   // Header variant (existing style)
@@ -61,7 +51,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = 'h
       <button
         onClick={() => setIsOpen(!isOpen)}
         type="button"
-        className="flex items-center gap-3 px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition-colors min-w-[140px] preserve-position"
+        className="flex items-center gap-3 px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition-colors min-w-[140px]"
         aria-label="Select language"
       >
         <span className="text-lg">{currentLanguage.flag}</span>
@@ -78,7 +68,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = 'h
           />
           
           {/* Dropdown */}
-          <div className="absolute top-full left-0 right-0 mt-2 bg-white shadow-lg border border-gray-200 z-20 preserve-position" style={{ borderRadius: '0.5rem' }}>
+          <div className="absolute top-full left-0 right-0 mt-2 bg-white shadow-lg border border-gray-200 z-20 rounded-lg">
             {languages.map((language) => (
               <button
                 key={language.code}
@@ -90,12 +80,6 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = 'h
                 className={`w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors ${
                   i18n.language === language.code ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
                 }`}
-                style={{
-                  borderStartStartRadius: language === languages[0] ? '0.5rem' : '0',
-                  borderStartEndRadius: language === languages[0] ? '0.5rem' : '0',
-                  borderEndStartRadius: language === languages[languages.length - 1] ? '0.5rem' : '0',
-                  borderEndEndRadius: language === languages[languages.length - 1] ? '0.5rem' : '0'
-                }}
               >
                 <span className="text-lg">{language.flag}</span>
                 <span className="font-medium flex-1">{language.name}</span>

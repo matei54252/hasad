@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/useAuth';
+import { changeLanguage as changeI18nLanguage } from '../../i18n';
 import { Mail, Lock, Eye, EyeOff, Globe, ChevronDown } from 'lucide-react';
 
 interface SignupFormProps {
@@ -31,14 +32,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onToggleMode }) => {
     i18n.changeLanguage(langCode);
     
     // Only update document direction and language attribute
-    document.documentElement.dir = langCode === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = langCode;
-    
-    try {
-      localStorage.setItem('hasad-language', langCode);
-    } catch (error) {
-      console.warn('Could not save language preference:', error);
-    }
+    changeI18nLanguage(langCode as 'ar' | 'en');
     setShowLanguageDropdown(false);
   };
 

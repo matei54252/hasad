@@ -1080,9 +1080,18 @@ const initI18n = async () => {
 
 // Language change handler
 export const changeLanguage = (language: 'ar' | 'en') => {
-  i18n.changeLanguage(language);
-  setDocumentDirection(language);
-  storeLanguage(language);
+  try {
+    i18n.changeLanguage(language);
+    setDocumentDirection(language);
+    storeLanguage(language);
+    
+    // Trigger a re-render by dispatching a custom event
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language } }));
+    
+    console.log('✅ Language changed to:', language);
+  } catch (error) {
+    console.error('❌ Failed to change language:', error);
+  }
 };
 
 // Format numbers according to locale
