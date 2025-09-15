@@ -1,19 +1,18 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { 
-  BarChart3, 
-  Users, 
-  ShoppingCart, 
-  AlertTriangle, 
+import {
+  BarChart3,
+  Users,
+  ShoppingCart,
+  AlertTriangle,
   Settings,
   Shield,
   Eye,
-  Sprout
+  Sprout,
 } from 'lucide-react';
 
 export const AdminSidebar: React.FC = () => {
   const { t } = useTranslation();
-
 
   const navigationItems = [
     {
@@ -21,43 +20,43 @@ export const AdminSidebar: React.FC = () => {
       label: t('dashboard'),
       icon: BarChart3,
       active: true,
-      badge: null
+      badge: null,
     },
     {
       id: 'farmers',
       label: t('farmers'),
       icon: Sprout,
       active: false,
-      badge: '247'
+      badge: '247',
     },
     {
       id: 'consumers',
       label: t('consumers'),
       icon: Users,
       active: false,
-      badge: '1,429'
+      badge: '1,429',
     },
     {
       id: 'orders',
       label: t('orders'),
       icon: ShoppingCart,
       active: false,
-      badge: '89'
+      badge: '89',
     },
     {
       id: 'alerts',
       label: t('alerts'),
       icon: AlertTriangle,
       active: false,
-      badge: '12'
+      badge: '12',
     },
     {
       id: 'settings',
       label: t('settings'),
       icon: Settings,
       active: false,
-      badge: null
-    }
+      badge: null,
+    },
   ];
 
   return (
@@ -78,7 +77,7 @@ export const AdminSidebar: React.FC = () => {
       {/* Navigation */}
       <nav className="flex-1 p-4">
         <div className="space-y-1">
-          {navigationItems.map((item) => {
+          {navigationItems.map(item => {
             const Icon = item.icon;
             return (
               <button

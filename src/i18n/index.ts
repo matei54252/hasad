@@ -1141,6 +1141,92 @@ const resources = {
       "expired": "منتهي الصلاحية",
       "myActiveSubscriptions": "اشتراكاتي النشطة",
       "availableSubscriptionPlans": "خطط الاشتراك المتاحة"
+      
+      // Marketplace & Cart
+      "searchProducts": "Search products...",
+      "allCategories": "All Categories",
+      "sortBy": "Sort by",
+      "priceAscending": "Price: Low to High",
+      "priceDescending": "Price: High to Low",
+      "ratingHighest": "Highest Rated",
+      "newest": "Newest",
+      "addToCart": "Add to Cart",
+      "outOfStock": "Out of Stock",
+      "inStock": "In Stock",
+      "lowStock": "Low Stock",
+      "quantity": "Quantity",
+      "remove": "Remove",
+      "clearCart": "Clear Cart",
+      "cartEmpty": "Cart is empty",
+      "startShopping": "Start shopping",
+      "cartSummary": "Cart Summary",
+      "itemsInCart": "item in cart",
+      "itemsInCartPlural": "items in cart",
+      "checkout": "Checkout",
+      "continueShopping": "Continue Shopping",
+      "unit": "unit",
+      "piece": "piece",
+      "bunch": "bunch",
+      "box": "box",
+      "perKg": "per kg",
+      "perPiece": "per piece",
+      "perBunch": "per bunch",
+      "perBox": "per box",
+      "productDetails": "Product Details",
+      "farmerInfo": "Farmer Information",
+      "nutritionFacts": "Nutrition Facts",
+      "customerReviews": "Customer Reviews",
+      "writeReview": "Write Review",
+      "verified": "Verified",
+      "helpfulVotes": "helpful votes",
+      "sortReviews": "Sort Reviews",
+      "mostHelpful": "Most Helpful",
+      "mostRecent": "Most Recent",
+      "highestRating": "Highest Rating",
+      "lowestRating": "Lowest Rating"
+      
+      // Marketplace & Cart
+      "searchProducts": "البحث في المنتجات...",
+      "allCategories": "جميع الفئات",
+      "sortBy": "ترتيب حسب",
+      "priceAscending": "السعر: من الأقل إلى الأعلى",
+      "priceDescending": "السعر: من الأعلى إلى الأقل",
+      "ratingHighest": "الأعلى تقييماً",
+      "newest": "الأحدث",
+      "addToCart": "أضف إلى السلة",
+      "outOfStock": "نفد المخزون",
+      "inStock": "متوفر",
+      "lowStock": "مخزون قليل",
+      "quantity": "الكمية",
+      "remove": "إزالة",
+      "clearCart": "مسح السلة",
+      "cartEmpty": "السلة فارغة",
+      "startShopping": "ابدأ التسوق",
+      "cartSummary": "ملخص السلة",
+      "itemsInCart": "عنصر في السلة",
+      "itemsInCartPlural": "عناصر في السلة",
+      "checkout": "الدفع",
+      "continueShopping": "متابعة التسوق",
+      "unit": "وحدة",
+      "piece": "قطعة",
+      "bunch": "حزمة",
+      "box": "صندوق",
+      "perKg": "للكيلو",
+      "perPiece": "للقطعة",
+      "perBunch": "للحزمة",
+      "perBox": "للصندوق",
+      "productDetails": "تفاصيل المنتج",
+      "farmerInfo": "معلومات المزارع",
+      "nutritionFacts": "القيم الغذائية",
+      "customerReviews": "تقييمات العملاء",
+      "writeReview": "اكتب تقييم",
+      "verified": "موثق",
+      "helpfulVotes": "أصوات مفيدة",
+      "sortReviews": "ترتيب التقييمات",
+      "mostHelpful": "الأكثر فائدة",
+      "mostRecent": "الأحدث",
+      "highestRating": "أعلى تقييم",
+      "lowestRating": "أقل تقييم"
     }
   }
 };
@@ -1217,28 +1303,31 @@ export const changeLanguage = (language: 'ar' | 'en') => {
 };
 
 // Format numbers according to locale
-export const formatNumber = (value: number, locale?: string): string => {
+export const formatI18nNumber = (value: number, locale?: string): string => {
   const currentLocale = locale || i18n.language;
-  const localeCode = currentLocale === 'ar' ? 'ar-SA' : 'en-US';
+  const localeCode = currentLocale === 'ar' ? 'ar-SA-u-nu-arab' : 'en-US';
   
   try {
-    return new Intl.NumberFormat(localeCode).format(value);
+    return new Intl.NumberFormat(localeCode, {
+      numberingSystem: currentLocale === 'ar' ? 'arab' : 'latn'
+    }).format(value);
   } catch {
     return value.toString();
   }
 };
 
 // Format currency according to locale
-export const formatCurrency = (value: number, currency = 'SAR', locale?: string): string => {
+export const formatI18nCurrency = (value: number, currency = 'SAR', locale?: string): string => {
   const currentLocale = locale || i18n.language;
-  const localeCode = currentLocale === 'ar' ? 'ar-SA' : 'en-US';
+  const localeCode = currentLocale === 'ar' ? 'ar-SA-u-nu-arab' : 'en-US';
   
   try {
     return new Intl.NumberFormat(localeCode, {
       style: 'currency',
       currency: currency,
       minimumFractionDigits: 2,
-      maximumFractionDigits: 2
+      maximumFractionDigits: 2,
+      numberingSystem: currentLocale === 'ar' ? 'arab' : 'latn'
     }).format(value);
   } catch {
     return `${currency} ${value.toFixed(2)}`;
@@ -1246,7 +1335,7 @@ export const formatCurrency = (value: number, currency = 'SAR', locale?: string)
 };
 
 // Format dates according to locale
-export const formatDate = (date: string | Date, locale?: string): string => {
+export const formatI18nDate = (date: string | Date, locale?: string): string => {
   const currentLocale = locale || i18n.language;
   const localeCode = currentLocale === 'ar' ? 'ar-SA' : 'en-US';
   
@@ -1262,7 +1351,7 @@ export const formatDate = (date: string | Date, locale?: string): string => {
 };
 
 // Format relative time according to locale
-export const formatRelativeTime = (date: string | Date, locale?: string): string => {
+export const formatI18nRelativeTime = (date: string | Date, locale?: string): string => {
   const currentLocale = locale || i18n.language;
   const localeCode = currentLocale === 'ar' ? 'ar-SA' : 'en-US';
   

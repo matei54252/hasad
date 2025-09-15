@@ -19,7 +19,7 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  
+
   const itemsPerPage = 10;
 
   // Mock data - replace with actual API calls
@@ -36,12 +36,12 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
         lastActive: '2024-02-12T14:30:00Z',
         farmSites: 3,
         totalOrders: 156,
-        revenue: 45750.00,
+        revenue: 45750.0,
         devices: 12,
         subscription: {
           tier: 'premium',
           status: 'active',
-          expiryDate: '2024-12-15'
+          expiryDate: '2024-12-15',
         },
         profile: {
           phone: '+966501234567',
@@ -49,28 +49,28 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
           verified: true,
           farmName: 'Green Valley Hydroponics',
           farmType: 'hydroponic',
-          certifications: ['Organic', 'HACCP']
+          certifications: ['Organic', 'HACCP'],
         },
         deviceStatus: {
           online: 11,
           offline: 1,
           maintenance: 0,
-          lastUpdate: '2024-02-12T14:25:00Z'
+          lastUpdate: '2024-02-12T14:25:00Z',
         },
         recentActivity: [
           {
             id: '1',
             type: 'order_completed',
             description: 'Completed order #1234',
-            timestamp: '2024-02-12T13:45:00Z'
+            timestamp: '2024-02-12T13:45:00Z',
           },
           {
             id: '2',
             type: 'device_alert',
             description: 'Water pump maintenance alert',
-            timestamp: '2024-02-12T10:20:00Z'
-          }
-        ]
+            timestamp: '2024-02-12T10:20:00Z',
+          },
+        ],
       },
       {
         id: '2',
@@ -83,12 +83,12 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
         lastActive: '2024-02-12T09:15:00Z',
         farmSites: 2,
         totalOrders: 203,
-        revenue: 67890.00,
+        revenue: 67890.0,
         devices: 8,
         subscription: {
           tier: 'enterprise',
           status: 'active',
-          expiryDate: '2024-11-20'
+          expiryDate: '2024-11-20',
         },
         profile: {
           phone: '+966509876543',
@@ -96,22 +96,22 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
           verified: true,
           farmName: 'Sunny Organic Farm',
           farmType: 'organic',
-          certifications: ['Organic', 'Fair Trade', 'GlobalGAP']
+          certifications: ['Organic', 'Fair Trade', 'GlobalGAP'],
         },
         deviceStatus: {
           online: 8,
           offline: 0,
           maintenance: 0,
-          lastUpdate: '2024-02-12T09:10:00Z'
+          lastUpdate: '2024-02-12T09:10:00Z',
         },
         recentActivity: [
           {
             id: '1',
             type: 'harvest_logged',
             description: 'Logged tomato harvest - 45kg',
-            timestamp: '2024-02-12T08:30:00Z'
-          }
-        ]
+            timestamp: '2024-02-12T08:30:00Z',
+          },
+        ],
       },
       {
         id: '3',
@@ -124,12 +124,12 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
         lastActive: '2024-02-10T16:45:00Z',
         farmSites: 1,
         totalOrders: 23,
-        revenue: 8950.00,
+        revenue: 8950.0,
         devices: 6,
         subscription: {
           tier: 'basic',
           status: 'active',
-          expiryDate: '2024-08-01'
+          expiryDate: '2024-08-01',
         },
         profile: {
           phone: '+966512345678',
@@ -137,23 +137,23 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
           verified: false,
           farmName: 'Desert Bloom Farm',
           farmType: 'greenhouse',
-          certifications: ['HACCP']
+          certifications: ['HACCP'],
         },
         deviceStatus: {
           online: 4,
           offline: 2,
           maintenance: 0,
-          lastUpdate: '2024-02-10T16:40:00Z'
+          lastUpdate: '2024-02-10T16:40:00Z',
         },
         recentActivity: [
           {
             id: '1',
             type: 'profile_updated',
             description: 'Updated farm profile information',
-            timestamp: '2024-02-10T16:30:00Z'
-          }
-        ]
-      }
+            timestamp: '2024-02-10T16:30:00Z',
+          },
+        ],
+      },
     ];
 
     setFarmers(mockFarmers);
@@ -166,10 +166,11 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
 
     // Apply search filter
     if (searchQuery) {
-      filtered = filtered.filter(farmer =>
-        farmer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        farmer.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        farmer.profile?.farmName?.toLowerCase().includes(searchQuery.toLowerCase())
+      filtered = filtered.filter(
+        farmer =>
+          farmer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          farmer.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          farmer.profile?.farmName?.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
@@ -195,7 +196,7 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
       }
 
       if (typeof aValue === 'string' && typeof bValue === 'string') {
-        return sortDirection === 'asc' 
+        return sortDirection === 'asc'
           ? aValue.localeCompare(bValue)
           : bValue.localeCompare(aValue);
       }
@@ -222,28 +223,40 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
 
   const getSortIcon = (field: keyof AdminUser) => {
     if (sortField !== field) return null;
-    return sortDirection === 'asc' ? 
-      <ChevronUp className="w-4 h-4" /> : 
-      <ChevronDown className="w-4 h-4" />;
+    return sortDirection === 'asc' ? (
+      <ChevronUp className="w-4 h-4" />
+    ) : (
+      <ChevronDown className="w-4 h-4" />
+    );
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-100 text-green-800';
-      case 'inactive': return 'bg-gray-100 text-gray-800';
-      case 'suspended': return 'bg-red-100 text-red-800';
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'active':
+        return 'bg-green-100 text-green-800';
+      case 'inactive':
+        return 'bg-gray-100 text-gray-800';
+      case 'suspended':
+        return 'bg-red-100 text-red-800';
+      case 'pending':
+        return 'bg-yellow-100 text-yellow-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
   const getTierColor = (tier: string) => {
     switch (tier) {
-      case 'enterprise': return 'bg-purple-100 text-purple-800';
-      case 'premium': return 'bg-blue-100 text-blue-800';
-      case 'basic': return 'bg-gray-100 text-gray-800';
-      case 'trial': return 'bg-orange-100 text-orange-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'enterprise':
+        return 'bg-purple-100 text-purple-800';
+      case 'premium':
+        return 'bg-blue-100 text-blue-800';
+      case 'basic':
+        return 'bg-gray-100 text-gray-800';
+      case 'trial':
+        return 'bg-orange-100 text-orange-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -274,17 +287,17 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={e => setSearchQuery(e.target.value)}
               placeholder={t('searchFarmers')}
               className="w-full ps-10 pe-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
-          
+
           {/* Filters */}
           <div className="flex gap-3">
             <select
               value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
+              onChange={e => setStatusFilter(e.target.value)}
               className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
             >
               <option value="all">{t('allStatuses')}</option>
@@ -293,15 +306,17 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
               <option value="suspended">{t('suspended')}</option>
               <option value="pending">{t('pending')}</option>
             </select>
-            
+
             <select
               value={locationFilter}
-              onChange={(e) => setLocationFilter(e.target.value)}
+              onChange={e => setLocationFilter(e.target.value)}
               className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
             >
               <option value="all">{t('allLocations')}</option>
               {locations.map(location => (
-                <option key={location} value={location}>{location}</option>
+                <option key={location} value={location}>
+                  {location}
+                </option>
               ))}
             </select>
           </div>
@@ -313,7 +328,7 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
         <table className="w-full">
           <thead className="bg-gray-50 sticky top-0">
             <tr>
-              <th 
+              <th
                 className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('name')}
               >
@@ -322,7 +337,7 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
                   {getSortIcon('name')}
                 </div>
               </th>
-              <th 
+              <th
                 className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('status')}
               >
@@ -334,7 +349,7 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
               <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">
                 {t('location')}
               </th>
-              <th 
+              <th
                 className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('farmSites')}
               >
@@ -343,7 +358,7 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
                   {getSortIcon('farmSites')}
                 </div>
               </th>
-              <th 
+              <th
                 className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('revenue')}
               >
@@ -361,13 +376,16 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {currentFarmers.map((farmer) => (
+            {currentFarmers.map(farmer => (
               <tr key={farmer.id} className="hover:bg-gray-50 transition-colors">
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                       <span className="text-sm font-medium text-green-700">
-                        {farmer.name.split(' ').map(n => n[0]).join('')}
+                        {farmer.name
+                          .split(' ')
+                          .map(n => n[0])
+                          .join('')}
                       </span>
                     </div>
                     <div className="min-w-0">
@@ -387,7 +405,9 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex flex-col gap-1">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(farmer.status)}`}>
+                    <span
+                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(farmer.status)}`}
+                    >
                       {t(farmer.status)}
                     </span>
                     {farmer.profile?.verified && (
@@ -430,9 +450,7 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
                     {(farmer.deviceStatus?.offline || 0) > 0 && (
                       <div className="flex items-center gap-1">
                         <div className="w-2 h-2 bg-red-500 rounded-full" />
-                        <span className="text-sm text-red-600">
-                          {farmer.deviceStatus?.offline}
-                        </span>
+                        <span className="text-sm text-red-600">{farmer.deviceStatus?.offline}</span>
                       </div>
                     )}
                   </div>
@@ -456,9 +474,10 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
       {/* Pagination */}
       <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
         <div className="text-sm text-gray-700">
-          {t('showing')} {startIndex + 1} {t('to')} {Math.min(endIndex, filteredFarmers.length)} {t('of')} {formatNumber(filteredFarmers.length)} {t('entries')}
+          {t('showing')} {startIndex + 1} {t('to')} {Math.min(endIndex, filteredFarmers.length)}{' '}
+          {t('of')} {formatNumber(filteredFarmers.length)} {t('entries')}
         </div>
-        
+
         <div className="flex items-center gap-2">
           <button
             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
@@ -468,11 +487,11 @@ export const AdminFarmersTab: React.FC<AdminFarmersTabProps> = ({ onUserSelect }
             <span className="rtl:rotate-180">←</span>
             {t('previous')}
           </button>
-          
+
           <span className="px-3 py-1 text-sm text-gray-700">
             {t('page')} {currentPage} {t('of')} {totalPages}
           </span>
-          
+
           <button
             onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
             disabled={currentPage === totalPages}

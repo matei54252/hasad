@@ -1,6 +1,6 @@
 /**
  * Secure Storage Utility for Remember Me Functionality
- * 
+ *
  * This module provides secure storage methods for user credentials
  * with encryption, expiration, and error handling capabilities.
  */
@@ -63,7 +63,7 @@ class SecureStorage {
     try {
       const expirationTime = localStorage.getItem(this.expirationKey);
       if (!expirationTime) return true;
-      
+
       const expTime = parseInt(expirationTime, 10);
       return Date.now() > expTime;
     } catch (error) {
@@ -87,19 +87,19 @@ class SecureStorage {
         // Only store email, never store passwords for security
         const credentialData = JSON.stringify({
           email: email,
-          timestamp: Date.now()
+          timestamp: Date.now(),
         });
 
         const encryptedData = this.encrypt(credentialData);
         if (!encryptedData) return false;
 
         // Set expiration time
-        const expirationTime = Date.now() + (this.defaultExpirationDays * 24 * 60 * 60 * 1000);
-        
+        const expirationTime = Date.now() + this.defaultExpirationDays * 24 * 60 * 60 * 1000;
+
         localStorage.setItem(this.storageKey, encryptedData);
         localStorage.setItem(this.expirationKey, expirationTime.toString());
         localStorage.setItem('hasad-remember-me', 'true');
-        
+
         console.log('Credentials stored securely');
         return true;
       } else {
@@ -130,7 +130,7 @@ class SecureStorage {
 
       const encryptedData = localStorage.getItem(this.storageKey);
       const rememberMeState = localStorage.getItem('hasad-remember-me');
-      
+
       if (!encryptedData || rememberMeState !== 'true') {
         return null;
       }
@@ -139,10 +139,10 @@ class SecureStorage {
       if (!decryptedData) return null;
 
       const credentialData = JSON.parse(decryptedData);
-      
+
       return {
         email: credentialData.email || '',
-        rememberMe: true
+        rememberMe: true,
       };
     } catch (error) {
       console.error('Failed to retrieve credentials:', error);

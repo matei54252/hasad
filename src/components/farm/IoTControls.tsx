@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { 
-  Power, 
-  Droplets, 
-  Sun, 
-  Wind, 
+import {
+  Power,
+  Droplets,
+  Sun,
+  Wind,
   Beaker,
   Clock,
   Settings,
   Play,
   Pause,
   RotateCcw,
-  AlertCircle
+  AlertCircle,
 } from 'lucide-react';
 import { IoTControl, FarmSite } from '../../types';
 
@@ -40,13 +40,13 @@ export const IoTControls: React.FC<IoTControlsProps> = ({ selectedSite }) => {
           start_time: '06:00',
           end_time: '18:00',
           days: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
-          duration: 15
+          duration: 15,
         },
         settings: {
           flow_rate: 2.5,
-          pressure: 1.2
+          pressure: 1.2,
         },
-        last_updated: new Date().toISOString()
+        last_updated: new Date().toISOString(),
       },
       {
         id: '2',
@@ -59,13 +59,13 @@ export const IoTControls: React.FC<IoTControlsProps> = ({ selectedSite }) => {
           start_time: '07:00',
           end_time: '19:00',
           days: ['mon', 'wed', 'fri'],
-          duration: 30
+          duration: 30,
         },
         settings: {
           zone: 1,
-          flow_rate: 1.8
+          flow_rate: 1.8,
         },
-        last_updated: new Date(Date.now() - 5 * 60 * 1000).toISOString()
+        last_updated: new Date(Date.now() - 5 * 60 * 1000).toISOString(),
       },
       {
         id: '3',
@@ -77,13 +77,13 @@ export const IoTControls: React.FC<IoTControlsProps> = ({ selectedSite }) => {
           enabled: true,
           start_time: '06:00',
           end_time: '22:00',
-          days: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+          days: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
         },
         settings: {
           intensity: 85,
-          spectrum: 'full'
+          spectrum: 'full',
         },
-        last_updated: new Date(Date.now() - 2 * 60 * 1000).toISOString()
+        last_updated: new Date(Date.now() - 2 * 60 * 1000).toISOString(),
       },
       {
         id: '4',
@@ -95,13 +95,13 @@ export const IoTControls: React.FC<IoTControlsProps> = ({ selectedSite }) => {
           enabled: true,
           start_time: '08:00',
           end_time: '20:00',
-          days: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+          days: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
         },
         settings: {
           speed: 60,
-          temperature_trigger: 26
+          temperature_trigger: 26,
         },
-        last_updated: new Date(Date.now() - 1 * 60 * 1000).toISOString()
+        last_updated: new Date(Date.now() - 1 * 60 * 1000).toISOString(),
       },
       {
         id: '5',
@@ -114,15 +114,15 @@ export const IoTControls: React.FC<IoTControlsProps> = ({ selectedSite }) => {
           start_time: '08:00',
           end_time: '16:00',
           days: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
-          duration: 5
+          duration: 5,
         },
         settings: {
           ec_target: 1.8,
           ph_target: 6.0,
-          dosing_rate: 0.5
+          dosing_rate: 0.5,
         },
-        last_updated: new Date(Date.now() - 10 * 60 * 1000).toISOString()
-      }
+        last_updated: new Date(Date.now() - 10 * 60 * 1000).toISOString(),
+      },
     ];
 
     setControls(mockControls);
@@ -131,30 +131,45 @@ export const IoTControls: React.FC<IoTControlsProps> = ({ selectedSite }) => {
 
   const getDeviceIcon = (deviceType: string) => {
     switch (deviceType) {
-      case 'pump': return <Droplets className="w-6 h-6" />;
-      case 'irrigation': return <Droplets className="w-6 h-6" />;
-      case 'lighting': return <Sun className="w-6 h-6" />;
-      case 'ventilation': return <Wind className="w-6 h-6" />;
-      case 'nutrient_doser': return <Beaker className="w-6 h-6" />;
-      default: return <Settings className="w-6 h-6" />;
+      case 'pump':
+        return <Droplets className="w-6 h-6" />;
+      case 'irrigation':
+        return <Droplets className="w-6 h-6" />;
+      case 'lighting':
+        return <Sun className="w-6 h-6" />;
+      case 'ventilation':
+        return <Wind className="w-6 h-6" />;
+      case 'nutrient_doser':
+        return <Beaker className="w-6 h-6" />;
+      default:
+        return <Settings className="w-6 h-6" />;
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'on': return 'text-green-600 bg-green-100';
-      case 'off': return 'text-gray-600 bg-gray-100';
-      case 'auto': return 'text-blue-600 bg-blue-100';
-      case 'error': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case 'on':
+        return 'text-green-600 bg-green-100';
+      case 'off':
+        return 'text-gray-600 bg-gray-100';
+      case 'auto':
+        return 'text-blue-600 bg-blue-100';
+      case 'error':
+        return 'text-red-600 bg-red-100';
+      default:
+        return 'text-gray-600 bg-gray-100';
     }
   };
 
   const handleControlToggle = async (control: IoTControl, newStatus: string) => {
     try {
       // API call to update control status
-      const updatedControl = { ...control, status: newStatus as any, last_updated: new Date().toISOString() };
-      setControls(prev => prev.map(c => c.id === control.id ? updatedControl : c));
+      const updatedControl = {
+        ...control,
+        status: newStatus as any,
+        last_updated: new Date().toISOString(),
+      };
+      setControls(prev => prev.map(c => (c.id === control.id ? updatedControl : c)));
     } catch (error) {
       console.error('Failed to update control:', error);
     }
@@ -164,7 +179,7 @@ export const IoTControls: React.FC<IoTControlsProps> = ({ selectedSite }) => {
     try {
       // API call to update schedule
       const updatedControl = { ...control, schedule, last_updated: new Date().toISOString() };
-      setControls(prev => prev.map(c => c.id === control.id ? updatedControl : c));
+      setControls(prev => prev.map(c => (c.id === control.id ? updatedControl : c)));
       setShowScheduleModal(false);
       setSelectedControl(null);
     } catch (error) {
@@ -197,15 +212,19 @@ export const IoTControls: React.FC<IoTControlsProps> = ({ selectedSite }) => {
                     {getDeviceIcon(control.device_type)}
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900 truncate max-w-[150px] sm:max-w-none">{control.name}</h3>
+                    <h3 className="font-semibold text-gray-900 truncate max-w-[150px] sm:max-w-none">
+                      {control.name}
+                    </h3>
                     <p className="text-sm text-gray-600 capitalize truncate max-w-[150px] sm:max-w-none">
                       {control.device_type.replace('_', ' ')} • Status: {control.status}
                     </p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-2">
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(control.status)}`}>
+                  <span
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(control.status)}`}
+                  >
                     {control.status.toUpperCase()}
                   </span>
                   <button
@@ -226,32 +245,32 @@ export const IoTControls: React.FC<IoTControlsProps> = ({ selectedSite }) => {
                 <button
                   onClick={() => handleControlToggle(control, 'on')}
                   className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    control.status === 'on' 
-                      ? 'bg-green-600 text-white' 
+                    control.status === 'on'
+                      ? 'bg-green-600 text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-green-50 hover:text-green-700'
                   }`}
                 >
                   <Play className="w-4 h-4" />
                   ON
                 </button>
-                
+
                 <button
                   onClick={() => handleControlToggle(control, 'off')}
                   className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    control.status === 'off' 
-                      ? 'bg-red-600 text-white' 
+                    control.status === 'off'
+                      ? 'bg-red-600 text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-red-50 hover:text-red-700'
                   }`}
                 >
                   <Pause className="w-4 h-4" />
                   OFF
                 </button>
-                
+
                 <button
                   onClick={() => handleControlToggle(control, 'auto')}
                   className={`flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    control.status === 'auto' 
-                      ? 'bg-blue-600 text-white' 
+                    control.status === 'auto'
+                      ? 'bg-blue-600 text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-blue-50 hover:text-blue-700'
                   }`}
                 >
@@ -266,8 +285,12 @@ export const IoTControls: React.FC<IoTControlsProps> = ({ selectedSite }) => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-sm">
                   {Object.entries(control.settings).map(([key, value]) => (
                     <div key={key} className="flex justify-between items-center gap-2">
-                      <span className="text-gray-600 capitalize text-xs sm:text-sm truncate">{key.replace('_', ' ')}:</span>
-                      <span className="font-medium text-gray-900 text-xs sm:text-sm shrink-0">{value}</span>
+                      <span className="text-gray-600 capitalize text-xs sm:text-sm truncate">
+                        {key.replace('_', ' ')}:
+                      </span>
+                      <span className="font-medium text-gray-900 text-xs sm:text-sm shrink-0">
+                        {value}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -278,10 +301,14 @@ export const IoTControls: React.FC<IoTControlsProps> = ({ selectedSite }) => {
                 <div className="mt-3 p-3 bg-blue-50 rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
                     <Clock className="w-4 h-4 text-blue-600" />
-                    <span className="text-sm font-medium text-blue-800 truncate">Scheduled Operation</span>
+                    <span className="text-sm font-medium text-blue-800 truncate">
+                      Scheduled Operation
+                    </span>
                   </div>
                   <div className="text-sm text-blue-700 space-y-1">
-                    <p className="truncate">{control.schedule.start_time} - {control.schedule.end_time}</p>
+                    <p className="truncate">
+                      {control.schedule.start_time} - {control.schedule.end_time}
+                    </p>
                     <p className="capitalize truncate">{control.schedule.days.join(', ')}</p>
                     {control.schedule.duration && (
                       <p className="truncate">Duration: {control.schedule.duration} minutes</p>
@@ -291,7 +318,9 @@ export const IoTControls: React.FC<IoTControlsProps> = ({ selectedSite }) => {
               )}
 
               <div className="mt-3 text-xs text-gray-500">
-                <span className="truncate block">Last updated: {new Date(control.last_updated).toLocaleString()}</span>
+                <span className="truncate block">
+                  Last updated: {new Date(control.last_updated).toLocaleString()}
+                </span>
               </div>
             </div>
           ))}
@@ -307,21 +336,21 @@ export const IoTControls: React.FC<IoTControlsProps> = ({ selectedSite }) => {
                 Schedule Settings - {selectedControl.name}
               </h3>
             </div>
-            
+
             <div className="p-6 space-y-4">
               <div>
                 <label className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     checked={selectedControl.schedule?.enabled || false}
-                    onChange={(e) => {
+                    onChange={e => {
                       const newSchedule = {
                         ...selectedControl.schedule,
-                        enabled: e.target.checked
+                        enabled: e.target.checked,
                       };
                       setSelectedControl({
                         ...selectedControl,
-                        schedule: newSchedule
+                        schedule: newSchedule,
                       });
                     }}
                     className="w-4 h-4 text-blue-600"
@@ -340,20 +369,20 @@ export const IoTControls: React.FC<IoTControlsProps> = ({ selectedSite }) => {
                       <input
                         type="time"
                         value={selectedControl.schedule.start_time}
-                        onChange={(e) => {
+                        onChange={e => {
                           const newSchedule = {
                             ...selectedControl.schedule,
-                            start_time: e.target.value
+                            start_time: e.target.value,
                           };
                           setSelectedControl({
                             ...selectedControl,
-                            schedule: newSchedule
+                            schedule: newSchedule,
                           });
                         }}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
-                    
+
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         End Time
@@ -361,14 +390,14 @@ export const IoTControls: React.FC<IoTControlsProps> = ({ selectedSite }) => {
                       <input
                         type="time"
                         value={selectedControl.schedule.end_time}
-                        onChange={(e) => {
+                        onChange={e => {
                           const newSchedule = {
                             ...selectedControl.schedule,
-                            end_time: e.target.value
+                            end_time: e.target.value,
                           };
                           setSelectedControl({
                             ...selectedControl,
-                            schedule: newSchedule
+                            schedule: newSchedule,
                           });
                         }}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
@@ -384,14 +413,14 @@ export const IoTControls: React.FC<IoTControlsProps> = ({ selectedSite }) => {
                       <input
                         type="number"
                         value={selectedControl.schedule.duration}
-                        onChange={(e) => {
+                        onChange={e => {
                           const newSchedule = {
                             ...selectedControl.schedule,
-                            duration: parseInt(e.target.value)
+                            duration: parseInt(e.target.value),
                           };
                           setSelectedControl({
                             ...selectedControl,
-                            schedule: newSchedule
+                            schedule: newSchedule,
                           });
                         }}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
@@ -409,18 +438,18 @@ export const IoTControls: React.FC<IoTControlsProps> = ({ selectedSite }) => {
                           <input
                             type="checkbox"
                             checked={selectedControl.schedule?.days.includes(day) || false}
-                            onChange={(e) => {
+                            onChange={e => {
                               const currentDays = selectedControl.schedule?.days || [];
                               const newDays = e.target.checked
                                 ? [...currentDays, day]
                                 : currentDays.filter(d => d !== day);
                               const newSchedule = {
                                 ...selectedControl.schedule,
-                                days: newDays
+                                days: newDays,
                               };
                               setSelectedControl({
                                 ...selectedControl,
-                                schedule: newSchedule
+                                schedule: newSchedule,
                               });
                             }}
                             className="w-3 h-3 text-blue-600"

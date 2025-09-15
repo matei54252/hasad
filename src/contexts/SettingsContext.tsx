@@ -46,7 +46,7 @@ const availableCurrencies: Currency[] = [
   { code: 'QAR', name: 'Qatari Riyal', nameAr: 'الريال القطري', symbol: 'ر.ق', flag: '🇶🇦' },
   { code: 'BHD', name: 'Bahraini Dinar', nameAr: 'الدينار البحريني', symbol: 'د.ب', flag: '🇧🇭' },
   { code: 'OMR', name: 'Omani Rial', nameAr: 'الريال العماني', symbol: 'ر.ع', flag: '🇴🇲' },
-  { code: 'JOD', name: 'Jordanian Dinar', nameAr: 'الدينار الأردني', symbol: 'د.أ', flag: '🇯🇴' }
+  { code: 'JOD', name: 'Jordanian Dinar', nameAr: 'الدينار الأردني', symbol: 'د.أ', flag: '🇯🇴' },
 ];
 
 export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -57,7 +57,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [notifications, setNotifications] = useState({
     email: true,
     push: true,
-    sms: false
+    sms: false,
   });
 
   // Load settings from localStorage on mount
@@ -114,7 +114,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
     applyDarkMode(newDarkMode);
-    
+
     try {
       localStorage.setItem('hasad-dark-mode', newDarkMode.toString());
     } catch (error) {
@@ -129,7 +129,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const changeCurrency = (newCurrency: Currency) => {
     setCurrency(newCurrency);
-    
+
     try {
       localStorage.setItem('hasad-currency', JSON.stringify(newCurrency));
     } catch (error) {
@@ -144,9 +144,9 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         style: 'currency',
         currency: currency.code,
         minimumFractionDigits: 2,
-        maximumFractionDigits: 2
+        maximumFractionDigits: 2,
       });
-      
+
       return formatter.format(amount);
     } catch (error) {
       // Fallback formatting if Intl.NumberFormat fails
@@ -158,7 +158,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const updateNotifications = (newNotifications: Partial<SettingsContextType['notifications']>) => {
     const updated = { ...notifications, ...newNotifications };
     setNotifications(updated);
-    
+
     try {
       localStorage.setItem('hasad-notifications', JSON.stringify(updated));
     } catch (error) {
@@ -167,17 +167,18 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   return (
-    <SettingsContext.Provider value={{
-      darkMode,
-      toggleDarkMode,
-      language,
-      changeLanguage,
-      currency,
-      changeCurrency,
-      formatCurrency,
-      notifications,
-      updateNotifications
-    }}
+    <SettingsContext.Provider
+      value={{
+        darkMode,
+        toggleDarkMode,
+        language,
+        changeLanguage,
+        currency,
+        changeCurrency,
+        formatCurrency,
+        notifications,
+        updateNotifications,
+      }}
     >
       {children}
     </SettingsContext.Provider>

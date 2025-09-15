@@ -14,15 +14,18 @@ export const useAuth = () => {
     const initAuth = async () => {
       try {
         console.log('🔄 Initializing authentication...');
-        
+
         // Get current session
-        const { data: { session }, error } = await supabase.auth.getSession();
-        
+        const {
+          data: { session },
+          error,
+        } = await supabase.auth.getSession();
+
         if (error) {
           console.error('❌ Session error:', error);
           throw error;
         }
-        
+
         if (isMounted) {
           setUser(session?.user || null);
           setError(null);
@@ -46,18 +49,18 @@ export const useAuth = () => {
     initAuth();
 
     // Set up auth state listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        if (!isMounted) return;
-        
-        console.log('🔄 Auth state change:', event);
-        setError(null);
-        setUser(session?.user || null);
-        if (initialized) {
-          setLoading(false);
-        }
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!isMounted) return;
+
+      console.log('🔄 Auth state change:', event);
+      setError(null);
+      setUser(session?.user || null);
+      if (initialized) {
+        setLoading(false);
       }
-    );
+    });
 
     return () => {
       isMounted = false;
@@ -69,16 +72,16 @@ export const useAuth = () => {
     try {
       setError(null);
       console.log('🔐 Attempting sign in...');
-      
+
       const { error } = await supabase.auth.signInWithPassword({
         email,
-        password
+        password,
       });
-      
+
       if (error) {
         console.error('Sign in error:', error);
       }
-      
+
       return { error };
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Sign in failed';
@@ -90,19 +93,19 @@ export const useAuth = () => {
   const signUp = async (email: string, password: string) => {
     try {
       setError(null);
-      
+
       const { error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback`
-        }
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        },
       });
-      
+
       if (error) {
         console.error('Sign up error:', error);
       }
-      
+
       return { error };
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Sign up failed';
@@ -114,13 +117,13 @@ export const useAuth = () => {
   const signOut = async () => {
     try {
       setError(null);
-      
+
       const { error } = await supabase.auth.signOut();
-      
+
       if (error) {
         console.error('Sign out error:', error);
       }
-      
+
       return { error };
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Sign out failed';
@@ -132,17 +135,17 @@ export const useAuth = () => {
   const resetPassword = async (email: string) => {
     try {
       setError(null);
-      
+
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/auth/reset-password`
+        redirectTo: `${window.location.origin}/auth/reset-password`,
       });
-      
+
       if (error) {
         console.error('Password reset error:', error);
         setError(error.message);
         return { error };
       }
-      
+
       return { error: null };
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Password reset failed';
@@ -159,6 +162,6 @@ export const useAuth = () => {
     signIn,
     signUp,
     signOut,
-    resetPassword
+    resetPassword,
   };
 };

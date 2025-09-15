@@ -28,10 +28,10 @@ export const AdminHeader: React.FC = () => {
             <Bell className="w-5 h-5" />
             <div className="absolute -top-1 -end-1 w-3 h-3 bg-red-500 rounded-full" />
           </button>
-          
+
           {/* Language Switcher */}
           <AdminLanguageSwitcher />
-          
+
           {/* Admin Profile */}
           <div className="flex items-center gap-3 ps-4 border-s border-gray-200">
             <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
@@ -44,7 +44,7 @@ export const AdminHeader: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Read-Only Notice */}
       <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">
         <div className="flex items-center gap-2">

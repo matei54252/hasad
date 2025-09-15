@@ -38,12 +38,12 @@ export const AdminDashboard: React.FC = () => {
     <div className="min-h-screen bg-gray-50 flex preserve-position">
       {/* Sidebar */}
       <AdminSidebar />
-      
+
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Header */}
         <AdminHeader />
-        
+
         {/* Content Area */}
         <div className="flex-1 flex min-h-0">
           {/* Main Panel */}
@@ -52,7 +52,7 @@ export const AdminDashboard: React.FC = () => {
             <div className="p-6 pb-4">
               <AdminKPICards />
             </div>
-            
+
             {/* Tabs */}
             <div className="px-6 pb-4">
               <div className="flex gap-1 bg-gray-100 p-1 rounded-lg w-fit">
@@ -78,7 +78,7 @@ export const AdminDashboard: React.FC = () => {
                 </button>
               </div>
             </div>
-            
+
             {/* Tab Content */}
             <div className="flex-1 px-6 pb-6 min-h-0">
               {activeTab === 'farmers' ? (
@@ -88,21 +88,17 @@ export const AdminDashboard: React.FC = () => {
               )}
             </div>
           </div>
-          
+
           {/* Alerts Panel */}
           <div className="w-80 border-s border-gray-200 bg-white flex-shrink-0 hidden xl:block">
             <AdminAlertsPanel onAlertSelect={handleAlertSelect} />
           </div>
         </div>
       </div>
-      
+
       {/* Detail Drawer */}
       {isDrawerOpen && (
-        <AdminDetailDrawer
-          user={selectedUser}
-          alert={selectedAlert}
-          onClose={handleCloseDrawer}
-        />
+        <AdminDetailDrawer user={selectedUser} alert={selectedAlert} onClose={handleCloseDrawer} />
       )}
     </div>
   );

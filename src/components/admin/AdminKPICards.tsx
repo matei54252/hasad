@@ -1,17 +1,17 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatNumber, formatCurrency } from '../../i18n';
-import { 
-  Users, 
-  Sprout, 
-  Wifi, 
+import {
+  Users,
+  Sprout,
+  Wifi,
   AlertTriangle,
   DollarSign,
   Activity,
   Database,
   Clock,
   TrendingUp,
-  TrendingDown
+  TrendingDown,
 } from 'lucide-react';
 
 interface KPICardProps {
@@ -26,32 +26,38 @@ interface KPICardProps {
 const KPICard: React.FC<KPICardProps> = ({ title, value, change, changeType, icon, color }) => {
   const getChangeColor = () => {
     switch (changeType) {
-      case 'positive': return 'text-green-600 bg-green-50';
-      case 'negative': return 'text-red-600 bg-red-50';
-      default: return 'text-gray-600 bg-gray-50';
+      case 'positive':
+        return 'text-green-600 bg-green-50';
+      case 'negative':
+        return 'text-red-600 bg-red-50';
+      default:
+        return 'text-gray-600 bg-gray-50';
     }
   };
 
   const getChangeIcon = () => {
     switch (changeType) {
-      case 'positive': return <TrendingUp className="w-3 h-3" />;
-      case 'negative': return <TrendingDown className="w-3 h-3" />;
-      default: return null;
+      case 'positive':
+        return <TrendingUp className="w-3 h-3" />;
+      case 'negative':
+        return <TrendingDown className="w-3 h-3" />;
+      default:
+        return null;
     }
   };
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
       <div className="flex items-center justify-between mb-4">
-        <div className={`p-3 rounded-lg ${color}`}>
-          {icon}
-        </div>
-        <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${getChangeColor()}`}>
+        <div className={`p-3 rounded-lg ${color}`}>{icon}</div>
+        <div
+          className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${getChangeColor()}`}
+        >
           {getChangeIcon()}
           <span>{change}</span>
         </div>
       </div>
-      
+
       <div className="space-y-1">
         <div className="text-2xl font-bold text-gray-900">{value}</div>
         <div className="text-sm text-gray-600">{title}</div>
@@ -63,7 +69,6 @@ const KPICard: React.FC<KPICardProps> = ({ title, value, change, changeType, ico
 export const AdminKPICards: React.FC = () => {
   const { t } = useTranslation();
 
-
   // Mock KPI data - replace with actual API calls
   const kpiData = [
     {
@@ -72,7 +77,7 @@ export const AdminKPICards: React.FC = () => {
       change: '+12',
       changeType: 'positive' as const,
       icon: <Sprout className="w-6 h-6 text-green-600" />,
-      color: 'bg-green-100'
+      color: 'bg-green-100',
     },
     {
       title: t('totalConsumers'),
@@ -80,7 +85,7 @@ export const AdminKPICards: React.FC = () => {
       change: '+89',
       changeType: 'positive' as const,
       icon: <Users className="w-6 h-6 text-blue-600" />,
-      color: 'bg-blue-100'
+      color: 'bg-blue-100',
     },
     {
       title: t('activeDevices'),
@@ -88,7 +93,7 @@ export const AdminKPICards: React.FC = () => {
       change: '+23',
       changeType: 'positive' as const,
       icon: <Wifi className="w-6 h-6 text-purple-600" />,
-      color: 'bg-purple-100'
+      color: 'bg-purple-100',
     },
     {
       title: t('openAlerts'),
@@ -96,7 +101,7 @@ export const AdminKPICards: React.FC = () => {
       change: '-5',
       changeType: 'positive' as const,
       icon: <AlertTriangle className="w-6 h-6 text-orange-600" />,
-      color: 'bg-orange-100'
+      color: 'bg-orange-100',
     },
     {
       title: t('monthlyRevenue'),
@@ -104,7 +109,7 @@ export const AdminKPICards: React.FC = () => {
       change: '+18.5%',
       changeType: 'positive' as const,
       icon: <DollarSign className="w-6 h-6 text-emerald-600" />,
-      color: 'bg-emerald-100'
+      color: 'bg-emerald-100',
     },
     {
       title: t('systemUptime'),
@@ -112,7 +117,7 @@ export const AdminKPICards: React.FC = () => {
       change: '+0.2%',
       changeType: 'positive' as const,
       icon: <Activity className="w-6 h-6 text-indigo-600" />,
-      color: 'bg-indigo-100'
+      color: 'bg-indigo-100',
     },
     {
       title: t('dataProcessed'),
@@ -120,7 +125,7 @@ export const AdminKPICards: React.FC = () => {
       change: '+156GB',
       changeType: 'neutral' as const,
       icon: <Database className="w-6 h-6 text-cyan-600" />,
-      color: 'bg-cyan-100'
+      color: 'bg-cyan-100',
     },
     {
       title: t('avgResponseTime'),
@@ -128,8 +133,8 @@ export const AdminKPICards: React.FC = () => {
       change: '-23ms',
       changeType: 'positive' as const,
       icon: <Clock className="w-6 h-6 text-pink-600" />,
-      color: 'bg-pink-100'
-    }
+      color: 'bg-pink-100',
+    },
   ];
 
   return (

@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSettings } from '../../contexts/SettingsContext';
-import { 
-  Search, 
-  Filter, 
-  MapPin, 
-  Star, 
-  Leaf, 
+import {
+  Search,
+  Filter,
+  MapPin,
+  Star,
+  Leaf,
   Calendar,
   ShoppingCart,
   Heart,
-  Eye
+  Eye,
 } from 'lucide-react';
 import { Product } from '../../types';
 
@@ -33,7 +33,8 @@ export const ProductCatalog: React.FC = () => {
         farm_site_id: 'site1',
         crop_id: 'crop1',
         name: 'Fresh Butterhead Lettuce',
-        description: 'Crisp, tender butterhead lettuce grown hydroponically in controlled environment. Perfect for salads and sandwiches.',
+        description:
+          'Crisp, tender butterhead lettuce grown hydroponically in controlled environment. Perfect for salads and sandwiches.',
         category: 'leafy_greens',
         images: ['🥬'],
         price: 15.99,
@@ -47,11 +48,11 @@ export const ProductCatalog: React.FC = () => {
           farm_name: 'Green Valley Hydroponics',
           location: 'Riyadh, Saudi Arabia',
           farming_method: 'hydroponic',
-          certifications: ['Organic', 'HACCP']
+          certifications: ['Organic', 'HACCP'],
         },
         seasonality: {
           peak_season: ['winter', 'spring'],
-          available_months: ['jan', 'feb', 'mar', 'apr', 'nov', 'dec']
+          available_months: ['jan', 'feb', 'mar', 'apr', 'nov', 'dec'],
         },
         nutritional_info: {
           calories_per_100g: 13,
@@ -59,23 +60,24 @@ export const ProductCatalog: React.FC = () => {
           carbs: 2.3,
           fat: 0.1,
           fiber: 1.0,
-          vitamins: { 'Vitamin A': 370, 'Vitamin K': 126, 'Folate': 38 }
+          vitamins: { 'Vitamin A': 370, 'Vitamin K': 126, Folate: 38 },
         },
         status: 'available',
         rating: 4.8,
         review_count: 24,
         created_at: '2024-02-10T00:00:00Z',
-        updated_at: '2024-02-12T00:00:00Z'
+        updated_at: '2024-02-12T00:00:00Z',
       },
       {
         id: '2',
         farmer_id: 'farmer2',
         farm_site_id: 'site2',
         name: 'Organic Cherry Tomatoes',
-        description: 'Sweet, juicy cherry tomatoes grown using organic methods. Bursting with flavor and perfect for snacking.',
+        description:
+          'Sweet, juicy cherry tomatoes grown using organic methods. Bursting with flavor and perfect for snacking.',
         category: 'vegetables',
         images: ['🍅'],
-        price: 28.50,
+        price: 28.5,
         unit: 'kg',
         quantity_available: 15,
         minimum_order: 2,
@@ -86,27 +88,28 @@ export const ProductCatalog: React.FC = () => {
           farm_name: 'Sunny Organic Farm',
           location: 'Jeddah, Saudi Arabia',
           farming_method: 'organic',
-          certifications: ['Organic', 'Fair Trade']
+          certifications: ['Organic', 'Fair Trade'],
         },
         seasonality: {
           peak_season: ['spring', 'summer'],
-          available_months: ['mar', 'apr', 'may', 'jun', 'jul', 'aug']
+          available_months: ['mar', 'apr', 'may', 'jun', 'jul', 'aug'],
         },
         status: 'available',
         rating: 4.9,
         review_count: 18,
         created_at: '2024-02-09T00:00:00Z',
-        updated_at: '2024-02-11T00:00:00Z'
+        updated_at: '2024-02-11T00:00:00Z',
       },
       {
         id: '3',
         farmer_id: 'farmer1',
         farm_site_id: 'site1',
         name: 'Fresh Basil',
-        description: 'Aromatic fresh basil leaves, perfect for cooking and garnishing. Grown in optimal conditions for maximum flavor.',
+        description:
+          'Aromatic fresh basil leaves, perfect for cooking and garnishing. Grown in optimal conditions for maximum flavor.',
         category: 'herbs',
         images: ['🌿'],
-        price: 12.00,
+        price: 12.0,
         unit: 'bunch',
         quantity_available: 30,
         minimum_order: 1,
@@ -117,27 +120,28 @@ export const ProductCatalog: React.FC = () => {
           farm_name: 'Green Valley Hydroponics',
           location: 'Riyadh, Saudi Arabia',
           farming_method: 'hydroponic',
-          certifications: ['HACCP']
+          certifications: ['HACCP'],
         },
         seasonality: {
           peak_season: ['spring', 'summer', 'fall'],
-          available_months: ['mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct']
+          available_months: ['mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct'],
         },
         status: 'available',
         rating: 4.7,
         review_count: 12,
         created_at: '2024-02-08T00:00:00Z',
-        updated_at: '2024-02-12T00:00:00Z'
+        updated_at: '2024-02-12T00:00:00Z',
       },
       {
         id: '4',
         farmer_id: 'farmer3',
         farm_site_id: 'site3',
         name: 'Premium Strawberries',
-        description: 'Sweet, juicy strawberries grown in climate-controlled greenhouses. Perfect size and incredible taste.',
+        description:
+          'Sweet, juicy strawberries grown in climate-controlled greenhouses. Perfect size and incredible taste.',
         category: 'fruits',
         images: ['🍓'],
-        price: 45.00,
+        price: 45.0,
         unit: 'kg',
         quantity_available: 8,
         minimum_order: 1,
@@ -148,18 +152,18 @@ export const ProductCatalog: React.FC = () => {
           farm_name: 'Berry Fresh Farms',
           location: 'Dammam, Saudi Arabia',
           farming_method: 'hydroponic',
-          certifications: ['Organic', 'GlobalGAP']
+          certifications: ['Organic', 'GlobalGAP'],
         },
         seasonality: {
           peak_season: ['winter', 'spring'],
-          available_months: ['dec', 'jan', 'feb', 'mar', 'apr']
+          available_months: ['dec', 'jan', 'feb', 'mar', 'apr'],
         },
         status: 'available',
         rating: 4.9,
         review_count: 31,
         created_at: '2024-02-07T00:00:00Z',
-        updated_at: '2024-02-13T00:00:00Z'
-      }
+        updated_at: '2024-02-13T00:00:00Z',
+      },
     ];
 
     setProducts(mockProducts);
@@ -172,12 +176,13 @@ export const ProductCatalog: React.FC = () => {
     { id: 'vegetables', nameKey: 'vegetables', icon: '🍅' },
     { id: 'herbs', nameKey: 'herbs', icon: '🌿' },
     { id: 'fruits', nameKey: 'fruits', icon: '🍓' },
-    { id: 'grains', nameKey: 'grains', icon: '🌾' }
+    { id: 'grains', nameKey: 'grains', icon: '🌾' },
   ];
 
   const filteredProducts = products.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         product.farm_provenance.farm_name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch =
+      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.farm_provenance.farm_name.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -198,7 +203,9 @@ export const ProductCatalog: React.FC = () => {
   });
 
   const getDaysUntilExpiry = (expiryDate: string) => {
-    const days = Math.ceil((new Date(expiryDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+    const days = Math.ceil(
+      (new Date(expiryDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
+    );
     return days;
   };
 
@@ -221,14 +228,14 @@ export const ProductCatalog: React.FC = () => {
       {/* Header */}
       <div className="bg-white rounded-xl shadow-lg p-4">
         <h2 className="text-xl font-bold text-gray-900 mb-4">{t('hasadMarketplace')}</h2>
-        
+
         {/* Search Bar */}
         <div className="relative mb-4">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={e => setSearchQuery(e.target.value)}
             placeholder={t('searchProductsFarms')}
             className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
           />
@@ -236,7 +243,7 @@ export const ProductCatalog: React.FC = () => {
 
         {/* Category Filter */}
         <div className="flex gap-2 overflow-x-auto pb-2 mb-4">
-          {categories.map((category) => (
+          {categories.map(category => (
             <button
               key={category.id}
               onClick={() => setSelectedCategory(category.id)}
@@ -257,7 +264,7 @@ export const ProductCatalog: React.FC = () => {
           <div className="flex items-center gap-4">
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
+              onChange={e => setSortBy(e.target.value)}
               className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
             >
               <option value="newest">{t('newestFirst')}</option>
@@ -266,7 +273,7 @@ export const ProductCatalog: React.FC = () => {
               <option value="rating">{t('highestRated')}</option>
             </select>
           </div>
-          
+
           <button
             onClick={() => setShowFilters(!showFilters)}
             className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
@@ -281,13 +288,16 @@ export const ProductCatalog: React.FC = () => {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {sortedProducts.map(product => {
           const daysUntilExpiry = getDaysUntilExpiry(product.expiry_date);
-          
+
           return (
-            <div key={product.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+            <div
+              key={product.id}
+              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+            >
               {/* Product Image */}
               <div className="relative h-48 bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center">
                 <span className="text-6xl">{product.images[0]}</span>
-                
+
                 {/* Badges */}
                 <div className="absolute top-3 left-3 flex flex-col gap-1">
                   {product.organic_certified && (
@@ -296,7 +306,9 @@ export const ProductCatalog: React.FC = () => {
                       {t('organic')}
                     </span>
                   )}
-                  <span className={`px-2 py-1 text-xs font-medium rounded-full ${getFreshnessColor(daysUntilExpiry)}`}>
+                  <span
+                    className={`px-2 py-1 text-xs font-medium rounded-full ${getFreshnessColor(daysUntilExpiry)}`}
+                  >
                     {daysUntilExpiry} {t('daysFresh')}
                   </span>
                 </div>
@@ -316,7 +328,9 @@ export const ProductCatalog: React.FC = () => {
               <div className="p-4">
                 <div className="mb-2">
                   <h3 className="font-semibold text-gray-900 mb-1 line-clamp-2">{product.name}</h3>
-                  <p className="text-sm text-gray-600 line-clamp-2 break-words">{product.description}</p>
+                  <p className="text-sm text-gray-600 line-clamp-2 break-words">
+                    {product.description}
+                  </p>
                 </div>
 
                 {/* Farm Info */}
@@ -333,7 +347,9 @@ export const ProductCatalog: React.FC = () => {
                     <Star className="w-4 h-4 text-yellow-400 fill-current" />
                     <span className="text-sm font-medium">{product.rating}</span>
                   </div>
-                  <span className="text-sm text-gray-500">({product.review_count} {t('reviews')})</span>
+                  <span className="text-sm text-gray-500">
+                    ({product.review_count} {t('reviews')})
+                  </span>
                 </div>
 
                 {/* Price and Availability */}
@@ -357,13 +373,18 @@ export const ProductCatalog: React.FC = () => {
                 {/* Harvest Date */}
                 <div className="flex items-center gap-2 mb-4 text-sm text-gray-600 min-w-0">
                   <Calendar className="w-4 h-4" />
-                  <span className="truncate">{t('harvested')}: {new Date(product.harvest_date).toLocaleDateString()}</span>
+                  <span className="truncate">
+                    {t('harvested')}: {new Date(product.harvest_date).toLocaleDateString()}
+                  </span>
                 </div>
 
                 {/* Certifications */}
                 <div className="flex flex-wrap gap-1 mb-4 overflow-hidden">
                   {product.farm_provenance.certifications.map(cert => (
-                    <span key={cert} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full truncate max-w-[80px] sm:max-w-none">
+                    <span
+                      key={cert}
+                      className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full truncate max-w-[80px] sm:max-w-none"
+                    >
                       {cert}
                     </span>
                   ))}
@@ -392,9 +413,7 @@ export const ProductCatalog: React.FC = () => {
         <div className="text-center py-12">
           <div className="text-6xl mb-4">🔍</div>
           <h3 className="text-lg font-medium text-gray-900 mb-2">{t('noProductsFound')}</h3>
-          <p className="text-gray-600">
-            {t('adjustSearchCriteria')}
-          </p>
+          <p className="text-gray-600">{t('adjustSearchCriteria')}</p>
         </div>
       )}
 
@@ -405,7 +424,7 @@ export const ProductCatalog: React.FC = () => {
             <div className="p-6 border-b border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900">{t('advancedFilters')}</h3>
             </div>
-            
+
             <div className="p-6 space-y-6">
               {/* Price Range */}
               <div>
@@ -431,7 +450,7 @@ export const ProductCatalog: React.FC = () => {
                   {[
                     { key: 'hydroponic', label: t('hydroponic') },
                     { key: 'organic', label: t('organic') },
-                    { key: 'conventional', label: t('conventional') }
+                    { key: 'conventional', label: t('conventional') },
                   ].map(method => (
                     <label key={method.key} className="flex items-center gap-2">
                       <input type="checkbox" className="w-4 h-4 text-green-600" />
@@ -449,7 +468,7 @@ export const ProductCatalog: React.FC = () => {
                     { key: 'organic', label: t('organic') },
                     { key: 'haccp', label: 'HACCP' },
                     { key: 'fairTrade', label: t('fairTrade') },
-                    { key: 'globalGap', label: 'GlobalGAP' }
+                    { key: 'globalGap', label: 'GlobalGAP' },
                   ].map(cert => (
                     <label key={cert.key} className="flex items-center gap-2">
                       <input type="checkbox" className="w-4 h-4 text-green-600" />

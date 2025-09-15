@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSettings } from '../../contexts/SettingsContext';
 import { useAuth } from '../../contexts/AuthContext';
-import { 
-  ArrowLeft, 
-  Globe, 
-  DollarSign, 
-  Bell, 
-  Moon, 
-  Sun, 
-  HelpCircle, 
-  Info, 
+import {
+  ArrowLeft,
+  Globe,
+  DollarSign,
+  Bell,
+  Moon,
+  Sun,
+  HelpCircle,
+  Info,
   ChevronRight,
   User,
   Mail,
@@ -18,7 +18,7 @@ import {
   CreditCard,
   Shield,
   CheckCircle,
-  AlertCircle
+  AlertCircle,
 } from 'lucide-react';
 
 interface SettingsScreenProps {
@@ -27,15 +27,15 @@ interface SettingsScreenProps {
 
 export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
   const { t, i18n } = useTranslation();
-  const { 
-    darkMode, 
-    toggleDarkMode, 
-    language, 
-    changeLanguage, 
-    currency, 
-    changeCurrency, 
-    notifications, 
-    updateNotifications 
+  const {
+    darkMode,
+    toggleDarkMode,
+    language,
+    changeLanguage,
+    currency,
+    changeCurrency,
+    notifications,
+    updateNotifications,
   } = useSettings();
   const { user } = useAuth();
   const [showLanguageModal, setShowLanguageModal] = useState(false);
@@ -43,13 +43,13 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
 
   const languages = [
     { code: 'ar', name: 'العربية', nameEn: 'Arabic', flag: '🇸🇦' },
-    { code: 'en', name: 'English', nameEn: 'English', flag: '🇺🇸' }
+    { code: 'en', name: 'English', nameEn: 'English', flag: '🇺🇸' },
   ];
 
   const currencies = [
     { code: 'SAR', name: 'الريال السعودي', nameEn: 'Saudi Riyal', symbol: 'ر.س', flag: '🇸🇦' },
     { code: 'USD', name: 'الدولار الأمريكي', nameEn: 'US Dollar', symbol: '$', flag: '🇺🇸' },
-    { code: 'EUR', name: 'اليورو', nameEn: 'Euro', symbol: '€', flag: '🇪🇺' }
+    { code: 'EUR', name: 'اليورو', nameEn: 'Euro', symbol: '€', flag: '🇪🇺' },
   ];
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
@@ -65,7 +65,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
           value: currentLanguage.name,
           icon: <Globe className="w-5 h-5" />,
           action: () => setShowLanguageModal(true),
-          description: 'Change app language and region'
+          description: 'Change app language and region',
         },
         {
           id: 'currency',
@@ -73,7 +73,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
           value: `${currency.symbol} ${currency.nameAr}`,
           icon: <DollarSign className="w-5 h-5" />,
           action: () => setShowCurrencyModal(true),
-          description: 'Set your preferred currency'
+          description: 'Set your preferred currency',
         },
         {
           id: 'darkMode',
@@ -83,9 +83,9 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
           action: toggleDarkMode,
           description: 'Toggle dark/light theme',
           toggle: true,
-          toggleValue: darkMode
-        }
-      ]
+          toggleValue: darkMode,
+        },
+      ],
     },
     {
       title: t('notifications'),
@@ -99,7 +99,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
           action: () => updateNotifications({ email: !notifications.email }),
           description: 'Receive updates via email',
           toggle: true,
-          toggleValue: notifications.email
+          toggleValue: notifications.email,
         },
         {
           id: 'pushNotifications',
@@ -109,7 +109,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
           action: () => updateNotifications({ push: !notifications.push }),
           description: 'Receive push notifications',
           toggle: true,
-          toggleValue: notifications.push
+          toggleValue: notifications.push,
         },
         {
           id: 'smsNotifications',
@@ -119,9 +119,9 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
           action: () => updateNotifications({ sms: !notifications.sms }),
           description: 'Receive SMS notifications',
           toggle: true,
-          toggleValue: notifications.sms
-        }
-      ]
+          toggleValue: notifications.sms,
+        },
+      ],
     },
     {
       title: t('helpAndSupport'),
@@ -133,7 +133,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
           value: 'احصل على المساعدة',
           icon: <HelpCircle className="w-5 h-5" />,
           action: () => console.log('Help'),
-          description: 'Get help and support'
+          description: 'Get help and support',
         },
         {
           id: 'about',
@@ -141,10 +141,10 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
           value: 'الإصدار 1.0.0',
           icon: <Info className="w-5 h-5" />,
           action: () => console.log('About'),
-          description: 'App version and information'
-        }
-      ]
-    }
+          description: 'App version and information',
+        },
+      ],
+    },
   ];
 
   return (
@@ -187,13 +187,14 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
 
         {/* Settings Sections */}
         {settingsSections.map((section, sectionIndex) => (
-          <div key={sectionIndex} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+          <div
+            key={sectionIndex}
+            className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden"
+          >
             {/* Section Header */}
             <div className="bg-gray-50 border-b border-gray-200 px-6 py-4">
               <div className="flex items-center gap-3">
-                <div className="text-gray-700">
-                  {section.icon}
-                </div>
+                <div className="text-gray-700">{section.icon}</div>
                 <h3 className="text-lg font-semibold text-gray-900">{section.title}</h3>
               </div>
             </div>
@@ -204,15 +205,13 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
                 <div key={item.id} className="p-6 hover:bg-gray-50 transition-colors">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4 flex-1 min-w-0">
-                      <div className="text-gray-600">
-                        {item.icon}
-                      </div>
+                      <div className="text-gray-600">{item.icon}</div>
                       <div className="flex-1 min-w-0">
                         <h4 className="text-base font-medium text-gray-900 mb-1">{item.label}</h4>
                         <p className="text-sm text-gray-600 break-words">{item.description}</p>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-center gap-3 ml-4">
                       {item.toggle ? (
                         <button
@@ -260,23 +259,25 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
               <h3 className="text-lg font-semibold text-white">معلومات الحساب</h3>
             </div>
           </div>
-          
+
           <div className="p-6 space-y-4">
             <div className="flex items-center justify-between py-2">
               <span className="text-sm font-medium text-gray-700">البريد الإلكتروني:</span>
-              <span className="text-sm text-gray-900 font-medium break-all">amrshasanin@gmail.com</span>
+              <span className="text-sm text-gray-900 font-medium break-all">
+                amrshasanin@gmail.com
+              </span>
             </div>
-            
+
             <div className="flex items-center justify-between py-2">
               <span className="text-sm font-medium text-gray-700">نوع الحساب:</span>
               <span className="text-sm text-gray-900 font-medium">مستهلك</span>
             </div>
-            
+
             <div className="flex items-center justify-between py-2">
               <span className="text-sm font-medium text-gray-700">العملة المفضلة:</span>
               <span className="text-sm text-gray-900 font-medium">ر.س الريال السعودي (SAR)</span>
             </div>
-            
+
             <div className="flex items-center justify-between py-2">
               <span className="text-sm font-medium text-gray-700">تاريخ الانضمام:</span>
               <span className="text-sm text-gray-900 font-medium">يناير 2024</span>
@@ -292,7 +293,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
               <h3 className="text-lg font-semibold text-white">حالة التطبيق</h3>
             </div>
           </div>
-          
+
           <div className="p-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex items-center gap-3 p-4 bg-green-50 rounded-lg border border-green-200">
@@ -302,7 +303,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
                   <p className="text-xs text-green-700">الخدمة تعمل بشكل طبيعي</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg border border-blue-200">
                 <Info className="w-6 h-6 text-blue-600" />
                 <div>
@@ -311,14 +312,15 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
                 </div>
               </div>
             </div>
-            
+
             <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
               <div className="flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 text-gray-600 mt-0.5" />
                 <div>
                   <p className="text-sm font-medium text-gray-800 mb-1">ملاحظة هامة</p>
                   <p className="text-xs text-gray-700 leading-relaxed">
-                    جميع بياناتك محمية ومشفرة. يتم حفظ التفضيلات محلياً على جهازك لضمان الخصوصية والأمان.
+                    جميع بياناتك محمية ومشفرة. يتم حفظ التفضيلات محلياً على جهازك لضمان الخصوصية
+                    والأمان.
                   </p>
                 </div>
               </div>
@@ -340,9 +342,9 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
             <div className="p-6 border-b border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900">{t('selectLanguage')}</h3>
             </div>
-            
+
             <div className="p-6 space-y-3">
-              {languages.map((lang) => (
+              {languages.map(lang => (
                 <button
                   key={lang.code}
                   onClick={() => {
@@ -386,9 +388,9 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
             <div className="p-6 border-b border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900">اختر العملة</h3>
             </div>
-            
+
             <div className="p-6 space-y-3 max-h-80 overflow-y-auto">
-              {currencies.map((curr) => (
+              {currencies.map(curr => (
                 <button
                   key={curr.code}
                   onClick={() => {
@@ -404,7 +406,9 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
                   <span className="text-2xl">{curr.flag}</span>
                   <div className="flex-1 text-left">
                     <p className="font-medium">{curr.name}</p>
-                    <p className="text-sm text-gray-600">{curr.symbol} {curr.nameEn}</p>
+                    <p className="text-sm text-gray-600">
+                      {curr.symbol} {curr.nameEn}
+                    </p>
                   </div>
                   {currency.code === curr.code && (
                     <CheckCircle className="w-5 h-5 text-green-600" />

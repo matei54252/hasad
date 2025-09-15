@@ -29,9 +29,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = 'h
         aria-label="Toggle language"
       >
         <Globe size={18} />
-        <span className="font-medium">
-          {i18n.language === 'ar' ? 'English' : 'العربية'}
-        </span>
+        <span className="font-medium">{i18n.language === 'ar' ? 'English' : 'العربية'}</span>
       </button>
     );
   }
@@ -41,7 +39,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = 'h
 
   const languages = [
     { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-    { code: 'en', name: 'English', flag: '🇺🇸' }
+    { code: 'en', name: 'English', flag: '🇺🇸' },
   ];
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
@@ -62,14 +60,11 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = 'h
       {isOpen && (
         <>
           {/* Backdrop */}
-          <div 
-            className="fixed inset-0 z-10" 
-            onClick={() => setIsOpen(false)}
-          />
-          
+          <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
+
           {/* Dropdown */}
           <div className="absolute top-full left-0 right-0 mt-2 bg-white shadow-lg border border-gray-200 z-20 rounded-lg">
-            {languages.map((language) => (
+            {languages.map(language => (
               <button
                 key={language.code}
                 type="button"
@@ -83,9 +78,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ variant = 'h
               >
                 <span className="text-lg">{language.flag}</span>
                 <span className="font-medium flex-1">{language.name}</span>
-                {i18n.language === language.code && (
-                  <Check size={16} className="text-blue-600" />
-                )}
+                {i18n.language === language.code && <Check size={16} className="text-blue-600" />}
               </button>
             ))}
           </div>

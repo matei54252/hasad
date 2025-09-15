@@ -2,12 +2,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatDate, formatCurrency, formatRelativeTime } from '../../i18n';
 import { AdminUser, AdminAlert } from '../../types/admin';
-import { 
-  X, 
-  User, 
-  Mail, 
-  Phone, 
-  MapPin, 
+import {
+  X,
+  User,
+  Mail,
+  Phone,
+  MapPin,
   Calendar,
   Shield,
   Wifi,
@@ -18,7 +18,7 @@ import {
   CheckCircle,
   Clock,
   Eye,
-  Info
+  Info,
 } from 'lucide-react';
 
 interface AdminDetailDrawerProps {
@@ -27,39 +27,49 @@ interface AdminDetailDrawerProps {
   onClose: () => void;
 }
 
-export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({ 
-  user, 
-  alert, 
-  onClose 
-}) => {
+export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({ user, alert, onClose }) => {
   const { t } = useTranslation();
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-100 text-green-800';
-      case 'inactive': return 'bg-gray-100 text-gray-800';
-      case 'suspended': return 'bg-red-100 text-red-800';
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'active':
+        return 'bg-green-100 text-green-800';
+      case 'inactive':
+        return 'bg-gray-100 text-gray-800';
+      case 'suspended':
+        return 'bg-red-100 text-red-800';
+      case 'pending':
+        return 'bg-yellow-100 text-yellow-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
   const getTierColor = (tier: string) => {
     switch (tier) {
-      case 'enterprise': return 'bg-purple-100 text-purple-800';
-      case 'premium': return 'bg-blue-100 text-blue-800';
-      case 'basic': return 'bg-gray-100 text-gray-800';
-      case 'trial': return 'bg-orange-100 text-orange-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'enterprise':
+        return 'bg-purple-100 text-purple-800';
+      case 'premium':
+        return 'bg-blue-100 text-blue-800';
+      case 'basic':
+        return 'bg-gray-100 text-gray-800';
+      case 'trial':
+        return 'bg-orange-100 text-orange-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'critical': return 'bg-red-100 text-red-800 border-red-200';
-      case 'warning': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'info': return 'bg-blue-100 text-blue-800 border-blue-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'critical':
+        return 'bg-red-100 text-red-800 border-red-200';
+      case 'warning':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'info':
+        return 'bg-blue-100 text-blue-800 border-blue-200';
+      default:
+        return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
 
@@ -68,19 +78,27 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
       {/* User Header */}
       <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-4">
         <div className="flex items-center gap-4">
-          <div className={`w-16 h-16 rounded-full flex items-center justify-center ${
-            user!.role === 'farmer' ? 'bg-green-100' : 'bg-blue-100'
-          }`}
+          <div
+            className={`w-16 h-16 rounded-full flex items-center justify-center ${
+              user!.role === 'farmer' ? 'bg-green-100' : 'bg-blue-100'
+            }`}
           >
             <span className="text-xl font-bold text-gray-700">
-              {user!.name.split(' ').map(n => n[0]).join('')}
+              {user!.name
+                .split(' ')
+                .map(n => n[0])
+                .join('')}
             </span>
           </div>
           <div className="flex-1">
             <h3 className="text-xl font-bold text-gray-900">{user!.name}</h3>
-            <p className="text-gray-600" dir="ltr">{user!.email}</p>
+            <p className="text-gray-600" dir="ltr">
+              {user!.email}
+            </p>
             <div className="flex items-center gap-2 mt-2">
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(user!.status)}`}>
+              <span
+                className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(user!.status)}`}
+              >
                 {t(user!.status)}
               </span>
               {user!.profile?.verified && (
@@ -116,7 +134,9 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
           {user!.profile?.phone && (
             <div className="flex justify-between">
               <span className="text-gray-600">{t('phone')}:</span>
-              <span className="font-medium" dir="ltr">{user!.profile.phone}</span>
+              <span className="font-medium" dir="ltr">
+                {user!.profile.phone}
+              </span>
             </div>
           )}
         </div>
@@ -131,12 +151,16 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
         <div className="space-y-2">
           <div className="flex items-center gap-2">
             <Mail className="w-4 h-4 text-gray-500" />
-            <span className="text-sm text-gray-600 break-all" dir="ltr">{user!.email}</span>
+            <span className="text-sm text-gray-600 break-all" dir="ltr">
+              {user!.email}
+            </span>
           </div>
           {user!.profile?.phone && (
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-gray-500" />
-              <span className="text-sm text-gray-600" dir="ltr">{user!.profile.phone}</span>
+              <span className="text-sm text-gray-600" dir="ltr">
+                {user!.profile.phone}
+              </span>
             </div>
           )}
           <div className="flex items-center gap-2">
@@ -176,14 +200,19 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">{t('revenue')}:</span>
-              <span className="font-medium text-green-600">{formatCurrency(user!.revenue || 0)}</span>
+              <span className="font-medium text-green-600">
+                {formatCurrency(user!.revenue || 0)}
+              </span>
             </div>
             {user!.profile.certifications && (
               <div>
                 <span className="text-gray-600 block mb-1">{t('certifications')}:</span>
                 <div className="flex flex-wrap gap-1">
                   {user!.profile.certifications.map(cert => (
-                    <span key={cert} className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
+                    <span
+                      key={cert}
+                      className="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full"
+                    >
                       {cert}
                     </span>
                   ))}
@@ -205,11 +234,13 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
             <div className="p-3 bg-green-50 rounded-lg">
               <div className="flex items-center justify-center gap-1 mb-1">
                 <Wifi className="w-4 h-4 text-green-600" />
-                <span className="text-lg font-bold text-green-600">{user!.deviceStatus.online}</span>
+                <span className="text-lg font-bold text-green-600">
+                  {user!.deviceStatus.online}
+                </span>
               </div>
               <div className="text-xs text-gray-600">{t('online')}</div>
             </div>
-            
+
             <div className="p-3 bg-red-50 rounded-lg">
               <div className="flex items-center justify-center gap-1 mb-1">
                 <WifiOff className="w-4 h-4 text-red-600" />
@@ -217,16 +248,18 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
               </div>
               <div className="text-xs text-gray-600">{t('offline')}</div>
             </div>
-            
+
             <div className="p-3 bg-yellow-50 rounded-lg">
               <div className="flex items-center justify-center gap-1 mb-1">
                 <Settings className="w-4 h-4 text-yellow-600" />
-                <span className="text-lg font-bold text-yellow-600">{user!.deviceStatus.maintenance}</span>
+                <span className="text-lg font-bold text-yellow-600">
+                  {user!.deviceStatus.maintenance}
+                </span>
               </div>
               <div className="text-xs text-gray-600">{t('maintenance')}</div>
             </div>
           </div>
-          
+
           <div className="mt-3 text-xs text-gray-500 text-center">
             {t('lastUpdate')}: {formatRelativeTime(user!.deviceStatus.lastUpdate)}
           </div>
@@ -243,13 +276,17 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
               <span className="text-gray-600">{t('tier')}:</span>
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getTierColor(user!.subscription.tier)}`}>
+              <span
+                className={`px-2 py-1 rounded-full text-xs font-medium ${getTierColor(user!.subscription.tier)}`}
+              >
                 {t(user!.subscription.tier)}
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">{t('status')}:</span>
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(user!.subscription.status)}`}>
+              <span
+                className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(user!.subscription.status)}`}
+              >
                 {t(user!.subscription.status)}
               </span>
             </div>
@@ -269,7 +306,7 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
             {t('recentActivity')}
           </h4>
           <div className="space-y-3">
-            {user!.recentActivity.map((activity) => (
+            {user!.recentActivity.map(activity => (
               <div key={activity.id} className="flex items-start gap-3 p-2 bg-gray-50 rounded-lg">
                 <div className="w-2 h-2 bg-blue-500 rounded-full mt-2" />
                 <div className="flex-1 min-w-0">
@@ -288,9 +325,7 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
           <Eye className="w-4 h-4 text-amber-600" />
           <p className="text-sm text-amber-800 font-medium">{t('readOnlyView')}</p>
         </div>
-        <p className="text-xs text-amber-700 mt-1">
-          {t('readOnlyViewDescription')}
-        </p>
+        <p className="text-xs text-amber-700 mt-1">{t('readOnlyViewDescription')}</p>
       </div>
     </div>
   );
@@ -323,7 +358,9 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
         <div className="space-y-3 text-sm">
           <div className="flex justify-between">
             <span className="text-gray-600">{t('alertId')}:</span>
-            <span className="font-mono text-xs" dir="ltr">{alert!.id}</span>
+            <span className="font-mono text-xs" dir="ltr">
+              {alert!.id}
+            </span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-600">{t('type')}:</span>
@@ -331,7 +368,9 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
           </div>
           <div className="flex justify-between">
             <span className="text-gray-600">{t('severity')}:</span>
-            <span className={`px-2 py-1 rounded-full text-xs font-medium ${getSeverityColor(alert!.severity)}`}>
+            <span
+              className={`px-2 py-1 rounded-full text-xs font-medium ${getSeverityColor(alert!.severity)}`}
+            >
               {t(alert!.severity)}
             </span>
           </div>
@@ -362,7 +401,9 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
             {Object.entries(alert!.metadata).map(([key, value]) => (
               <div key={key} className="flex justify-between">
                 <span className="text-gray-600 capitalize">{key.replace('_', ' ')}:</span>
-                <span className="font-medium text-end" dir="ltr">{String(value)}</span>
+                <span className="font-medium text-end" dir="ltr">
+                  {String(value)}
+                </span>
               </div>
             ))}
           </div>
@@ -386,7 +427,7 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
               </span>
             </div>
           </div>
-          
+
           <div className="flex items-center justify-between">
             <span className="text-sm text-gray-600">{t('resolved')}:</span>
             <div className="flex items-center gap-2">
@@ -395,9 +436,7 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
               ) : (
                 <Clock className="w-4 h-4 text-gray-400" />
               )}
-              <span className="text-sm font-medium">
-                {alert!.resolved ? t('yes') : t('no')}
-              </span>
+              <span className="text-sm font-medium">{alert!.resolved ? t('yes') : t('no')}</span>
             </div>
           </div>
         </div>
@@ -409,9 +448,7 @@ export const AdminDetailDrawer: React.FC<AdminDetailDrawerProps> = ({
           <Eye className="w-4 h-4 text-amber-600" />
           <p className="text-sm text-amber-800 font-medium">{t('readOnlyView')}</p>
         </div>
-        <p className="text-xs text-amber-700 mt-1">
-          {t('readOnlyAlertDescription')}
-        </p>
+        <p className="text-xs text-amber-700 mt-1">{t('readOnlyAlertDescription')}</p>
       </div>
     </div>
   );

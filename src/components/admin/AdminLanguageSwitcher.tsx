@@ -8,20 +8,20 @@ export const AdminLanguageSwitcher: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const languages = [
-    { 
-      code: 'en' as const, 
-      name: 'English', 
+    {
+      code: 'en' as const,
+      name: 'English',
       nameNative: 'English',
       flag: '🇺🇸',
-      direction: 'ltr' as const
+      direction: 'ltr' as const,
     },
-    { 
-      code: 'ar' as const, 
-      name: 'Arabic', 
+    {
+      code: 'ar' as const,
+      name: 'Arabic',
       nameNative: 'العربية',
       flag: '🇸🇦',
-      direction: 'rtl' as const
-    }
+      direction: 'rtl' as const,
+    },
   ];
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
@@ -41,27 +41,20 @@ export const AdminLanguageSwitcher: React.FC = () => {
         aria-haspopup="true"
       >
         <Globe className="w-4 h-4" />
-        <span className="text-sm font-medium hidden sm:inline">
-          {currentLanguage.nameNative}
-        </span>
-        <ChevronDown 
-          className={`w-4 h-4 transition-transform duration-200 ${
-            isOpen ? 'rotate-180' : ''
-          }`}
+        <span className="text-sm font-medium hidden sm:inline">{currentLanguage.nameNative}</span>
+        <ChevronDown
+          className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
 
       {isOpen && (
         <>
           {/* Backdrop */}
-          <div 
-            className="fixed inset-0 z-40" 
-            onClick={() => setIsOpen(false)}
-          />
-          
+          <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
+
           {/* Dropdown Menu */}
           <div className="absolute top-full inset-inline-end-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 z-50 min-w-[180px] overflow-hidden">
-            {languages.map((language) => (
+            {languages.map(language => (
               <button
                 key={language.code}
                 onClick={() => handleLanguageChange(language.code)}
@@ -75,9 +68,7 @@ export const AdminLanguageSwitcher: React.FC = () => {
                   <div className="font-medium">{language.nameNative}</div>
                   <div className="text-xs text-gray-500">{language.name}</div>
                 </div>
-                {i18n.language === language.code && (
-                  <Check className="w-4 h-4 text-blue-600" />
-                )}
+                {i18n.language === language.code && <Check className="w-4 h-4 text-blue-600" />}
               </button>
             ))}
           </div>

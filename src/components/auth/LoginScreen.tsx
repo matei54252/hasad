@@ -25,7 +25,10 @@ export const LoginScreen: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center px-4" style={{ background: 'linear-gradient(135deg, #4a7c59 0%, #6b9b7a 100%)' }}>
+    <div
+      className="min-h-screen flex flex-col justify-center px-4"
+      style={{ background: 'linear-gradient(135deg, #4a7c59 0%, #6b9b7a 100%)' }}
+    >
       <div className="w-full max-w-sm mx-auto">
         {/* Logo */}
         <div className="text-center mb-8">
@@ -83,7 +86,7 @@ export const LoginScreen: React.FC = () => {
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
                 className="form-input"
                 placeholder="Enter your email"
                 required
@@ -95,18 +98,14 @@ export const LoginScreen: React.FC = () => {
               <input
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
                 className="form-input"
                 placeholder="Enter your password"
                 required
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="btn btn-primary w-full mb-4"
-            >
+            <button type="submit" disabled={loading} className="btn btn-primary w-full mb-4">
               {loading ? 'Signing In...' : 'Sign In'}
             </button>
           </form>

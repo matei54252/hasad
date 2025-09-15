@@ -19,7 +19,7 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  
+
   const itemsPerPage = 10;
 
   // Mock data - replace with actual API calls
@@ -35,11 +35,11 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
         joinDate: '2023-12-10',
         lastActive: '2024-02-12T15:20:00Z',
         totalOrders: 45,
-        revenue: 2340.50,
+        revenue: 2340.5,
         subscription: {
           tier: 'premium',
           status: 'active',
-          expiryDate: '2024-12-10'
+          expiryDate: '2024-12-10',
         },
         profile: {
           phone: '+966501234567',
@@ -48,23 +48,23 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
           preferences: {
             organic_only: true,
             delivery_window: 'morning',
-            dietary_restrictions: ['vegetarian']
-          }
+            dietary_restrictions: ['vegetarian'],
+          },
         },
         recentActivity: [
           {
             id: '1',
             type: 'order_placed',
             description: 'Placed order #5678',
-            timestamp: '2024-02-12T14:30:00Z'
+            timestamp: '2024-02-12T14:30:00Z',
           },
           {
             id: '2',
             type: 'subscription_renewed',
             description: 'Renewed premium subscription',
-            timestamp: '2024-02-10T09:15:00Z'
-          }
-        ]
+            timestamp: '2024-02-10T09:15:00Z',
+          },
+        ],
       },
       {
         id: '2',
@@ -80,7 +80,7 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
         subscription: {
           tier: 'basic',
           status: 'active',
-          expiryDate: '2024-07-05'
+          expiryDate: '2024-07-05',
         },
         profile: {
           phone: '+966509876543',
@@ -89,17 +89,17 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
           preferences: {
             organic_only: false,
             delivery_window: 'evening',
-            dietary_restrictions: []
-          }
+            dietary_restrictions: [],
+          },
         },
         recentActivity: [
           {
             id: '1',
             type: 'order_delivered',
             description: 'Order #5677 delivered successfully',
-            timestamp: '2024-02-11T16:20:00Z'
-          }
-        ]
+            timestamp: '2024-02-11T16:20:00Z',
+          },
+        ],
       },
       {
         id: '3',
@@ -115,7 +115,7 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
         subscription: {
           tier: 'enterprise',
           status: 'expired',
-          expiryDate: '2024-01-15'
+          expiryDate: '2024-01-15',
         },
         profile: {
           phone: '+966512345678',
@@ -124,18 +124,18 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
           preferences: {
             organic_only: true,
             delivery_window: 'afternoon',
-            dietary_restrictions: ['gluten-free', 'vegan']
-          }
+            dietary_restrictions: ['gluten-free', 'vegan'],
+          },
         },
         recentActivity: [
           {
             id: '1',
             type: 'subscription_expired',
             description: 'Enterprise subscription expired',
-            timestamp: '2024-01-15T00:00:00Z'
-          }
-        ]
-      }
+            timestamp: '2024-01-15T00:00:00Z',
+          },
+        ],
+      },
     ];
 
     setConsumers(mockConsumers);
@@ -148,9 +148,10 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
 
     // Apply search filter
     if (searchQuery) {
-      filtered = filtered.filter(consumer =>
-        consumer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        consumer.email.toLowerCase().includes(searchQuery.toLowerCase())
+      filtered = filtered.filter(
+        consumer =>
+          consumer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          consumer.email.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
@@ -176,7 +177,7 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
       }
 
       if (typeof aValue === 'string' && typeof bValue === 'string') {
-        return sortDirection === 'asc' 
+        return sortDirection === 'asc'
           ? aValue.localeCompare(bValue)
           : bValue.localeCompare(aValue);
       }
@@ -203,28 +204,40 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
 
   const getSortIcon = (field: keyof AdminUser) => {
     if (sortField !== field) return null;
-    return sortDirection === 'asc' ? 
-      <ChevronUp className="w-4 h-4" /> : 
-      <ChevronDown className="w-4 h-4" />;
+    return sortDirection === 'asc' ? (
+      <ChevronUp className="w-4 h-4" />
+    ) : (
+      <ChevronDown className="w-4 h-4" />
+    );
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-100 text-green-800';
-      case 'inactive': return 'bg-gray-100 text-gray-800';
-      case 'suspended': return 'bg-red-100 text-red-800';
-      case 'pending': return 'bg-yellow-100 text-yellow-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'active':
+        return 'bg-green-100 text-green-800';
+      case 'inactive':
+        return 'bg-gray-100 text-gray-800';
+      case 'suspended':
+        return 'bg-red-100 text-red-800';
+      case 'pending':
+        return 'bg-yellow-100 text-yellow-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
   const getTierColor = (tier: string) => {
     switch (tier) {
-      case 'enterprise': return 'bg-purple-100 text-purple-800';
-      case 'premium': return 'bg-blue-100 text-blue-800';
-      case 'basic': return 'bg-gray-100 text-gray-800';
-      case 'trial': return 'bg-orange-100 text-orange-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'enterprise':
+        return 'bg-purple-100 text-purple-800';
+      case 'premium':
+        return 'bg-blue-100 text-blue-800';
+      case 'basic':
+        return 'bg-gray-100 text-gray-800';
+      case 'trial':
+        return 'bg-orange-100 text-orange-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -253,17 +266,17 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={e => setSearchQuery(e.target.value)}
               placeholder={t('searchConsumers')}
               className="w-full ps-10 pe-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
-          
+
           {/* Filters */}
           <div className="flex gap-3">
             <select
               value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
+              onChange={e => setStatusFilter(e.target.value)}
               className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
             >
               <option value="all">{t('allStatuses')}</option>
@@ -272,10 +285,10 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
               <option value="suspended">{t('suspended')}</option>
               <option value="pending">{t('pending')}</option>
             </select>
-            
+
             <select
               value={tierFilter}
-              onChange={(e) => setTierFilter(e.target.value)}
+              onChange={e => setTierFilter(e.target.value)}
               className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
             >
               <option value="all">{t('allTiers')}</option>
@@ -293,7 +306,7 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
         <table className="w-full">
           <thead className="bg-gray-50 sticky top-0">
             <tr>
-              <th 
+              <th
                 className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('name')}
               >
@@ -302,7 +315,7 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
                   {getSortIcon('name')}
                 </div>
               </th>
-              <th 
+              <th
                 className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('status')}
               >
@@ -317,7 +330,7 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
               <th className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">
                 {t('subscription')}
               </th>
-              <th 
+              <th
                 className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('totalOrders')}
               >
@@ -326,7 +339,7 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
                   {getSortIcon('totalOrders')}
                 </div>
               </th>
-              <th 
+              <th
                 className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('revenue')}
               >
@@ -341,13 +354,16 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {currentConsumers.map((consumer) => (
+            {currentConsumers.map(consumer => (
               <tr key={consumer.id} className="hover:bg-gray-50 transition-colors">
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
                       <span className="text-sm font-medium text-blue-700">
-                        {consumer.name.split(' ').map(n => n[0]).join('')}
+                        {consumer.name
+                          .split(' ')
+                          .map(n => n[0])
+                          .join('')}
                       </span>
                     </div>
                     <div className="min-w-0">
@@ -365,7 +381,9 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex flex-col gap-1">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(consumer.status)}`}>
+                    <span
+                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(consumer.status)}`}
+                    >
                       {t(consumer.status)}
                     </span>
                     {consumer.profile?.verified && (
@@ -383,12 +401,17 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex flex-col gap-1">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getTierColor(consumer.subscription?.tier || 'basic')}`}>
+                    <span
+                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getTierColor(consumer.subscription?.tier || 'basic')}`}
+                    >
                       {t(consumer.subscription?.tier || 'basic')}
                     </span>
-                    <span className={`text-xs ${
-                      consumer.subscription?.status === 'active' ? 'text-green-600' : 'text-red-600'
-                    }`}
+                    <span
+                      className={`text-xs ${
+                        consumer.subscription?.status === 'active'
+                          ? 'text-green-600'
+                          : 'text-red-600'
+                      }`}
                     >
                       {t(consumer.subscription?.status || 'inactive')}
                     </span>
@@ -426,9 +449,10 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
       {/* Pagination */}
       <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
         <div className="text-sm text-gray-700">
-          {t('showing')} {startIndex + 1} {t('to')} {Math.min(endIndex, filteredConsumers.length)} {t('of')} {formatNumber(filteredConsumers.length)} {t('entries')}
+          {t('showing')} {startIndex + 1} {t('to')} {Math.min(endIndex, filteredConsumers.length)}{' '}
+          {t('of')} {formatNumber(filteredConsumers.length)} {t('entries')}
         </div>
-        
+
         <div className="flex items-center gap-2">
           <button
             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
@@ -438,11 +462,11 @@ export const AdminConsumersTab: React.FC<AdminConsumersTabProps> = ({ onUserSele
             <span className="rtl:rotate-180">←</span>
             {t('previous')}
           </button>
-          
+
           <span className="px-3 py-1 text-sm text-gray-700">
             {t('page')} {currentPage} {t('of')} {totalPages}
           </span>
-          
+
           <button
             onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
             disabled={currentPage === totalPages}

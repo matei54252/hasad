@@ -46,7 +46,13 @@ export interface AdminUser {
 
 export interface AdminAlert {
   id: string;
-  type: 'device_fault' | 'threshold_exceeded' | 'maintenance_due' | 'connectivity_issue' | 'harvest_ready' | 'system_update';
+  type:
+    | 'device_fault'
+    | 'threshold_exceeded'
+    | 'maintenance_due'
+    | 'connectivity_issue'
+    | 'harvest_ready'
+    | 'system_update';
   severity: 'critical' | 'warning' | 'info';
   title: string;
   message: string;

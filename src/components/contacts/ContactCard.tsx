@@ -9,11 +9,7 @@ interface ContactCardProps {
   onDelete: (contactId: number) => void;
 }
 
-export const ContactCard: React.FC<ContactCardProps> = ({
-  contact,
-  onEdit,
-  onDelete
-}) => {
+export const ContactCard: React.FC<ContactCardProps> = ({ contact, onEdit, onDelete }) => {
   const { t } = useTranslation();
 
   const getTypeIcon = () => {
@@ -54,15 +50,15 @@ export const ContactCard: React.FC<ContactCardProps> = ({
       <div className="p-6 pb-4">
         <div className="flex items-start justify-between mb-4">
           <div className="flex-1">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              {contact.contact_name}
-            </h3>
-            <div className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${getTypeColor()}`}>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">{contact.contact_name}</h3>
+            <div
+              className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${getTypeColor()}`}
+            >
               {getTypeIcon()}
               {t(contact.contact_type)}
             </div>
           </div>
-          
+
           <div className="flex gap-2">
             <button
               onClick={() => onEdit(contact)}
@@ -121,10 +117,14 @@ export const ContactCard: React.FC<ContactCardProps> = ({
         <div className="px-6 py-3 bg-gray-50 rounded-b-xl border-t border-gray-100">
           <div className="flex justify-between text-xs text-gray-500">
             {contact.contact_tel && (
-              <span>{t('telephone')}: {contact.contact_tel}</span>
+              <span>
+                {t('telephone')}: {contact.contact_tel}
+              </span>
             )}
             {contact.contact_postcode && (
-              <span>{t('postcode')}: {contact.contact_postcode}</span>
+              <span>
+                {t('postcode')}: {contact.contact_postcode}
+              </span>
             )}
           </div>
         </div>

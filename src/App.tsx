@@ -41,13 +41,13 @@ function AppContent() {
       lng: 46.6753,
       address: '123 King Fahd Road',
       city: 'Riyadh',
-      country: 'Saudi Arabia'
+      country: 'Saudi Arabia',
     },
     type: 'rooftop',
     size: 500,
     status: 'active',
     created_at: '2024-01-01T00:00:00Z',
-    updated_at: '2024-02-12T00:00:00Z'
+    updated_at: '2024-02-12T00:00:00Z',
   });
 
   const mockFarmSites: FarmSite[] = [
@@ -60,14 +60,14 @@ function AppContent() {
         lng: 46.6753,
         address: '456 Olaya Street',
         city: 'Riyadh',
-        country: 'Saudi Arabia'
+        country: 'Saudi Arabia',
       },
       type: 'greenhouse',
       size: 300,
       status: 'active',
       created_at: '2024-01-15T00:00:00Z',
-      updated_at: '2024-02-10T00:00:00Z'
-    }
+      updated_at: '2024-02-10T00:00:00Z',
+    },
   ];
 
   // Listen for language changes and update document direction
@@ -79,7 +79,7 @@ function AppContent() {
     };
 
     window.addEventListener('languageChanged', handleLanguageChange as EventListener);
-    
+
     // Set initial direction based on current language
     document.documentElement.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = i18n.language;
@@ -111,7 +111,7 @@ function AppContent() {
   const renderScreen = () => {
     switch (currentScreen) {
       case 'home':
-        return <HomeScreen />; 
+        return <HomeScreen />;
       case 'marketplace':
         return <ProductCatalog />; // Use ProductCatalog for marketplace
       case 'subscriptions':
@@ -123,7 +123,13 @@ function AppContent() {
       case 'settings':
         return <SettingsScreen onBack={() => setCurrentScreen('profile')} />;
       case 'farmer-dashboard':
-        return <FarmDashboard selectedSite={selectedFarmSite} onSiteChange={setSelectedFarmSite} sites={mockFarmSites} />;
+        return (
+          <FarmDashboard
+            selectedSite={selectedFarmSite}
+            onSiteChange={setSelectedFarmSite}
+            sites={mockFarmSites}
+          />
+        );
       case 'iot-controls':
         return <IoTControls selectedSite={selectedFarmSite} />;
       case 'crop-management':
@@ -178,8 +184,8 @@ function AppContent() {
         {renderScreen()}
       </div>
       {!showAdminDashboard && (
-        <BottomNavigation 
-          currentScreen={currentScreen} 
+        <BottomNavigation
+          currentScreen={currentScreen}
           onScreenChange={setCurrentScreen}
           userType={user.type || 'consumer'}
         />

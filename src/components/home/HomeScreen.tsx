@@ -11,194 +11,233 @@ export const HomeScreen: React.FC = () => {
   const [selectedActivity, setSelectedActivity] = React.useState<any>(null);
   const [showActivityModal, setShowActivityModal] = React.useState(false);
 
-  const quickActions = user?.type === 'farmer' ? [
-    { icon: '📊', title: t('dashboard'), subtitle: t('realTimeMonitoring'), action: 'farmer-dashboard' },
-    { icon: '🔧', title: t('iotControls'), subtitle: t('deviceManagement'), action: 'iot-controls' },
-    { icon: '🌱', title: t('cropManagement'), subtitle: t('trackGrowth'), action: 'crop-management' },
-    { icon: '📋', title: t('tasks'), subtitle: t('maintenanceSchedule'), action: 'tasks-maintenance' },
-    { icon: '📈', title: t('analytics'), subtitle: t('performanceReports'), action: 'analytics' },
-    { icon: '🛒', title: t('marketplace'), subtitle: t('sellProducts'), action: 'add-product' }
-  ] : [
-    { icon: '🛒', title: t('marketplace'), subtitle: t('freshProduce'), action: 'marketplace' },
-    { icon: '📦', title: t('plans'), subtitle: t('deliveryPlans'), action: 'subscriptions' },
-    { icon: '🛍️', title: t('cart'), subtitle: t('yourItems'), action: 'cart' },
-    { icon: '📋', title: t('orders'), subtitle: t('orderHistory'), action: 'orders' },
-    { icon: '💬', title: t('messages'), subtitle: t('chatWithFarmers'), action: 'messages' },
-    { icon: '📈', title: t('analytics'), subtitle: t('yourInsights'), action: 'analytics' }
-  ];
-
-  const recentActivity = user?.type === 'farmer' ? [
-    { 
-      id: 'order_1234',
-      type: 'order',
-      icon: '✅', 
-      title: t('orderCompleted', { orderId: '#1234' }), 
-      time: t('hoursAgo', { count: 2 }), 
-      status: 'success',
-      details: {
-        orderId: '#1234',
-        referenceNumber: 'REF-2024-001234',
-        customer: {
-          name: 'Emma Johnson',
-          email: 'emma.johnson@email.com',
-          phone: '+966501234567',
-          address: '123 King Fahd Road, Riyadh 12345'
-        },
-        orderStatus: 'delivered',
-        location: 'Customer Address',
-        deliveryDate: '2024-02-12T14:30:00Z',
-        items: [
-          { name: 'Fresh Lettuce', quantity: 5, price: 19.95 },
-          { name: 'Organic Tomatoes', quantity: 2, price: 9.00 }
-        ],
-        totalAmount: 28.95,
-        paymentMethod: 'Credit Card',
-        deliveryMethod: 'Home Delivery'
-      }
-    },
-    { 
-      id: 'order_1235',
-      type: 'order',
-      icon: '📦', 
-      title: t('newOrderReceived'), 
-      time: t('hoursAgo', { count: 4 }), 
-      status: 'info',
-      details: {
-        orderId: '#1235',
-        referenceNumber: 'REF-2024-001235',
-        customer: {
-          name: 'Ahmed Al-Rashid',
-          email: 'ahmed.rashid@email.com',
-          phone: '+966509876543',
-          address: '456 Olaya Street, Riyadh 11564'
-        },
-        orderStatus: 'processing',
-        location: 'Farm - Preparation Area',
-        estimatedDelivery: '2024-02-13T16:00:00Z',
-        items: [
-          { name: 'Cherry Tomatoes', quantity: 3, price: 28.50 },
-          { name: 'Fresh Basil', quantity: 2, price: 12.00 }
-        ],
-        totalAmount: 40.50,
-        paymentMethod: 'Cash on Delivery',
-        deliveryMethod: 'Home Delivery'
-      }
-    },
-    { 
-      id: 'crop_lettuce_001',
-      type: 'crop',
-      icon: '🌱', 
-      title: t('lettuceHarvestReady'), 
-      time: t('dayAgo'), 
-      status: 'warning',
-      details: {
-        plantId: 'LETTUCE-001',
-        cropName: 'Butterhead Lettuce',
-        variety: 'Boston Bibb',
-        growthStage: 'Harvest Ready',
-        healthStatus: 92,
-        location: {
-          farm: 'Green Valley Rooftop Farm',
-          section: 'Section A',
-          row: 'Row 3',
-          coordinates: 'A3-15'
-        },
-        plantedDate: '2024-01-15',
-        expectedHarvest: '2024-02-12',
-        actualHarvest: null,
-        careHistory: [
-          { date: '2024-02-10', action: 'Nutrient adjustment', worker: 'Farmer John' },
-          { date: '2024-02-08', action: 'pH monitoring', worker: 'Farmer John' },
-          { date: '2024-02-05', action: 'Pruning', worker: 'Assistant Ali' }
-        ],
-        environmentalData: {
-          temperature: 24.5,
-          humidity: 65,
-          ph: 6.2,
-          ec: 1.8,
-          lightHours: 14
-        },
-        estimatedYield: '2.5 kg',
-        qualityGrade: 'Premium'
-      }
-    }
-  ] : [
-    { 
-      id: 'delivery_001',
-      type: 'order',
-      icon: '🚚', 
-      title: t('orderDelivered'), 
-      time: t('hourAgo'), 
-      status: 'success',
-      details: {
-        orderId: '#1234',
-        referenceNumber: 'REF-2024-001234',
-        farmer: {
-          name: 'Green Valley Farm',
-          contact: '+966501234567',
-          location: 'Riyadh Agricultural District'
-        },
-        orderStatus: 'delivered',
-        deliveryDate: '2024-02-12T14:30:00Z',
-        items: [
-          { name: 'Fresh Lettuce', quantity: 2, price: 15.98 },
-          { name: 'Organic Tomatoes', quantity: 1, price: 18.50 }
-        ],
-        totalAmount: 34.48,
-        deliveryAddress: '123 King Fahd Road, Riyadh 12345',
-        deliveryNotes: 'Left at front door as requested'
-      }
-    },
-    { 
-      id: 'shipment_002',
-      type: 'order',
-      icon: '📦', 
-      title: t('orderShipped'), 
-      time: t('daysAgo', { count: 2 }), 
-      status: 'info',
-      details: {
-        orderId: '#1235',
-        referenceNumber: 'REF-2024-001235',
-        farmer: {
-          name: 'Sunny Acres',
-          contact: '+966509876543',
-          location: 'Jeddah Organic Farms'
-        },
-        orderStatus: 'shipped',
-        trackingNumber: 'TRK-789456123',
-        estimatedDelivery: '2024-02-14T16:00:00Z',
-        items: [
-          { name: 'Sweet Corn', quantity: 3, price: 12.97 }
-        ],
-        totalAmount: 12.97,
-        deliveryAddress: '456 Olaya Street, Riyadh 11564'
-      }
-    },
-    { 
-      id: 'payment_003',
-      type: 'order',
-      icon: '💰', 
-      title: t('paymentProcessed'), 
-      time: t('daysAgo', { count: 3 }), 
-      status: 'success',
-      details: {
-        orderId: '#1236',
-        referenceNumber: 'REF-2024-001236',
-        paymentId: 'PAY-456789',
-        amount: 45.75,
-        paymentMethod: 'Credit Card (**** 1234)',
-        transactionDate: '2024-02-09T10:15:00Z',
-        farmer: {
-          name: 'Harvest Hills',
-          contact: '+966512345678'
-        },
-        items: [
-          { name: 'Fresh Apples', quantity: 2, price: 15.50 },
-          { name: 'Organic Carrots', quantity: 3, price: 15.25 }
+  const quickActions =
+    user?.type === 'farmer'
+      ? [
+          {
+            icon: '📊',
+            title: t('dashboard'),
+            subtitle: t('realTimeMonitoring'),
+            action: 'farmer-dashboard',
+          },
+          {
+            icon: '🔧',
+            title: t('iotControls'),
+            subtitle: t('deviceManagement'),
+            action: 'iot-controls',
+          },
+          {
+            icon: '🌱',
+            title: t('cropManagement'),
+            subtitle: t('trackGrowth'),
+            action: 'crop-management',
+          },
+          {
+            icon: '📋',
+            title: t('tasks'),
+            subtitle: t('maintenanceSchedule'),
+            action: 'tasks-maintenance',
+          },
+          {
+            icon: '📈',
+            title: t('analytics'),
+            subtitle: t('performanceReports'),
+            action: 'analytics',
+          },
+          {
+            icon: '🛒',
+            title: t('marketplace'),
+            subtitle: t('sellProducts'),
+            action: 'add-product',
+          },
         ]
-      }
-    }
-  ];
+      : [
+          {
+            icon: '🛒',
+            title: t('marketplace'),
+            subtitle: t('freshProduce'),
+            action: 'marketplace',
+          },
+          { icon: '📦', title: t('plans'), subtitle: t('deliveryPlans'), action: 'subscriptions' },
+          { icon: '🛍️', title: t('cart'), subtitle: t('yourItems'), action: 'cart' },
+          { icon: '📋', title: t('orders'), subtitle: t('orderHistory'), action: 'orders' },
+          { icon: '💬', title: t('messages'), subtitle: t('chatWithFarmers'), action: 'messages' },
+          { icon: '📈', title: t('analytics'), subtitle: t('yourInsights'), action: 'analytics' },
+        ];
+
+  const recentActivity =
+    user?.type === 'farmer'
+      ? [
+          {
+            id: 'order_1234',
+            type: 'order',
+            icon: '✅',
+            title: t('orderCompleted', { orderId: '#1234' }),
+            time: t('hoursAgo', { count: 2 }),
+            status: 'success',
+            details: {
+              orderId: '#1234',
+              referenceNumber: 'REF-2024-001234',
+              customer: {
+                name: 'Emma Johnson',
+                email: 'emma.johnson@email.com',
+                phone: '+966501234567',
+                address: '123 King Fahd Road, Riyadh 12345',
+              },
+              orderStatus: 'delivered',
+              location: 'Customer Address',
+              deliveryDate: '2024-02-12T14:30:00Z',
+              items: [
+                { name: 'Fresh Lettuce', quantity: 5, price: 19.95 },
+                { name: 'Organic Tomatoes', quantity: 2, price: 9.0 },
+              ],
+              totalAmount: 28.95,
+              paymentMethod: 'Credit Card',
+              deliveryMethod: 'Home Delivery',
+            },
+          },
+          {
+            id: 'order_1235',
+            type: 'order',
+            icon: '📦',
+            title: t('newOrderReceived'),
+            time: t('hoursAgo', { count: 4 }),
+            status: 'info',
+            details: {
+              orderId: '#1235',
+              referenceNumber: 'REF-2024-001235',
+              customer: {
+                name: 'Ahmed Al-Rashid',
+                email: 'ahmed.rashid@email.com',
+                phone: '+966509876543',
+                address: '456 Olaya Street, Riyadh 11564',
+              },
+              orderStatus: 'processing',
+              location: 'Farm - Preparation Area',
+              estimatedDelivery: '2024-02-13T16:00:00Z',
+              items: [
+                { name: 'Cherry Tomatoes', quantity: 3, price: 28.5 },
+                { name: 'Fresh Basil', quantity: 2, price: 12.0 },
+              ],
+              totalAmount: 40.5,
+              paymentMethod: 'Cash on Delivery',
+              deliveryMethod: 'Home Delivery',
+            },
+          },
+          {
+            id: 'crop_lettuce_001',
+            type: 'crop',
+            icon: '🌱',
+            title: t('lettuceHarvestReady'),
+            time: t('dayAgo'),
+            status: 'warning',
+            details: {
+              plantId: 'LETTUCE-001',
+              cropName: 'Butterhead Lettuce',
+              variety: 'Boston Bibb',
+              growthStage: 'Harvest Ready',
+              healthStatus: 92,
+              location: {
+                farm: 'Green Valley Rooftop Farm',
+                section: 'Section A',
+                row: 'Row 3',
+                coordinates: 'A3-15',
+              },
+              plantedDate: '2024-01-15',
+              expectedHarvest: '2024-02-12',
+              actualHarvest: null,
+              careHistory: [
+                { date: '2024-02-10', action: 'Nutrient adjustment', worker: 'Farmer John' },
+                { date: '2024-02-08', action: 'pH monitoring', worker: 'Farmer John' },
+                { date: '2024-02-05', action: 'Pruning', worker: 'Assistant Ali' },
+              ],
+              environmentalData: {
+                temperature: 24.5,
+                humidity: 65,
+                ph: 6.2,
+                ec: 1.8,
+                lightHours: 14,
+              },
+              estimatedYield: '2.5 kg',
+              qualityGrade: 'Premium',
+            },
+          },
+        ]
+      : [
+          {
+            id: 'delivery_001',
+            type: 'order',
+            icon: '🚚',
+            title: t('orderDelivered'),
+            time: t('hourAgo'),
+            status: 'success',
+            details: {
+              orderId: '#1234',
+              referenceNumber: 'REF-2024-001234',
+              farmer: {
+                name: 'Green Valley Farm',
+                contact: '+966501234567',
+                location: 'Riyadh Agricultural District',
+              },
+              orderStatus: 'delivered',
+              deliveryDate: '2024-02-12T14:30:00Z',
+              items: [
+                { name: 'Fresh Lettuce', quantity: 2, price: 15.98 },
+                { name: 'Organic Tomatoes', quantity: 1, price: 18.5 },
+              ],
+              totalAmount: 34.48,
+              deliveryAddress: '123 King Fahd Road, Riyadh 12345',
+              deliveryNotes: 'Left at front door as requested',
+            },
+          },
+          {
+            id: 'shipment_002',
+            type: 'order',
+            icon: '📦',
+            title: t('orderShipped'),
+            time: t('daysAgo', { count: 2 }),
+            status: 'info',
+            details: {
+              orderId: '#1235',
+              referenceNumber: 'REF-2024-001235',
+              farmer: {
+                name: 'Sunny Acres',
+                contact: '+966509876543',
+                location: 'Jeddah Organic Farms',
+              },
+              orderStatus: 'shipped',
+              trackingNumber: 'TRK-789456123',
+              estimatedDelivery: '2024-02-14T16:00:00Z',
+              items: [{ name: 'Sweet Corn', quantity: 3, price: 12.97 }],
+              totalAmount: 12.97,
+              deliveryAddress: '456 Olaya Street, Riyadh 11564',
+            },
+          },
+          {
+            id: 'payment_003',
+            type: 'order',
+            icon: '💰',
+            title: t('paymentProcessed'),
+            time: t('daysAgo', { count: 3 }),
+            status: 'success',
+            details: {
+              orderId: '#1236',
+              referenceNumber: 'REF-2024-001236',
+              paymentId: 'PAY-456789',
+              amount: 45.75,
+              paymentMethod: 'Credit Card (**** 1234)',
+              transactionDate: '2024-02-09T10:15:00Z',
+              farmer: {
+                name: 'Harvest Hills',
+                contact: '+966512345678',
+              },
+              items: [
+                { name: 'Fresh Apples', quantity: 2, price: 15.5 },
+                { name: 'Organic Carrots', quantity: 3, price: 15.25 },
+              ],
+            },
+          },
+        ];
 
   const handleActivityClick = (activity: any) => {
     setSelectedActivity(activity);
@@ -215,7 +254,9 @@ export const HomeScreen: React.FC = () => {
       <div className="mb-6">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="heading-lg">{t('goodMorning')}, {user?.name?.split(' ')[0]}! 👋</h1>
+            <h1 className="heading-lg">
+              {t('goodMorning')}, {user?.name?.split(' ')[0]}! 👋
+            </h1>
             <p className="body-md text-gray-600">
               {user?.type === 'farmer' ? t('manageFarmEfficiently') : t('discoverFreshProduce')}
             </p>
@@ -226,7 +267,10 @@ export const HomeScreen: React.FC = () => {
         </div>
 
         {/* Weather Widget */}
-        <div className="card" style={{ background: 'linear-gradient(135deg, #4a7c59 0%, #6b9b7a 100%)' }}>
+        <div
+          className="card"
+          style={{ background: 'linear-gradient(135deg, #4a7c59 0%, #6b9b7a 100%)' }}
+        >
           <div className="flex items-center justify-between text-white">
             <div>
               <p className="text-sm opacity-90">{t('todaysWeather')}</p>
@@ -286,9 +330,27 @@ export const HomeScreen: React.FC = () => {
           <h2 className="heading-md mb-4">{t('featuredProducts')}</h2>
           <div className="flex gap-3 overflow-x-auto pb-2">
             {[
-              { name: t('freshLettuce'), price: 15.99, unit: t('kg'), image: '🥬', farmer: t('greenValleyFarm') },
-              { name: t('organicTomatoes'), price: 18.50, unit: t('kg'), image: '🍅', farmer: t('sunnyOrganicFarm') },
-              { name: t('sweetCorn'), price: 12.99, unit: t('kg'), image: '🌽', farmer: t('harvestHills') }
+              {
+                name: t('freshLettuce'),
+                price: 15.99,
+                unit: t('kg'),
+                image: '🥬',
+                farmer: t('greenValleyFarm'),
+              },
+              {
+                name: t('organicTomatoes'),
+                price: 18.5,
+                unit: t('kg'),
+                image: '🍅',
+                farmer: t('sunnyOrganicFarm'),
+              },
+              {
+                name: t('sweetCorn'),
+                price: 12.99,
+                unit: t('kg'),
+                image: '🌽',
+                farmer: t('harvestHills'),
+              },
             ].map((product, index) => (
               <div key={index} className="card card-hover min-w-[140px]">
                 <div className="text-center">
@@ -310,13 +372,13 @@ export const HomeScreen: React.FC = () => {
         <h2 className="heading-md mb-4">{t('recentActivity')}</h2>
         <div className="space-y-3">
           {recentActivity.map((activity, index) => (
-            <div 
-              key={activity.id} 
+            <div
+              key={activity.id}
               className="card card-hover cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
               onClick={() => handleActivityClick(activity)}
               role="button"
               tabIndex={0}
-              onKeyDown={(e) => {
+              onKeyDown={e => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
                   handleActivityClick(activity);
@@ -325,11 +387,14 @@ export const HomeScreen: React.FC = () => {
               aria-label={`View details for ${activity.title}`}
             >
               <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                  activity.status === 'success' ? 'bg-green-100' :
-                  activity.status === 'info' ? 'bg-blue-100' :
-                  'bg-orange-100'
-                }`}
+                <div
+                  className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                    activity.status === 'success'
+                      ? 'bg-green-100'
+                      : activity.status === 'info'
+                        ? 'bg-blue-100'
+                        : 'bg-orange-100'
+                  }`}
                 >
                   <span className="text-lg">{activity.icon}</span>
                 </div>
@@ -348,10 +413,7 @@ export const HomeScreen: React.FC = () => {
 
       {/* Activity Detail Modal */}
       {showActivityModal && selectedActivity && (
-        <ActivityDetailModal
-          activity={selectedActivity}
-          onClose={handleCloseModal}
-        />
+        <ActivityDetailModal activity={selectedActivity} onClose={handleCloseModal} />
       )}
     </div>
   );

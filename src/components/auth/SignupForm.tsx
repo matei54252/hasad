@@ -23,14 +23,14 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onToggleMode }) => {
 
   const languages = [
     { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-    { code: 'en', name: 'English', flag: '🇺🇸' }
+    { code: 'en', name: 'English', flag: '🇺🇸' },
   ];
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
 
   const handleLanguageSelect = (langCode: string) => {
     i18n.changeLanguage(langCode);
-    
+
     // Only update document direction and language attribute
     changeI18nLanguage(langCode as 'ar' | 'en');
     setShowLanguageDropdown(false);
@@ -40,7 +40,6 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onToggleMode }) => {
     e.preventDefault();
     setError('');
     setSuccessMessage('');
-
 
     // Basic validation
     if (!email || !password || !confirmPassword) {
@@ -59,14 +58,16 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onToggleMode }) => {
     }
 
     setLoading(true);
-    
+
     try {
       const { error } = await signUp(email, password);
-      
+
       if (error) {
         setError(error.message);
       } else {
-        setSuccessMessage('Account created successfully! Please check your email to verify your account.');
+        setSuccessMessage(
+          'Account created successfully! Please check your email to verify your account.'
+        );
       }
     } catch (err) {
       setError('An unexpected error occurred. Please try again.');
@@ -101,12 +102,12 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onToggleMode }) => {
               aria-expanded={showLanguageDropdown}
               aria-haspopup="true"
             >
-              <Globe 
-                size={20} 
-                className="text-gray-600 group-hover:text-blue-600 transition-colors" 
+              <Globe
+                size={20}
+                className="text-gray-600 group-hover:text-blue-600 transition-colors"
               />
-              <ChevronDown 
-                size={16} 
+              <ChevronDown
+                size={16}
                 className={`text-gray-600 group-hover:text-blue-600 transition-all duration-200 ${
                   showLanguageDropdown ? 'rotate-180' : ''
                 }`}
@@ -116,20 +117,22 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onToggleMode }) => {
             {showLanguageDropdown && (
               <>
                 {/* Backdrop */}
-                <div 
-                  className="fixed inset-0 z-10" 
+                <div
+                  className="fixed inset-0 z-10"
                   onClick={() => setShowLanguageDropdown(false)}
                 />
-                
+
                 {/* Dropdown Menu */}
                 <div className="absolute top-full inset-inline-end-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 z-20 min-w-[140px] preserve-position">
-                  {languages.map((language) => (
+                  {languages.map(language => (
                     <button
                       key={language.code}
                       type="button"
                       onClick={() => handleLanguageSelect(language.code)}
                       className={`w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors cursor-pointer first:rounded-t-lg last:rounded-b-lg ${
-                        i18n.language === language.code ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                        i18n.language === language.code
+                          ? 'bg-blue-50 text-blue-700'
+                          : 'text-gray-700'
                       }`}
                       aria-label={`Switch to ${language.name}`}
                     >
@@ -142,11 +145,9 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onToggleMode }) => {
             )}
           </div>
         </div>
-        
+
         <div className="text-center mb-6">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            {t('createAccount')}
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">{t('createAccount')}</h2>
           <p className="text-gray-600">{t('manageContacts')}</p>
         </div>
 
@@ -162,18 +163,15 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onToggleMode }) => {
           </div>
         )}
 
-
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              {t('email')}
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">{t('email')}</label>
             <div className="relative">
               <Mail className="absolute inset-inline-start-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
                 className="w-full ps-10 pe-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                 required
               />
@@ -181,15 +179,13 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onToggleMode }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              {t('password')}
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">{t('password')}</label>
             <div className="relative">
               <Lock className="absolute inset-inline-start-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type={showPassword ? 'text' : 'password'}
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
                 className="w-full ps-10 pe-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                 required
                 minLength={6}
@@ -214,7 +210,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onToggleMode }) => {
               <input
                 type="password"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={e => setConfirmPassword(e.target.value)}
                 className="w-full ps-10 pe-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                 required
               />
@@ -241,7 +237,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onToggleMode }) => {
               className="text-blue-600 hover:text-blue-700 font-medium transition-all duration-200 hover:underline cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-1 py-0.5 inline-block active:text-blue-800 no-underline"
               role="button"
               tabIndex={0}
-              onKeyDown={(e) => {
+              onKeyDown={e => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
                   handleLoginClick(e as any);

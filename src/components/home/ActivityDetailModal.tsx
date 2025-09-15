@@ -1,7 +1,22 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSettings } from '../../contexts/SettingsContext';
-import { X, Package, MapPin, Phone, Mail, Calendar, Clock, CreditCard, Truck, User, Leaf, Thermometer, Droplets, Sun } from 'lucide-react';
+import {
+  X,
+  Package,
+  MapPin,
+  Phone,
+  Mail,
+  Calendar,
+  Clock,
+  CreditCard,
+  Truck,
+  User,
+  Leaf,
+  Thermometer,
+  Droplets,
+  Sun,
+} from 'lucide-react';
 
 interface ActivityDetailModalProps {
   activity: any;
@@ -18,7 +33,7 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
       month: 'short',
       day: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     });
   };
 
@@ -41,13 +56,19 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
       <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-4">
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-xl font-bold text-gray-900">{activity.details.orderId}</h3>
-          <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(activity.details.orderStatus)}`}>
+          <span
+            className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(activity.details.orderStatus)}`}
+          >
             {t(activity.details.orderStatus)}
           </span>
         </div>
-        <p className="text-gray-600 text-sm">{t('reference')}: {activity.details.referenceNumber}</p>
+        <p className="text-gray-600 text-sm">
+          {t('reference')}: {activity.details.referenceNumber}
+        </p>
         {activity.details.trackingNumber && (
-          <p className="text-gray-600 text-sm">{t('tracking')}: {activity.details.trackingNumber}</p>
+          <p className="text-gray-600 text-sm">
+            {t('tracking')}: {activity.details.trackingNumber}
+          </p>
         )}
       </div>
 
@@ -65,11 +86,13 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
             </div>
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-gray-500" />
-              <span className="text-sm text-gray-600 break-all">{activity.details.customer.email}</span>
+              <span className="text-sm text-gray-600 break-all">
+                {activity.details.customer.email}
+              </span>
             </div>
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-gray-500" />
-              <a 
+              <a
                 href={`tel:${activity.details.customer.phone}`}
                 className="text-sm text-blue-600 hover:text-blue-700 font-medium"
               >
@@ -78,7 +101,9 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
             </div>
             <div className="flex items-start gap-2">
               <MapPin className="w-4 h-4 text-gray-500 mt-0.5" />
-              <span className="text-sm text-gray-600 break-words">{activity.details.customer.address}</span>
+              <span className="text-sm text-gray-600 break-words">
+                {activity.details.customer.address}
+              </span>
             </div>
           </div>
         </div>
@@ -98,7 +123,7 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
             </div>
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-gray-500" />
-              <a 
+              <a
                 href={`tel:${activity.details.farmer.contact}`}
                 className="text-sm text-blue-600 hover:text-blue-700 font-medium"
               >
@@ -121,17 +146,24 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
         </h4>
         <div className="space-y-3">
           {activity.details.items.map((item: any, index: number) => (
-            <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div
+              key={index}
+              className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+            >
               <div>
                 <p className="font-medium text-gray-900">{item.name}</p>
-                <p className="text-sm text-gray-600">{t('quantity')}: {item.quantity}</p>
+                <p className="text-sm text-gray-600">
+                  {t('quantity')}: {item.quantity}
+                </p>
               </div>
               <p className="font-bold text-green-600">{formatCurrency(item.price)}</p>
             </div>
           ))}
           <div className="border-t border-gray-200 pt-3 flex justify-between items-center">
             <span className="font-semibold text-gray-900">{t('totalAmount')}:</span>
-            <span className="text-xl font-bold text-green-600">{formatCurrency(activity.details.totalAmount)}</span>
+            <span className="text-xl font-bold text-green-600">
+              {formatCurrency(activity.details.totalAmount)}
+            </span>
           </div>
         </div>
       </div>
@@ -145,7 +177,9 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
         <div className="space-y-2">
           <div className="flex items-center gap-2">
             <MapPin className="w-4 h-4 text-gray-500" />
-            <span className="text-sm text-gray-600">{t('currentLocation')}: {activity.details.location}</span>
+            <span className="text-sm text-gray-600">
+              {t('currentLocation')}: {activity.details.location}
+            </span>
           </div>
           {activity.details.deliveryDate && (
             <div className="flex items-center gap-2">
@@ -165,7 +199,9 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
           )}
           <div className="flex items-center gap-2">
             <CreditCard className="w-4 h-4 text-gray-500" />
-            <span className="text-sm text-gray-600">{t('payment')}: {activity.details.paymentMethod}</span>
+            <span className="text-sm text-gray-600">
+              {t('payment')}: {activity.details.paymentMethod}
+            </span>
           </div>
           {activity.details.deliveryNotes && (
             <div className="mt-3 p-3 bg-yellow-50 rounded-lg">
@@ -189,8 +225,12 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
             {t(activity.details.growthStage)}
           </span>
         </div>
-        <p className="text-gray-600 text-sm">{t('plantId')}: {activity.details.plantId}</p>
-        <p className="text-gray-600 text-sm">{t('variety')}: {activity.details.variety}</p>
+        <p className="text-gray-600 text-sm">
+          {t('plantId')}: {activity.details.plantId}
+        </p>
+        <p className="text-gray-600 text-sm">
+          {t('variety')}: {activity.details.variety}
+        </p>
       </div>
 
       {/* Health Status */}
@@ -203,10 +243,12 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
           <div>
             <div className="flex justify-between items-center">
               <span className="text-sm font-medium text-gray-700">{t('overallHealth')}</span>
-              <span className="text-lg font-bold text-green-600">{activity.details.healthStatus}%</span>
+              <span className="text-lg font-bold text-green-600">
+                {activity.details.healthStatus}%
+              </span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
-              <div 
+              <div
                 className="bg-green-500 h-2 rounded-full transition-all duration-300"
                 style={{ width: `${activity.details.healthStatus}%` }}
               />
@@ -234,7 +276,9 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
         <div className="space-y-2">
           <div className="flex justify-between">
             <span className="text-gray-600">{t('farm')}:</span>
-            <span className="font-medium text-right break-words">{activity.details.location.farm}</span>
+            <span className="font-medium text-right break-words">
+              {activity.details.location.farm}
+            </span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-600">{t('section')}:</span>
@@ -260,16 +304,22 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
         <div className="space-y-2">
           <div className="flex justify-between">
             <span className="text-gray-600">{t('planted')}:</span>
-            <span className="font-medium">{new Date(activity.details.plantedDate).toLocaleDateString()}</span>
+            <span className="font-medium">
+              {new Date(activity.details.plantedDate).toLocaleDateString()}
+            </span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-600">{t('expectedHarvest')}:</span>
-            <span className="font-medium">{new Date(activity.details.expectedHarvest).toLocaleDateString()}</span>
+            <span className="font-medium">
+              {new Date(activity.details.expectedHarvest).toLocaleDateString()}
+            </span>
           </div>
           {activity.details.actualHarvest && (
             <div className="flex justify-between">
               <span className="text-gray-600">{t('actualHarvest')}:</span>
-              <span className="font-medium text-green-600">{new Date(activity.details.actualHarvest).toLocaleDateString()}</span>
+              <span className="font-medium text-green-600">
+                {new Date(activity.details.actualHarvest).toLocaleDateString()}
+              </span>
             </div>
           )}
         </div>
@@ -331,16 +381,21 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
         {/* Header */}
         <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-              activity.status === 'success' ? 'bg-green-100' :
-              activity.status === 'info' ? 'bg-blue-100' :
-              'bg-orange-100'
-            }`}
+            <div
+              className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                activity.status === 'success'
+                  ? 'bg-green-100'
+                  : activity.status === 'info'
+                    ? 'bg-blue-100'
+                    : 'bg-orange-100'
+              }`}
             >
               <span className="text-xl">{activity.icon}</span>
             </div>
             <div>
-              <h2 className="text-lg font-bold text-gray-900 truncate max-w-[250px]">{activity.title}</h2>
+              <h2 className="text-lg font-bold text-gray-900 truncate max-w-[250px]">
+                {activity.title}
+              </h2>
               <p className="text-sm text-gray-600">{activity.time}</p>
             </div>
           </div>

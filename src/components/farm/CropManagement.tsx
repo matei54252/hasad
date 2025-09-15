@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { 
-  Leaf, 
-  Calendar, 
-  Camera, 
-  TrendingUp, 
+import {
+  Leaf,
+  Calendar,
+  Camera,
+  TrendingUp,
   Droplets,
   Sun,
   Thermometer,
   Plus,
   Edit,
   Eye,
-  BarChart3
+  BarChart3,
 } from 'lucide-react';
 import { Crop, GrowthLog, FarmSite } from '../../types';
 
@@ -48,7 +48,7 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
         notes: 'Excellent growth, ready for harvest',
         photos: [],
         created_at: '2024-01-15T00:00:00Z',
-        updated_at: '2024-02-10T00:00:00Z'
+        updated_at: '2024-02-10T00:00:00Z',
       },
       {
         id: '2',
@@ -66,7 +66,7 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
         notes: 'Flowering stage, good fruit set',
         photos: [],
         created_at: '2024-01-20T00:00:00Z',
-        updated_at: '2024-02-10T00:00:00Z'
+        updated_at: '2024-02-10T00:00:00Z',
       },
       {
         id: '3',
@@ -84,8 +84,8 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
         notes: 'Steady growth, regular pruning needed',
         photos: [],
         created_at: '2024-02-01T00:00:00Z',
-        updated_at: '2024-02-10T00:00:00Z'
-      }
+        updated_at: '2024-02-10T00:00:00Z',
+      },
     ];
 
     const mockGrowthLogs: GrowthLog[] = [
@@ -99,7 +99,7 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
         notes: 'Ready for harvest, excellent color and texture',
         photos: [],
         actions_taken: ['Nutrient adjustment', 'pH monitoring'],
-        created_by: 'farmer1'
+        created_by: 'farmer1',
       },
       {
         id: '2',
@@ -111,8 +111,8 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
         notes: 'Rapid growth, good leaf development',
         photos: [],
         actions_taken: ['Pruning', 'Water adjustment'],
-        created_by: 'farmer1'
-      }
+        created_by: 'farmer1',
+      },
     ];
 
     setCrops(mockCrops);
@@ -122,12 +122,18 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'planted': return 'bg-blue-100 text-blue-800';
-      case 'growing': return 'bg-green-100 text-green-800';
-      case 'flowering': return 'bg-yellow-100 text-yellow-800';
-      case 'harvest_ready': return 'bg-orange-100 text-orange-800';
-      case 'harvested': return 'bg-gray-100 text-gray-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'planted':
+        return 'bg-blue-100 text-blue-800';
+      case 'growing':
+        return 'bg-green-100 text-green-800';
+      case 'flowering':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'harvest_ready':
+        return 'bg-orange-100 text-orange-800';
+      case 'harvested':
+        return 'bg-gray-100 text-gray-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -139,12 +145,18 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'leafy_greens': return '🥬';
-      case 'vegetables': return '🍅';
-      case 'herbs': return '🌿';
-      case 'fruits': return '🍎';
-      case 'grains': return '🌾';
-      default: return '🌱';
+      case 'leafy_greens':
+        return '🥬';
+      case 'vegetables':
+        return '🍅';
+      case 'herbs':
+        return '🌿';
+      case 'fruits':
+        return '🍎';
+      case 'grains':
+        return '🌾';
+      default:
+        return '🌱';
     }
   };
 
@@ -216,11 +228,17 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">{getCategoryIcon(crop.category)}</span>
                   <div>
-                    <h3 className="font-semibold text-gray-900 truncate max-w-[120px] sm:max-w-none">{crop.name}</h3>
-                    <p className="text-sm text-gray-600 truncate max-w-[120px] sm:max-w-none">{crop.variety}</p>
+                    <h3 className="font-semibold text-gray-900 truncate max-w-[120px] sm:max-w-none">
+                      {crop.name}
+                    </h3>
+                    <p className="text-sm text-gray-600 truncate max-w-[120px] sm:max-w-none">
+                      {crop.variety}
+                    </p>
                   </div>
                 </div>
-                <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(crop.status)}`}>
+                <span
+                  className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(crop.status)}`}
+                >
                   {crop.status.replace('_', ' ')}
                 </span>
               </div>
@@ -234,7 +252,7 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
                   <span className="text-sm font-bold text-green-600">{crop.growth_stage}%</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div 
+                  <div
                     className="bg-green-500 h-2 rounded-full transition-all duration-300"
                     style={{ width: `${crop.growth_stage}%` }}
                   />
@@ -257,11 +275,15 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Planted:</span>
-                  <span className="font-medium text-right">{new Date(crop.planted_date).toLocaleDateString()}</span>
+                  <span className="font-medium text-right">
+                    {new Date(crop.planted_date).toLocaleDateString()}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Harvest:</span>
-                  <span className="font-medium text-right">{new Date(crop.expected_harvest_date).toLocaleDateString()}</span>
+                  <span className="font-medium text-right">
+                    {new Date(crop.expected_harvest_date).toLocaleDateString()}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Quantity:</span>
@@ -304,12 +326,10 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
             <div className="p-6 border-b border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900">Add New Crop</h3>
             </div>
-            
+
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Crop Name
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Crop Name</label>
                 <input
                   type="text"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
@@ -318,9 +338,7 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Variety
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Variety</label>
                 <input
                   type="text"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
@@ -329,9 +347,7 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Category
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
                 <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
                   <option value="leafy_greens">Leafy Greens</option>
                   <option value="vegetables">Vegetables</option>
@@ -386,9 +402,7 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Notes
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
                 <textarea
                   rows={3}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
@@ -424,7 +438,7 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
                 Growth Log - {selectedCrop.name}
               </h3>
             </div>
-            
+
             <div className="p-6 space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -469,7 +483,13 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
                   Actions Taken
                 </label>
                 <div className="space-y-2">
-                  {['Watering', 'Nutrient adjustment', 'Pruning', 'pH monitoring', 'Pest control'].map(action => (
+                  {[
+                    'Watering',
+                    'Nutrient adjustment',
+                    'Pruning',
+                    'pH monitoring',
+                    'Pest control',
+                  ].map(action => (
                     <label key={action} className="flex items-center gap-2">
                       <input type="checkbox" className="w-4 h-4 text-green-600" />
                       <span className="text-sm text-gray-700">{action}</span>
@@ -479,9 +499,7 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Notes
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
                 <textarea
                   rows={3}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
@@ -490,9 +508,7 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Photos
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Photos</label>
                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
                   <Camera className="w-8 h-8 text-gray-400 mx-auto mb-2" />
                   <p className="text-sm text-gray-600">Click to add photos</p>

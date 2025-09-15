@@ -5,7 +5,7 @@ import { Shield, Clock, Trash2 } from 'lucide-react';
 
 /**
  * RememberMeInfo Component
- * 
+ *
  * Displays information about stored credentials and provides
  * management options for the remember me functionality
  */
@@ -41,23 +41,20 @@ export const RememberMeInfo: React.FC = () => {
       <div className="flex items-start gap-3">
         <Shield className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
         <div className="flex-1">
-          <h4 className="text-sm font-semibold text-green-800 mb-2">
-            Credentials Remembered
-          </h4>
+          <h4 className="text-sm font-semibold text-green-800 mb-2">Credentials Remembered</h4>
           <div className="space-y-2 text-xs text-green-700">
             <div className="flex items-center gap-2">
               <Clock className="w-3 h-3" />
               <span>
-                Expires in {expirationInfo.daysRemaining} day{expirationInfo.daysRemaining !== 1 ? 's' : ''}
+                Expires in {expirationInfo.daysRemaining} day
+                {expirationInfo.daysRemaining !== 1 ? 's' : ''}
               </span>
             </div>
             <div className="flex items-center gap-2">
               <Shield className="w-3 h-3" />
               <span>Email: {storedCredentials.email}</span>
             </div>
-            <p className="text-green-600 font-medium">
-              Password is never stored for your security
-            </p>
+            <p className="text-green-600 font-medium">Password is never stored for your security</p>
           </div>
         </div>
         <button

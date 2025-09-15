@@ -17,7 +17,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
   contact,
   onSubmit,
   onCancel,
-  loading = false
+  loading = false,
 }) => {
   const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -25,23 +25,25 @@ export const ContactForm: React.FC<ContactFormProps> = ({
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
-    defaultValues: contact ? {
-      contact_name: contact.contact_name,
-      contact_email: contact.contact_email,
-      contact_mobile: contact.contact_mobile || '',
-      contact_tel: contact.contact_tel || '',
-      contact_address: contact.contact_address || '',
-      contact_postcode: contact.contact_postcode || '',
-      contact_city: contact.contact_city || '',
-      contact_country: contact.contact_country || '',
-      contact_nationality: contact.contact_nationality || '',
-      contact_type: contact.contact_type
-    } : {
-      contact_type: 'consumer'
-    }
+    defaultValues: contact
+      ? {
+          contact_name: contact.contact_name,
+          contact_email: contact.contact_email,
+          contact_mobile: contact.contact_mobile || '',
+          contact_tel: contact.contact_tel || '',
+          contact_address: contact.contact_address || '',
+          contact_postcode: contact.contact_postcode || '',
+          contact_city: contact.contact_city || '',
+          contact_country: contact.contact_country || '',
+          contact_nationality: contact.contact_nationality || '',
+          contact_type: contact.contact_type,
+        }
+      : {
+          contact_type: 'consumer',
+        },
   });
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -213,9 +215,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  {t('city')}
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{t('city')}</label>
                 <input
                   {...register('contact_city')}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -234,9 +234,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                {t('address')}
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">{t('address')}</label>
               <div className="relative">
                 <MapPin className="absolute inset-inline-start-3 top-3 text-gray-400 w-5 h-5" />
                 <textarea

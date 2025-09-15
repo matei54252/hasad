@@ -11,7 +11,7 @@ export const RegisterScreen: React.FC = () => {
     confirmPassword: '',
     type: 'consumer' as 'farmer' | 'consumer',
     location: '',
-    phone: ''
+    phone: '',
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -19,7 +19,7 @@ export const RegisterScreen: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -41,7 +41,7 @@ export const RegisterScreen: React.FC = () => {
         type: formData.type,
         location: formData.location,
         phone: formData.phone,
-        password: formData.password
+        password: formData.password,
       });
     } catch (err) {
       setError('Registration failed. Please try again.');
@@ -51,7 +51,10 @@ export const RegisterScreen: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center px-4" style={{ background: 'linear-gradient(135deg, #4a7c59 0%, #6b9b7a 100%)' }}>
+    <div
+      className="min-h-screen flex flex-col justify-center px-4"
+      style={{ background: 'linear-gradient(135deg, #4a7c59 0%, #6b9b7a 100%)' }}
+    >
       <div className="w-full max-w-sm mx-auto">
         {/* Logo */}
         <div className="text-center mb-8">
@@ -153,7 +156,9 @@ export const RegisterScreen: React.FC = () => {
                 value={formData.location}
                 onChange={handleInputChange}
                 className="form-input"
-                placeholder={formData.type === 'farmer' ? 'Enter your farm location' : 'Enter your location'}
+                placeholder={
+                  formData.type === 'farmer' ? 'Enter your farm location' : 'Enter your location'
+                }
                 required
               />
             </div>
@@ -184,11 +189,7 @@ export const RegisterScreen: React.FC = () => {
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="btn btn-primary w-full mb-4"
-            >
+            <button type="submit" disabled={loading} className="btn btn-primary w-full mb-4">
               {loading ? 'Creating Account...' : 'Create Account'}
             </button>
           </form>

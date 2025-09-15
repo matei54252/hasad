@@ -17,13 +17,13 @@ export const ContactList: React.FC = () => {
   const [formLoading, setFormLoading] = useState(false);
 
   const filteredContacts = contacts.filter(contact => {
-    const matchesSearch = 
+    const matchesSearch =
       contact.contact_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       contact.contact_email.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (contact.contact_mobile && contact.contact_mobile.includes(searchTerm));
-    
+
     const matchesFilter = filterType === 'all' || contact.contact_type === filterType;
-    
+
     return matchesSearch && matchesFilter;
   });
 
@@ -41,7 +41,7 @@ export const ContactList: React.FC = () => {
 
   const handleUpdateContact = async (data: ContactFormData) => {
     if (!editingContact?.contact_id) return;
-    
+
     setFormLoading(true);
     try {
       await updateContact(editingContact.contact_id, data);
@@ -89,7 +89,7 @@ export const ContactList: React.FC = () => {
             {contacts.length} {contacts.length === 1 ? 'contact' : 'contacts'}
           </p>
         </div>
-        
+
         <button
           onClick={() => setShowForm(true)}
           className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
@@ -106,17 +106,17 @@ export const ContactList: React.FC = () => {
           <input
             type="text"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={e => setSearchTerm(e.target.value)}
             placeholder={t('search')}
             className="w-full ps-10 pe-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
-        
+
         <div className="relative">
           <Filter className="absolute inset-inline-start-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
           <select
             value={filterType}
-            onChange={(e) => setFilterType(e.target.value)}
+            onChange={e => setFilterType(e.target.value)}
             className="ps-10 pe-8 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white"
           >
             <option value="all">All Types</option>
@@ -137,10 +137,9 @@ export const ContactList: React.FC = () => {
             {searchTerm ? 'No contacts found' : t('noContacts')}
           </h3>
           <p className="text-gray-600 mb-6">
-            {searchTerm 
+            {searchTerm
               ? 'Try adjusting your search or filter criteria'
-              : 'Get started by adding your first contact'
-            }
+              : 'Get started by adding your first contact'}
           </p>
           {!searchTerm && (
             <button
@@ -154,7 +153,7 @@ export const ContactList: React.FC = () => {
         </div>
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {filteredContacts.map((contact) => (
+          {filteredContacts.map(contact => (
             <ContactCard
               key={contact.contact_id}
               contact={contact}

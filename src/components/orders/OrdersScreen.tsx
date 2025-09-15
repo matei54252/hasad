@@ -12,22 +12,20 @@ export const OrdersScreen: React.FC = () => {
       farmer: 'Green Valley Farm',
       items: [
         { name: 'Fresh Lettuce', quantity: 2, price: 3.99, image: '🥬' },
-        { name: 'Organic Tomatoes', quantity: 1, price: 4.50, image: '🍅' }
+        { name: 'Organic Tomatoes', quantity: 1, price: 4.5, image: '🍅' },
       ],
       status: 'Delivered',
       total: 12.48,
-      deliveryDate: '2024-01-16'
+      deliveryDate: '2024-01-16',
     },
     {
       id: '#1235',
       date: '2024-01-14',
       farmer: 'Sunny Acres',
-      items: [
-        { name: 'Sweet Corn', quantity: 3, price: 2.99, image: '🌽' }
-      ],
+      items: [{ name: 'Sweet Corn', quantity: 3, price: 2.99, image: '🌽' }],
       status: 'Shipped',
       total: 8.97,
-      deliveryDate: '2024-01-17'
+      deliveryDate: '2024-01-17',
     },
     {
       id: '#1236',
@@ -35,12 +33,12 @@ export const OrdersScreen: React.FC = () => {
       farmer: 'Harvest Hills',
       items: [
         { name: 'Fresh Apples', quantity: 2, price: 3.25, image: '🍎' },
-        { name: 'Organic Carrots', quantity: 1, price: 2.75, image: '🥕' }
+        { name: 'Organic Carrots', quantity: 1, price: 2.75, image: '🥕' },
       ],
       status: 'Processing',
       total: 9.25,
-      deliveryDate: '2024-01-18'
-    }
+      deliveryDate: '2024-01-18',
+    },
   ];
 
   const farmerOrders = [
@@ -49,37 +47,31 @@ export const OrdersScreen: React.FC = () => {
       date: '2024-01-15',
       customer: 'Emma Johnson',
       customerAvatar: '👩‍💼',
-      items: [
-        { name: 'Fresh Lettuce', quantity: 5, price: 3.99, image: '🥬' }
-      ],
+      items: [{ name: 'Fresh Lettuce', quantity: 5, price: 3.99, image: '🥬' }],
       status: 'Delivered',
       total: 19.95,
-      deliveryDate: '2024-01-16'
+      deliveryDate: '2024-01-16',
     },
     {
       id: '#1235',
       date: '2024-01-14',
       customer: 'Mike Chen',
       customerAvatar: '👨‍💻',
-      items: [
-        { name: 'Organic Tomatoes', quantity: 3, price: 4.50, image: '🍅' }
-      ],
+      items: [{ name: 'Organic Tomatoes', quantity: 3, price: 4.5, image: '🍅' }],
       status: 'Shipped',
-      total: 13.50,
-      deliveryDate: '2024-01-17'
+      total: 13.5,
+      deliveryDate: '2024-01-17',
     },
     {
       id: '#1236',
       date: '2024-01-13',
       customer: 'Sarah Wilson',
       customerAvatar: '👩‍🎨',
-      items: [
-        { name: 'Sweet Corn', quantity: 8, price: 2.99, image: '🌽' }
-      ],
+      items: [{ name: 'Sweet Corn', quantity: 8, price: 2.99, image: '🌽' }],
       status: 'Processing',
       total: 23.92,
-      deliveryDate: '2024-01-18'
-    }
+      deliveryDate: '2024-01-18',
+    },
   ];
 
   const orders = user?.type === 'farmer' ? farmerOrders : consumerOrders;
@@ -156,7 +148,7 @@ export const OrdersScreen: React.FC = () => {
 
       {/* Orders List */}
       <div className="space-y-4">
-        {filteredOrders.map((order) => (
+        {filteredOrders.map(order => (
           <div key={order.id} className="card">
             {/* Order Header */}
             <div className="flex items-center justify-between mb-4">
@@ -216,28 +208,18 @@ export const OrdersScreen: React.FC = () => {
               {user?.type === 'farmer' ? (
                 <>
                   {order.status === 'Processing' && (
-                    <button className="btn btn-primary btn-sm flex-1">
-                      Mark as Shipped
-                    </button>
+                    <button className="btn btn-primary btn-sm flex-1">Mark as Shipped</button>
                   )}
-                  <button className="btn btn-outline btn-sm flex-1">
-                    Contact Customer
-                  </button>
+                  <button className="btn btn-outline btn-sm flex-1">Contact Customer</button>
                 </>
               ) : (
                 <>
                   {order.status !== 'Delivered' && (
-                    <button className="btn btn-outline btn-sm flex-1">
-                      Track Order
-                    </button>
+                    <button className="btn btn-outline btn-sm flex-1">Track Order</button>
                   )}
-                  <button className="btn btn-outline btn-sm flex-1">
-                    Contact Farmer
-                  </button>
+                  <button className="btn btn-outline btn-sm flex-1">Contact Farmer</button>
                   {order.status === 'Delivered' && (
-                    <button className="btn btn-primary btn-sm flex-1">
-                      Reorder
-                    </button>
+                    <button className="btn btn-primary btn-sm flex-1">Reorder</button>
                   )}
                 </>
               )}
@@ -252,10 +234,9 @@ export const OrdersScreen: React.FC = () => {
           <div className="text-6xl mb-4">📦</div>
           <h3 className="heading-md mb-2">No orders found</h3>
           <p className="body-md text-gray-600">
-            {activeTab === 'active' 
+            {activeTab === 'active'
               ? 'You have no active orders at the moment'
-              : 'You have no completed orders yet'
-            }
+              : 'You have no completed orders yet'}
           </p>
         </div>
       )}

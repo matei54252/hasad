@@ -29,13 +29,22 @@ export const Header: React.FC = () => {
 
           {/* Navigation */}
           <nav className="hidden md:flex space-x-8 space-x-reverse">
-            <a href="#dashboard" className="text-white hover:text-blue-200 transition-colors font-medium">
+            <a
+              href="#dashboard"
+              className="text-white hover:text-blue-200 transition-colors font-medium"
+            >
               {t('dashboard')}
             </a>
-            <a href="#contacts" className="text-white hover:text-blue-200 transition-colors font-medium">
+            <a
+              href="#contacts"
+              className="text-white hover:text-blue-200 transition-colors font-medium"
+            >
               {t('contacts')}
             </a>
-            <a href="#profile" className="text-white hover:text-blue-200 transition-colors font-medium">
+            <a
+              href="#profile"
+              className="text-white hover:text-blue-200 transition-colors font-medium"
+            >
               {t('profile')}
             </a>
           </nav>
@@ -43,14 +52,14 @@ export const Header: React.FC = () => {
           {/* User Actions */}
           <div className="flex items-center gap-4">
             <LanguageSwitcher variant="header" />
-            
+
             {user && (
               <div className="flex items-center gap-3">
                 <div className="hidden sm:flex items-center gap-2 text-white">
                   <User size={18} />
                   <span className="text-sm">{user.email}</span>
                 </div>
-                
+
                 <button
                   onClick={handleSignOut}
                   className="flex items-center gap-2 px-3 py-2 rounded-lg bg-red-500 hover:bg-red-600 transition-colors text-white text-sm font-medium"

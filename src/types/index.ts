@@ -283,7 +283,14 @@ export interface Order {
     date: string;
     time_slot: string;
   };
-  status: 'placed' | 'confirmed' | 'preparing' | 'ready' | 'out_for_delivery' | 'delivered' | 'cancelled';
+  status:
+    | 'placed'
+    | 'confirmed'
+    | 'preparing'
+    | 'ready'
+    | 'out_for_delivery'
+    | 'delivered'
+    | 'cancelled';
   tracking_number?: string;
   notes?: string;
   created_at: string;
@@ -372,7 +379,7 @@ export interface Analytics {
     mrr: number; // Monthly Recurring Revenue
     total_revenue: number;
     average_order_value: number;
-    
+
     // Product metrics
     products_sold: number;
     top_selling_products: {
@@ -381,24 +388,24 @@ export interface Analytics {
       quantity_sold: number;
       revenue: number;
     }[];
-    
+
     // Customer metrics
     new_customers: number;
     returning_customers: number;
     customer_acquisition_cost: number;
     customer_lifetime_value: number;
     churn_rate: number;
-    
+
     // Engagement metrics
     active_users: number;
     page_views: number;
     session_duration: number;
     bounce_rate: number;
-    
+
     // Conversion metrics
     conversion_rate: number;
     cart_abandonment_rate: number;
-    
+
     // Referral metrics
     referral_count: number;
     referral_conversion_rate: number;

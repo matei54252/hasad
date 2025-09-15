@@ -14,7 +14,9 @@ if (!supabaseAnonKey) {
 
 if (!supabaseUrl || !supabaseAnonKey) {
   console.error('❌ Missing required Supabase environment variables');
-  console.error('Please check your .env file and ensure both VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set');
+  console.error(
+    'Please check your .env file and ensure both VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set'
+  );
 }
 
 // Create Supabase client with proper configuration
@@ -22,8 +24,8 @@ export const supabase = createClient(supabaseUrl || '', supabaseAnonKey || '', {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
-    detectSessionInUrl: false
-  }
+    detectSessionInUrl: false,
+  },
 });
 
 // Simple connection check
@@ -53,7 +55,10 @@ export interface Database {
           created_at: string;
           updated_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['contacts']['Row'], 'contact_id' | 'created_at' | 'updated_at'>;
+        Insert: Omit<
+          Database['public']['Tables']['contacts']['Row'],
+          'contact_id' | 'created_at' | 'updated_at'
+        >;
         Update: Partial<Database['public']['Tables']['contacts']['Insert']>;
       };
     };

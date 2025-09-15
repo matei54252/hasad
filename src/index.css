@@ -143,9 +143,77 @@ main {
   text-align: start;
 }
 
+/* RTL-specific marketplace and cart styles */
+.flex-row-reverse-rtl {
+  flex-direction: row;
+}
+
+[dir="rtl"] .flex-row-reverse-rtl {
+  flex-direction: row-reverse;
+}
+
+/* Icon flipping for RTL */
+.rtl-scale-x-flip-rtl {
+  transform: scaleX(1);
+}
+
+[dir="rtl"] .rtl-scale-x-flip-rtl {
+  transform: scaleX(-1);
+}
+
+/* Marketplace card RTL enhancements */
+.marketplace-card {
+  text-align: start;
+}
+
+[dir="rtl"] .marketplace-card {
+  text-align: start;
+}
+
+/* Cart item RTL layout */
+.cart-item-layout {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+[dir="rtl"] .cart-item-layout {
+  flex-direction: row-reverse;
+}
+
+/* Price display RTL support */
+.price-display {
+  direction: ltr;
+  text-align: end;
+}
+
+[dir="rtl"] .price-display {
+  text-align: start;
+}
+
+/* Quantity controls RTL */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+[dir="rtl"] .quantity-controls {
+  flex-direction: row-reverse;
+}
+
 /* Prevent element repositioning */
 .preserve-position {
   position: relative !important;
   inset-inline-start: auto !important;
   inset-inline-end: auto !important;
+}
+
+/* Icon flipping for RTL (for directional icons like trucks, arrows) */
+[dir="rtl"] .rtl-scale-x-flip-rtl {
+  transform: scaleX(-1);
+}
+
+[dir="ltr"] .rtl-scale-x-flip-rtl {
+  transform: scaleX(1);
 }

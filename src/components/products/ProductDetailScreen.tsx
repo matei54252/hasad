@@ -36,7 +36,7 @@ export const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({ produc
       avatar: '👩‍💼',
       rating: 5,
       comment: 'Fresh and delicious! Will definitely order again.',
-      date: '2 days ago'
+      date: '2 days ago',
     },
     {
       id: '2',
@@ -44,16 +44,16 @@ export const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({ produc
       avatar: '👨‍💻',
       rating: 4,
       comment: 'Good quality, delivered on time.',
-      date: '1 week ago'
+      date: '1 week ago',
     },
     {
       id: '3',
       user: 'Sarah Wilson',
       avatar: '👩‍🎨',
       rating: 5,
-      comment: 'Best lettuce I\'ve had in a long time!',
-      date: '2 weeks ago'
-    }
+      comment: "Best lettuce I've had in a long time!",
+      date: '2 weeks ago',
+    },
   ];
 
   return (
@@ -61,10 +61,7 @@ export const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({ produc
       {/* Header */}
       <div className="p-4 border-b border-gray-200">
         <div className="flex items-center gap-3">
-          <button
-            onClick={onBack}
-            className="p-2 hover:bg-gray-100 rounded-lg"
-          >
+          <button onClick={onBack} className="p-2 hover:bg-gray-100 rounded-lg">
             ←
           </button>
           <h1 className="heading-lg">Product Details</h1>
@@ -86,19 +83,26 @@ export const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({ produc
         <div className="mb-6">
           <h2 className="heading-xl mb-2">{product.name}</h2>
           <p className="body-lg text-gray-600 mb-4">{product.farmer}</p>
-          
+
           <div className="flex items-center justify-between mb-4">
             <div className="text-3xl font-bold text-green-600">
               ${product.price.toFixed(2)}
               <span className="text-lg text-gray-500 font-normal"> / {product.unit}</span>
             </div>
-            <div className={`status-indicator ${
-              product.inStock > 10 ? 'status-success' :
-              product.inStock > 0 ? 'status-warning' : 'status-error'
-            }`}
+            <div
+              className={`status-indicator ${
+                product.inStock > 10
+                  ? 'status-success'
+                  : product.inStock > 0
+                    ? 'status-warning'
+                    : 'status-error'
+              }`}
             >
-              {product.inStock > 10 ? '✅ In Stock' :
-               product.inStock > 0 ? '⚠️ Low Stock' : '❌ Out of Stock'}
+              {product.inStock > 10
+                ? '✅ In Stock'
+                : product.inStock > 0
+                  ? '⚠️ Low Stock'
+                  : '❌ Out of Stock'}
             </div>
           </div>
 
@@ -126,9 +130,7 @@ export const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({ produc
             </div>
             <div className="text-right">
               <p className="body-sm text-gray-600">Total</p>
-              <p className="heading-md text-green-600">
-                ${(product.price * quantity).toFixed(2)}
-              </p>
+              <p className="heading-md text-green-600">${(product.price * quantity).toFixed(2)}</p>
             </div>
           </div>
         </div>
@@ -143,13 +145,11 @@ export const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({ produc
               <h3 className="heading-sm">{product.farmer}</h3>
               <p className="body-sm text-gray-600">Organic Farm • 5.2 miles away</p>
             </div>
-            <button className="btn btn-outline btn-sm">
-              Visit Farm
-            </button>
+            <button className="btn btn-outline btn-sm">Visit Farm</button>
           </div>
           <p className="body-sm text-gray-600">
-            Family-owned organic farm specializing in fresh vegetables and herbs. 
-            Committed to sustainable farming practices.
+            Family-owned organic farm specializing in fresh vegetables and herbs. Committed to
+            sustainable farming practices.
           </p>
         </div>
 
@@ -157,13 +157,11 @@ export const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({ produc
         <div className="mb-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="heading-md">Reviews ({product.reviews})</h3>
-            <button className="btn btn-outline btn-sm">
-              Write Review
-            </button>
+            <button className="btn btn-outline btn-sm">Write Review</button>
           </div>
-          
+
           <div className="space-y-4">
-            {reviews.map((review) => (
+            {reviews.map(review => (
               <div key={review.id} className="card">
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
@@ -200,12 +198,12 @@ export const ProductDetailScreen: React.FC<ProductDetailScreenProps> = ({ produc
             onClick={handleAddToCart}
             disabled={product.inStock === 0}
             className={`btn w-full btn-lg ${
-              product.inStock === 0 
-                ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
-                : 'btn-primary'
+              product.inStock === 0 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'btn-primary'
             }`}
           >
-            {product.inStock === 0 ? 'Out of Stock' : `Add ${quantity} to Cart - $${(product.price * quantity).toFixed(2)}`}
+            {product.inStock === 0
+              ? 'Out of Stock'
+              : `Add ${quantity} to Cart - $${(product.price * quantity).toFixed(2)}`}
           </button>
         </div>
       </div>

@@ -42,7 +42,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (email: string, password: string, type: 'farmer' | 'consumer') => {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     const mockUser: User = {
       id: '1',
       name: type === 'farmer' ? 'John Farmer' : 'Emma Consumer',
@@ -50,9 +50,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       type,
       avatar: type === 'farmer' ? '👨‍🌾' : '👩‍💼',
       location: type === 'farmer' ? 'Green Valley Farm' : 'Downtown',
-      phone: '+1 (555) 123-4567'
+      phone: '+1 (555) 123-4567',
     };
-    
+
     setUser(mockUser);
     localStorage.setItem('hasad_user', JSON.stringify(mockUser));
   };
@@ -60,13 +60,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const register = async (userData: Omit<User, 'id'> & { password: string }) => {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     const newUser: User = {
       ...userData,
       id: Date.now().toString(),
-      avatar: userData.type === 'farmer' ? '👨‍🌾' : '👩‍💼'
+      avatar: userData.type === 'farmer' ? '👨‍🌾' : '👩‍💼',
     };
-    
+
     setUser(newUser);
     localStorage.setItem('hasad_user', JSON.stringify(newUser));
   };

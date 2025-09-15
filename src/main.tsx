@@ -10,7 +10,7 @@ import './i18n';
 const getStoredLanguage = (): 'ar' | 'en' => {
   try {
     const stored = localStorage.getItem('hasad-language');
-    return (stored === 'ar' || stored === 'en') ? stored : 'ar';
+    return stored === 'ar' || stored === 'en' ? stored : 'ar';
   } catch {
     return 'ar';
   }
@@ -22,7 +22,7 @@ document.documentElement.lang = initialLanguage;
 
 // Add error handling for development
 if (import.meta.env.DEV) {
-  window.addEventListener('unhandledrejection', (event) => {
+  window.addEventListener('unhandledrejection', event => {
     console.error('Unhandled promise rejection:', event.reason);
   });
 }

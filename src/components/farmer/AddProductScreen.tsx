@@ -8,14 +8,14 @@ export const AddProductScreen: React.FC = () => {
     unit: 'lb',
     quantity: '',
     description: '',
-    image: '🥬'
+    image: '🥬',
   });
 
   const categories = [
     { id: 'vegetables', name: 'Vegetables', icon: '🥬' },
     { id: 'fruits', name: 'Fruits', icon: '🍎' },
     { id: 'herbs', name: 'Herbs', icon: '🌿' },
-    { id: 'grains', name: 'Grains', icon: '🌾' }
+    { id: 'grains', name: 'Grains', icon: '🌾' },
   ];
 
   const units = ['lb', 'kg', 'bunch', 'piece', 'dozen'];
@@ -24,13 +24,15 @@ export const AddProductScreen: React.FC = () => {
     vegetables: ['🥬', '🍅', '🥕', '🌽', '🥒', '🧅', '🥔', '🫑'],
     fruits: ['🍎', '🍊', '🍌', '🍇', '🍓', '🥝', '🍑', '🥭'],
     herbs: ['🌿', '🌱', '🍃', '🌾'],
-    grains: ['🌾', '🌽', '🍚']
+    grains: ['🌾', '🌽', '🍚'],
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -47,7 +49,7 @@ export const AddProductScreen: React.FC = () => {
       unit: 'lb',
       quantity: '',
       description: '',
-      image: '🥬'
+      image: '🥬',
     });
   };
 
@@ -64,7 +66,7 @@ export const AddProductScreen: React.FC = () => {
         <div className="form-group">
           <label className="form-label">Product Icon</label>
           <div className="grid grid-cols-4 gap-2">
-            {productIcons[formData.category as keyof typeof productIcons].map((icon) => (
+            {productIcons[formData.category as keyof typeof productIcons].map(icon => (
               <button
                 key={icon}
                 type="button"
@@ -105,7 +107,7 @@ export const AddProductScreen: React.FC = () => {
             className="form-input"
             required
           >
-            {categories.map((category) => (
+            {categories.map(category => (
               <option key={category.id} value={category.id}>
                 {category.icon} {category.name}
               </option>
@@ -138,7 +140,7 @@ export const AddProductScreen: React.FC = () => {
               className="form-input"
               required
             >
-              {units.map((unit) => (
+              {units.map(unit => (
                 <option key={unit} value={unit}>
                   {unit}
                 </option>
@@ -177,7 +179,10 @@ export const AddProductScreen: React.FC = () => {
         </div>
 
         {/* Preview */}
-        <div className="card" style={{ background: 'linear-gradient(135deg, #f8faf9 0%, #e8f5e8 100%)' }}>
+        <div
+          className="card"
+          style={{ background: 'linear-gradient(135deg, #f8faf9 0%, #e8f5e8 100%)' }}
+        >
           <h3 className="heading-md mb-4">Preview</h3>
           <div className="flex items-center gap-4">
             <div className="text-4xl">{formData.image}</div>
@@ -188,9 +193,7 @@ export const AddProductScreen: React.FC = () => {
                 <span className="text-lg font-bold text-green-600">
                   ${formData.price || '0.00'} / {formData.unit}
                 </span>
-                <span className="body-sm text-gray-500">
-                  {formData.quantity || '0'} available
-                </span>
+                <span className="body-sm text-gray-500">{formData.quantity || '0'} available</span>
               </div>
             </div>
           </div>

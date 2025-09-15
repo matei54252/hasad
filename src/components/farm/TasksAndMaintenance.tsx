@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { 
-  Calendar, 
-  CheckSquare, 
-  Clock, 
+import {
+  Calendar,
+  CheckSquare,
+  Clock,
   AlertTriangle,
   Plus,
   Filter,
   User,
   Repeat,
-  Bell
+  Bell,
 } from 'lucide-react';
 import { Task, FarmSite } from '../../types';
 
@@ -45,15 +45,15 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
           { id: '3', item: 'Clean filter housings', completed: false },
           { id: '4', item: 'Install new filters', completed: false },
           { id: '5', item: 'Test water flow', completed: false },
-          { id: '6', item: 'Document replacement date', completed: false }
+          { id: '6', item: 'Document replacement date', completed: false },
         ],
         recurring: {
           enabled: true,
           frequency: 'monthly',
-          interval: 1
+          interval: 1,
         },
         created_at: '2024-02-01T00:00:00Z',
-        updated_at: '2024-02-01T00:00:00Z'
+        updated_at: '2024-02-01T00:00:00Z',
       },
       {
         id: '2',
@@ -70,15 +70,15 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
           { id: '2', item: 'Harvest mature plants', completed: true },
           { id: '3', item: 'Sort and package', completed: false },
           { id: '4', item: 'Update inventory', completed: false },
-          { id: '5', item: 'Clean harvest area', completed: false }
+          { id: '5', item: 'Clean harvest area', completed: false },
         ],
         recurring: {
           enabled: false,
           frequency: 'weekly',
-          interval: 1
+          interval: 1,
         },
         created_at: '2024-02-10T00:00:00Z',
-        updated_at: '2024-02-11T00:00:00Z'
+        updated_at: '2024-02-11T00:00:00Z',
       },
       {
         id: '3',
@@ -97,15 +97,15 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
           { id: '3', item: 'Clean reservoir', completed: true },
           { id: '4', item: 'Mix new nutrient solution', completed: true },
           { id: '5', item: 'Fill reservoir', completed: true },
-          { id: '6', item: 'Test and adjust pH/EC', completed: true }
+          { id: '6', item: 'Test and adjust pH/EC', completed: true },
         ],
         recurring: {
           enabled: true,
           frequency: 'weekly',
-          interval: 2
+          interval: 2,
         },
         created_at: '2024-02-08T00:00:00Z',
-        updated_at: '2024-02-10T00:00:00Z'
+        updated_at: '2024-02-10T00:00:00Z',
       },
       {
         id: '4',
@@ -122,16 +122,16 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
           { id: '2', item: 'Inspect irrigation lines', completed: false },
           { id: '3', item: 'Test sensors', completed: false },
           { id: '4', item: 'Check lighting systems', completed: false },
-          { id: '5', item: 'Document findings', completed: false }
+          { id: '5', item: 'Document findings', completed: false },
         ],
         recurring: {
           enabled: true,
           frequency: 'weekly',
-          interval: 1
+          interval: 1,
         },
         created_at: '2024-02-01T00:00:00Z',
-        updated_at: '2024-02-01T00:00:00Z'
-      }
+        updated_at: '2024-02-01T00:00:00Z',
+      },
     ];
 
     setTasks(mockTasks);
@@ -140,33 +140,50 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'urgent': return 'bg-red-100 text-red-800 border-red-200';
-      case 'high': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'low': return 'bg-green-100 text-green-800 border-green-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'urgent':
+        return 'bg-red-100 text-red-800 border-red-200';
+      case 'high':
+        return 'bg-orange-100 text-orange-800 border-orange-200';
+      case 'medium':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'low':
+        return 'bg-green-100 text-green-800 border-green-200';
+      default:
+        return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'bg-green-100 text-green-800';
-      case 'in_progress': return 'bg-blue-100 text-blue-800';
-      case 'pending': return 'bg-gray-100 text-gray-800';
-      case 'overdue': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'completed':
+        return 'bg-green-100 text-green-800';
+      case 'in_progress':
+        return 'bg-blue-100 text-blue-800';
+      case 'pending':
+        return 'bg-gray-100 text-gray-800';
+      case 'overdue':
+        return 'bg-red-100 text-red-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case 'maintenance': return '🔧';
-      case 'planting': return '🌱';
-      case 'harvesting': return '🌾';
-      case 'cleaning': return '🧽';
-      case 'inspection': return '🔍';
-      case 'nutrient_change': return '💧';
-      default: return '📋';
+      case 'maintenance':
+        return '🔧';
+      case 'planting':
+        return '🌱';
+      case 'harvesting':
+        return '🌾';
+      case 'cleaning':
+        return '🧽';
+      case 'inspection':
+        return '🔍';
+      case 'nutrient_change':
+        return '💧';
+      default:
+        return '📋';
     }
   };
 
@@ -177,30 +194,34 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
   });
 
   const handleTaskStatusUpdate = (taskId: string, newStatus: string) => {
-    setTasks(prev => prev.map(task => 
-      task.id === taskId 
-        ? { 
-            ...task, 
-            status: newStatus as any,
-            completed_date: newStatus === 'completed' ? new Date().toISOString() : undefined,
-            updated_at: new Date().toISOString()
-          }
-        : task
-    ));
+    setTasks(prev =>
+      prev.map(task =>
+        task.id === taskId
+          ? {
+              ...task,
+              status: newStatus as any,
+              completed_date: newStatus === 'completed' ? new Date().toISOString() : undefined,
+              updated_at: new Date().toISOString(),
+            }
+          : task
+      )
+    );
   };
 
   const handleChecklistUpdate = (taskId: string, checklistItemId: string, completed: boolean) => {
-    setTasks(prev => prev.map(task => 
-      task.id === taskId 
-        ? {
-            ...task,
-            checklist: task.checklist.map(item =>
-              item.id === checklistItemId ? { ...item, completed } : item
-            ),
-            updated_at: new Date().toISOString()
-          }
-        : task
-    ));
+    setTasks(prev =>
+      prev.map(task =>
+        task.id === taskId
+          ? {
+              ...task,
+              checklist: task.checklist.map(item =>
+                item.id === checklistItemId ? { ...item, completed } : item
+              ),
+              updated_at: new Date().toISOString(),
+            }
+          : task
+      )
+    );
   };
 
   const getTaskProgress = (task: Task) => {
@@ -268,7 +289,7 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
             <Filter className="w-4 h-4 text-gray-600" />
             <select
               value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value)}
+              onChange={e => setFilterStatus(e.target.value)}
               className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
             >
               <option value="all">All Status</option>
@@ -278,10 +299,10 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
               <option value="overdue">Overdue</option>
             </select>
           </div>
-          
+
           <select
             value={filterType}
-            onChange={(e) => setFilterType(e.target.value)}
+            onChange={e => setFilterType(e.target.value)}
             className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
           >
             <option value="all">All Types</option>
@@ -304,12 +325,22 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
               <div className="flex items-start gap-3">
                 <span className="text-2xl">{getTypeIcon(task.type)}</span>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-gray-900 text-sm sm:text-base truncate pr-2">{task.title}</h3>
-                  <p className="text-xs sm:text-sm text-gray-600 mt-1 line-clamp-2 break-words leading-tight">{task.description}</p>
+                  <h3 className="font-semibold text-gray-900 text-sm sm:text-base truncate pr-2">
+                    {task.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-gray-600 mt-1 line-clamp-2 break-words leading-tight">
+                    {task.description}
+                  </p>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 mt-2 text-xs sm:text-sm text-gray-500">
                     <span className="flex items-center gap-1 shrink-0 truncate">
                       <Calendar className="w-4 h-4" />
-                      <span className="truncate">Due: {new Date(task.due_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                      <span className="truncate">
+                        Due:{' '}
+                        {new Date(task.due_date).toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                        })}
+                      </span>
                     </span>
                     <span className="flex items-center gap-1 shrink-0 truncate">
                       <User className="w-4 h-4" />
@@ -324,12 +355,16 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
                   </div>
                 </div>
               </div>
-              
+
               <div className="flex flex-col items-end gap-2 shrink-0">
-                <span className={`px-2 py-1 rounded-full text-xs font-medium border ${getPriorityColor(task.priority)} whitespace-nowrap`}>
+                <span
+                  className={`px-2 py-1 rounded-full text-xs font-medium border ${getPriorityColor(task.priority)} whitespace-nowrap`}
+                >
                   {task.priority}
                 </span>
-                <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(task.status)} whitespace-nowrap`}>
+                <span
+                  className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(task.status)} whitespace-nowrap`}
+                >
                   {task.status.replace('_', ' ')}
                 </span>
               </div>
@@ -339,10 +374,12 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
             <div className="mb-4">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-xs sm:text-sm font-medium text-gray-700">Progress</span>
-                <span className="text-xs sm:text-sm font-bold text-green-600">{getTaskProgress(task)}%</span>
+                <span className="text-xs sm:text-sm font-bold text-green-600">
+                  {getTaskProgress(task)}%
+                </span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
-                <div 
+                <div
                   className="bg-green-500 h-2 rounded-full transition-all duration-300"
                   style={{ width: `${getTaskProgress(task)}%` }}
                 />
@@ -358,10 +395,12 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
                     <input
                       type="checkbox"
                       checked={item.completed}
-                      onChange={(e) => handleChecklistUpdate(task.id, item.id, e.target.checked)}
+                      onChange={e => handleChecklistUpdate(task.id, item.id, e.target.checked)}
                       className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 rounded focus:ring-green-500 shrink-0"
                     />
-                    <span className={`text-xs sm:text-sm break-words leading-tight ${item.completed ? 'line-through text-gray-500' : 'text-gray-700'}`}>
+                    <span
+                      className={`text-xs sm:text-sm break-words leading-tight ${item.completed ? 'line-through text-gray-500' : 'text-gray-700'}`}
+                    >
                       {item.item}
                     </span>
                   </label>
@@ -420,23 +459,29 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
               <h3 className="text-lg font-semibold text-gray-900">{selectedTask.title}</h3>
               <p className="text-sm text-gray-600 mt-1">{selectedTask.description}</p>
             </div>
-            
+
             <div className="p-6">
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
                     <span className="text-gray-600">Type:</span>
-                    <span className="ml-2 font-medium capitalize">{selectedTask.type.replace('_', ' ')}</span>
+                    <span className="ml-2 font-medium capitalize">
+                      {selectedTask.type.replace('_', ' ')}
+                    </span>
                   </div>
                   <div>
                     <span className="text-gray-600">Priority:</span>
-                    <span className={`ml-2 px-2 py-1 rounded text-xs font-medium ${getPriorityColor(selectedTask.priority)}`}>
+                    <span
+                      className={`ml-2 px-2 py-1 rounded text-xs font-medium ${getPriorityColor(selectedTask.priority)}`}
+                    >
                       {selectedTask.priority}
                     </span>
                   </div>
                   <div>
                     <span className="text-gray-600">Due Date:</span>
-                    <span className="ml-2 font-medium">{new Date(selectedTask.due_date).toLocaleDateString()}</span>
+                    <span className="ml-2 font-medium">
+                      {new Date(selectedTask.due_date).toLocaleDateString()}
+                    </span>
                   </div>
                   <div>
                     <span className="text-gray-600">Assigned:</span>
@@ -452,10 +497,14 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
                         <input
                           type="checkbox"
                           checked={item.completed}
-                          onChange={(e) => handleChecklistUpdate(selectedTask.id, item.id, e.target.checked)}
+                          onChange={e =>
+                            handleChecklistUpdate(selectedTask.id, item.id, e.target.checked)
+                          }
                           className="w-4 h-4 text-green-600 rounded focus:ring-green-500"
                         />
-                        <span className={`text-sm ${item.completed ? 'line-through text-gray-500' : 'text-gray-700'}`}>
+                        <span
+                          className={`text-sm ${item.completed ? 'line-through text-gray-500' : 'text-gray-700'}`}
+                        >
                           {item.item}
                         </span>
                       </label>
@@ -470,7 +519,9 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
                       <span className="text-sm font-medium text-blue-800">Recurring Task</span>
                     </div>
                     <p className="text-sm text-blue-700">
-                      Repeats {selectedTask.recurring.frequency} (every {selectedTask.recurring.interval} {selectedTask.recurring.frequency.slice(0, -2)})
+                      Repeats {selectedTask.recurring.frequency} (every{' '}
+                      {selectedTask.recurring.interval}{' '}
+                      {selectedTask.recurring.frequency.slice(0, -2)})
                     </p>
                   </div>
                 )}
@@ -507,12 +558,10 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
             <div className="p-6 border-b border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900">Add New Task</h3>
             </div>
-            
+
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Task Title
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Task Title</label>
                 <input
                   type="text"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
@@ -521,9 +570,7 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Description
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
                 <textarea
                   rows={3}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
@@ -533,9 +580,7 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Type
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
                   <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
                     <option value="maintenance">Maintenance</option>
                     <option value="planting">Planting</option>
@@ -546,9 +591,7 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Priority
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Priority</label>
                   <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -559,9 +602,7 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Due Date
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
                 <input
                   type="date"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
@@ -569,9 +610,7 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Assigned To
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Assigned To</label>
                 <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
                   <option value="farmer1">Farmer 1</option>
                   <option value="farmer2">Farmer 2</option>
@@ -582,7 +621,9 @@ export const TasksAndMaintenance: React.FC<TasksAndMaintenanceProps> = ({ select
               <div>
                 <label className="flex items-center gap-2">
                   <input type="checkbox" className="w-4 h-4 text-green-600" />
-                  <span className="text-sm font-medium text-gray-700">Make this a recurring task</span>
+                  <span className="text-sm font-medium text-gray-700">
+                    Make this a recurring task
+                  </span>
                 </label>
               </div>
             </div>

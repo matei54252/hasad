@@ -16,13 +16,13 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
     name: user?.name || '',
     email: user?.email || '',
     phone: user?.phone || '',
-    location: user?.location || ''
+    location: user?.location || '',
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -36,19 +36,34 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
       name: user?.name || '',
       email: user?.email || '',
       phone: user?.phone || '',
-      location: user?.location || ''
+      location: user?.location || '',
     });
     setIsEditing(false);
   };
 
   const menuItems = [
-    { icon: '📊', title: t('analytics'), subtitle: t('viewYourPerformance'), show: user?.type === 'farmer' },
+    {
+      icon: '📊',
+      title: t('analytics'),
+      subtitle: t('viewYourPerformance'),
+      show: user?.type === 'farmer',
+    },
     { icon: '💳', title: t('paymentMethods'), subtitle: t('manageYourCards') },
-    { icon: '📍', title: t('addresses'), subtitle: t('deliveryAddresses'), show: user?.type === 'consumer' },
+    {
+      icon: '📍',
+      title: t('addresses'),
+      subtitle: t('deliveryAddresses'),
+      show: user?.type === 'consumer',
+    },
     { icon: '🔔', title: t('notificationSettings'), subtitle: t('managePreferences') },
     { icon: '❓', title: t('helpAndSupport'), subtitle: t('getAssistance') },
-    { icon: '⚙️', title: t('appPreferences'), subtitle: t('appPreferences'), action: onNavigateToSettings },
-    { icon: '📋', title: t('termsAndPrivacy'), subtitle: t('legalInformation') }
+    {
+      icon: '⚙️',
+      title: t('appPreferences'),
+      subtitle: t('appPreferences'),
+      action: onNavigateToSettings,
+    },
+    { icon: '📋', title: t('termsAndPrivacy'), subtitle: t('legalInformation') },
   ];
 
   return (
@@ -60,19 +75,26 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
       </div>
 
       {/* Profile Card */}
-      <div className="card mb-6" style={{ background: 'linear-gradient(135deg, #4a7c59 0%, #6b9b7a 100%)' }}>
+      <div
+        className="card mb-6"
+        style={{ background: 'linear-gradient(135deg, #4a7c59 0%, #6b9b7a 100%)' }}
+      >
         <div className="flex items-center gap-4 text-white">
           <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
             <span className="text-3xl">{user?.avatar}</span>
           </div>
           <div className="flex-1">
             <h2 className="text-xl font-bold mb-1">{user?.name}</h2>
-            <p className="text-green-100 mb-1" dir="ltr">{user?.email}</p>
+            <p className="text-green-100 mb-1" dir="ltr">
+              {user?.email}
+            </p>
             <div className="flex items-center gap-2">
               <span className="px-2 py-1 bg-white/20 rounded-full text-xs font-medium">
                 {user?.type === 'farmer' ? `👨‍🌾 ${t('farmer')}` : `🛒 ${t('consumer')}`}
               </span>
-              <span className="text-green-100 text-sm" dir="ltr">⭐ 4.8 {t('rating')}</span>
+              <span className="text-green-100 text-sm" dir="ltr">
+                ⭐ 4.8 {t('rating')}
+              </span>
             </div>
           </div>
           <button
@@ -147,15 +169,21 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
       {user?.type === 'farmer' && (
         <div className="grid grid-cols-3 gap-3 mb-6">
           <div className="card text-center">
-            <div className="text-2xl font-bold text-green-600" dir="ltr">24</div>
+            <div className="text-2xl font-bold text-green-600" dir="ltr">
+              24
+            </div>
             <p className="body-sm text-gray-600">{t('productsListed')}</p>
           </div>
           <div className="card text-center">
-            <div className="text-2xl font-bold text-blue-600" dir="ltr">156</div>
+            <div className="text-2xl font-bold text-blue-600" dir="ltr">
+              156
+            </div>
             <p className="body-sm text-gray-600">{t('ordersCompleted')}</p>
           </div>
           <div className="card text-center">
-            <div className="text-2xl font-bold text-orange-600" dir="ltr">{formatCurrency(8450)}</div>
+            <div className="text-2xl font-bold text-orange-600" dir="ltr">
+              {formatCurrency(8450)}
+            </div>
             <p className="body-sm text-gray-600">{t('totalEarnings')}</p>
           </div>
         </div>
@@ -165,15 +193,15 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
       <div className="space-y-3 mb-6">
         {menuItems.map((item, index) => {
           if (item.show === false) return null;
-          
+
           return (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="card card-hover cursor-pointer"
               onClick={item.action}
               role="button"
               tabIndex={0}
-              onKeyDown={(e) => {
+              onKeyDown={e => {
                 if ((e.key === 'Enter' || e.key === ' ') && item.action) {
                   e.preventDefault();
                   item.action();
@@ -207,7 +235,9 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
 
       {/* App Version */}
       <div className="text-center mt-6">
-        <p className="body-sm text-gray-500" dir="ltr">HASAD v1.0.0</p>
+        <p className="body-sm text-gray-500" dir="ltr">
+          HASAD v1.0.0
+        </p>
         <p className="body-sm text-gray-400">{t('smartFarmingFingerTips')}</p>
       </div>
     </div>

@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSettings } from '../../contexts/SettingsContext';
-import { 
-  BarChart3, 
-  TrendingUp, 
-  Users, 
+import {
+  BarChart3,
+  TrendingUp,
+  Users,
   ShoppingCart,
   DollarSign,
   Download,
   Calendar,
   Filter,
   Eye,
-  Share
+  Share,
 } from 'lucide-react';
 import { Analytics } from '../../types';
 
@@ -23,7 +23,9 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
   const { t } = useTranslation();
   const { formatCurrency } = useSettings();
   const [analytics, setAnalytics] = useState<Analytics | null>(null);
-  const [selectedPeriod, setSelectedPeriod] = useState<'daily' | 'weekly' | 'monthly' | 'yearly'>('monthly');
+  const [selectedPeriod, setSelectedPeriod] = useState<'daily' | 'weekly' | 'monthly' | 'yearly'>(
+    'monthly'
+  );
   const [loading, setLoading] = useState(true);
 
   // Mock data - replace with actual API calls
@@ -32,44 +34,44 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
       period: selectedPeriod,
       date_range: {
         start: '2024-01-01',
-        end: '2024-02-12'
+        end: '2024-02-12',
       },
       metrics: {
         // Revenue metrics
-        mrr: 45250.00,
-        total_revenue: 89750.00,
-        average_order_value: 127.50,
-        
+        mrr: 45250.0,
+        total_revenue: 89750.0,
+        average_order_value: 127.5,
+
         // Product metrics
         products_sold: 1250,
         top_selling_products: [
-          { product_id: '1', name: 'Fresh Lettuce', quantity_sold: 245, revenue: 3920.00 },
-          { product_id: '2', name: 'Cherry Tomatoes', quantity_sold: 189, revenue: 5386.50 },
-          { product_id: '3', name: 'Fresh Basil', quantity_sold: 156, revenue: 1872.00 },
-          { product_id: '4', name: 'Strawberries', quantity_sold: 98, revenue: 4410.00 }
+          { product_id: '1', name: 'Fresh Lettuce', quantity_sold: 245, revenue: 3920.0 },
+          { product_id: '2', name: 'Cherry Tomatoes', quantity_sold: 189, revenue: 5386.5 },
+          { product_id: '3', name: 'Fresh Basil', quantity_sold: 156, revenue: 1872.0 },
+          { product_id: '4', name: 'Strawberries', quantity_sold: 98, revenue: 4410.0 },
         ],
-        
+
         // Customer metrics
         new_customers: 127,
         returning_customers: 456,
-        customer_acquisition_cost: 45.50,
-        customer_lifetime_value: 890.00,
+        customer_acquisition_cost: 45.5,
+        customer_lifetime_value: 890.0,
         churn_rate: 5.2,
-        
+
         // Engagement metrics
         active_users: 2340,
         page_views: 15670,
         session_duration: 8.5,
         bounce_rate: 23.4,
-        
+
         // Conversion metrics
         conversion_rate: 3.8,
         cart_abandonment_rate: 28.5,
-        
+
         // Referral metrics
         referral_count: 89,
-        referral_conversion_rate: 12.4
-      }
+        referral_conversion_rate: 12.4,
+      },
     };
 
     setAnalytics(mockAnalytics);
@@ -112,11 +114,11 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
             <BarChart3 className="w-6 h-6 text-green-600" />
             Analytics & Reports
           </h2>
-          
+
           <div className="flex items-center gap-3">
             <select
               value={selectedPeriod}
-              onChange={(e) => setSelectedPeriod(e.target.value as any)}
+              onChange={e => setSelectedPeriod(e.target.value as any)}
               className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
             >
               <option value="daily">Daily</option>
@@ -124,7 +126,7 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
               <option value="monthly">Monthly</option>
               <option value="yearly">Yearly</option>
             </select>
-            
+
             <div className="flex items-center gap-2">
               <button
                 onClick={() => exportReport('pdf')}
@@ -145,7 +147,8 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
         </div>
 
         <div className="text-sm text-gray-600">
-          Period: {new Date(analytics.date_range.start).toLocaleDateString()} - {new Date(analytics.date_range.end).toLocaleDateString()}
+          Period: {new Date(analytics.date_range.start).toLocaleDateString()} -{' '}
+          {new Date(analytics.date_range.end).toLocaleDateString()}
         </div>
       </div>
 
@@ -199,7 +202,7 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
       {/* Revenue Analytics */}
       <div className="bg-white rounded-xl shadow-lg p-4">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Revenue Analytics</h3>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             {/* Revenue Chart Placeholder */}
@@ -211,7 +214,7 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
               </div>
             </div>
           </div>
-          
+
           <div className="space-y-4">
             <div className="bg-gray-50 rounded-lg p-4">
               <div className="text-sm text-gray-600 mb-1">Monthly Recurring Revenue</div>
@@ -220,7 +223,7 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
               </div>
               <div className="text-xs text-green-600 mt-1">↑ 18.5% vs last month</div>
             </div>
-            
+
             <div className="bg-gray-50 rounded-lg p-4">
               <div className="text-sm text-gray-600 mb-1">Average Order Value</div>
               <div className="text-2xl font-bold text-blue-600">
@@ -228,7 +231,7 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
               </div>
               <div className="text-xs text-blue-600 mt-1">↑ 5.2% vs last month</div>
             </div>
-            
+
             <div className="bg-gray-50 rounded-lg p-4">
               <div className="text-sm text-gray-600 mb-1">Customer Lifetime Value</div>
               <div className="text-2xl font-bold text-purple-600">
@@ -243,27 +246,30 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
       {/* Top Selling Products */}
       <div className="bg-white rounded-xl shadow-lg p-4">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Top Selling Products</h3>
-        
+
         <div className="space-y-3">
-          {analytics.metrics.top_selling_products.map((product) => (
-            <div key={product.product_id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg min-w-0">
+          {analytics.metrics.top_selling_products.map(product => (
+            <div
+              key={product.product_id}
+              className="flex items-center justify-between p-3 bg-gray-50 rounded-lg min-w-0"
+            >
               <div className="flex items-center gap-3 min-w-0 flex-1">
                 <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-sm font-bold text-green-600 shrink-0">
                   {product.name.charAt(0)}
                 </div>
                 <div className="min-w-0 flex-1">
                   <h4 className="font-medium text-gray-900 truncate">{product.name}</h4>
-                  <p className="text-sm text-gray-600 truncate">{product.quantity_sold} units sold</p>
+                  <p className="text-sm text-gray-600 truncate">
+                    {product.quantity_sold} units sold
+                  </p>
                 </div>
               </div>
               <div className="text-right shrink-0">
-                <div className="font-bold text-green-600">
-                  {formatCurrency(product.revenue)}
-                </div>
+                <div className="font-bold text-green-600">{formatCurrency(product.revenue)}</div>
                 <div className="text-sm text-gray-500">Revenue</div>
               </div>
             </div>
-           ))}
+          ))}
         </div>
       </div>
 
@@ -271,25 +277,29 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white rounded-xl shadow-lg p-4">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Customer Metrics</h3>
-          
+
           <div className="space-y-4">
             <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
               <span className="text-sm font-medium text-gray-700">New Customers</span>
-              <span className="text-lg font-bold text-blue-600">{analytics.metrics.new_customers}</span>
+              <span className="text-lg font-bold text-blue-600">
+                {analytics.metrics.new_customers}
+              </span>
             </div>
-            
+
             <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
               <span className="text-sm font-medium text-gray-700">Returning Customers</span>
-              <span className="text-lg font-bold text-green-600">{analytics.metrics.returning_customers}</span>
+              <span className="text-lg font-bold text-green-600">
+                {analytics.metrics.returning_customers}
+              </span>
             </div>
-            
+
             <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
               <span className="text-sm font-medium text-gray-700">Customer Acquisition Cost</span>
               <span className="text-lg font-bold text-purple-600">
                 {formatCurrency(analytics.metrics.customer_acquisition_cost)}
               </span>
             </div>
-            
+
             <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg">
               <span className="text-sm font-medium text-gray-700">Churn Rate</span>
               <span className="text-lg font-bold text-red-600">
@@ -301,7 +311,7 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
 
         <div className="bg-white rounded-xl shadow-lg p-4">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Engagement Metrics</h3>
-          
+
           <div className="space-y-4">
             <div className="flex justify-between items-center p-3 bg-indigo-50 rounded-lg">
               <span className="text-sm font-medium text-gray-700">Active Users</span>
@@ -309,21 +319,21 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
                 {analytics.metrics.active_users.toLocaleString()}
               </span>
             </div>
-            
+
             <div className="flex justify-between items-center p-3 bg-teal-50 rounded-lg">
               <span className="text-sm font-medium text-gray-700">Page Views</span>
               <span className="text-lg font-bold text-teal-600">
                 {analytics.metrics.page_views.toLocaleString()}
               </span>
             </div>
-            
+
             <div className="flex justify-between items-center p-3 bg-orange-50 rounded-lg">
               <span className="text-sm font-medium text-gray-700">Avg Session Duration</span>
               <span className="text-lg font-bold text-orange-600">
                 {analytics.metrics.session_duration.toFixed(1)} min
               </span>
             </div>
-            
+
             <div className="flex justify-between items-center p-3 bg-yellow-50 rounded-lg">
               <span className="text-sm font-medium text-gray-700">Bounce Rate</span>
               <span className="text-lg font-bold text-yellow-600">
@@ -337,7 +347,7 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
       {/* Conversion & Performance */}
       <div className="bg-white rounded-xl shadow-lg p-4">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Conversion & Performance</h3>
-        
+
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="text-center p-4 bg-green-50 rounded-lg">
             <div className="text-3xl font-bold text-green-600 mb-1">
@@ -346,7 +356,7 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
             <div className="text-sm text-gray-600">Conversion Rate</div>
             <div className="text-xs text-green-600 mt-1">↑ 0.8%</div>
           </div>
-          
+
           <div className="text-center p-4 bg-red-50 rounded-lg">
             <div className="text-3xl font-bold text-red-600 mb-1">
               {formatPercentage(analytics.metrics.cart_abandonment_rate)}
@@ -354,7 +364,7 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
             <div className="text-sm text-gray-600">Cart Abandonment</div>
             <div className="text-xs text-red-600 mt-1">↓ 2.1%</div>
           </div>
-          
+
           <div className="text-center p-4 bg-blue-50 rounded-lg">
             <div className="text-3xl font-bold text-blue-600 mb-1">
               {analytics.metrics.referral_count}
@@ -362,7 +372,7 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
             <div className="text-sm text-gray-600">Referrals</div>
             <div className="text-xs text-blue-600 mt-1">↑ 15.3%</div>
           </div>
-          
+
           <div className="text-center p-4 bg-purple-50 rounded-lg">
             <div className="text-3xl font-bold text-purple-600 mb-1">
               {formatPercentage(analytics.metrics.referral_conversion_rate)}
@@ -377,26 +387,26 @@ export const AnalyticsReports: React.FC<AnalyticsReportsProps> = ({ userRole }) 
       {userRole === 'farmer' && (
         <div className="bg-white rounded-xl shadow-lg p-4">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">ESG Impact Report</h3>
-          
+
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="text-center p-4 bg-green-50 rounded-lg">
               <div className="text-3xl font-bold text-green-600 mb-1">2,450 kg</div>
               <div className="text-sm text-gray-600">CO₂ Offset</div>
               <div className="text-xs text-green-600 mt-1">↑ 18% vs last month</div>
             </div>
-            
+
             <div className="text-center p-4 bg-blue-50 rounded-lg">
               <div className="text-3xl font-bold text-blue-600 mb-1">15,670 L</div>
               <div className="text-sm text-gray-600">Water Saved</div>
               <div className="text-xs text-blue-600 mt-1">↑ 12% vs last month</div>
             </div>
-            
+
             <div className="text-center p-4 bg-purple-50 rounded-lg">
               <div className="text-3xl font-bold text-purple-600 mb-1">8,920 km</div>
               <div className="text-sm text-gray-600">Food Miles Saved</div>
               <div className="text-xs text-purple-600 mt-1">↑ 25% vs last month</div>
             </div>
-            
+
             <div className="text-center p-4 bg-orange-50 rounded-lg">
               <div className="text-3xl font-bold text-orange-600 mb-1">98.5%</div>
               <div className="text-sm text-gray-600">System Uptime</div>

@@ -20,7 +20,7 @@ export const useContacts = () => {
       // Check cache first
       const cacheKey = `contacts:${user.id}`;
       const cachedContacts = cache.get<Contact[]>(cacheKey);
-      
+
       if (cachedContacts) {
         setContacts(cachedContacts);
         setLoading(false);
@@ -37,10 +37,9 @@ export const useContacts = () => {
 
       const contactsData = data || [];
       setContacts(contactsData);
-      
+
       // Cache the results
       cache.set(cacheKey, contactsData, 3600); // 1 hour TTL
-      
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch contacts');
     } finally {
@@ -82,9 +81,7 @@ export const useContacts = () => {
 
     // Update local state and cache
     const updatedContact = data;
-    setContacts(prev => prev.map(c => 
-      c.contact_id === contactId ? updatedContact : c
-    ));
+    setContacts(prev => prev.map(c => (c.contact_id === contactId ? updatedContact : c)));
     cache.invalidatePattern(`contacts:${user.id}`);
 
     return updatedContact;
@@ -117,6 +114,6 @@ export const useContacts = () => {
     fetchContacts,
     addContact,
     updateContact,
-    deleteContact
+    deleteContact,
   };
 };

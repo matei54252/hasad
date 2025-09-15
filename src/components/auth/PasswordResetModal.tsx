@@ -10,7 +10,7 @@ interface PasswordResetModalProps {
 
 export const PasswordResetModal: React.FC<PasswordResetModalProps> = ({
   onClose,
-  defaultEmail = ''
+  defaultEmail = '',
 }) => {
   const { t } = useTranslation();
   const { resetPassword } = useAuth();
@@ -32,7 +32,7 @@ export const PasswordResetModal: React.FC<PasswordResetModalProps> = ({
 
     try {
       const { error } = await resetPassword(email);
-      
+
       if (error) {
         setError(error.message);
       } else {
@@ -54,9 +54,7 @@ export const PasswordResetModal: React.FC<PasswordResetModalProps> = ({
       <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-900">
-            {t('forgotPassword')}
-          </h2>
+          <h2 className="text-xl font-bold text-gray-900">{t('forgotPassword')}</h2>
           <button
             onClick={handleClose}
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -71,12 +69,10 @@ export const PasswordResetModal: React.FC<PasswordResetModalProps> = ({
           {success ? (
             <div className="text-center">
               <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                Email Sent Successfully!
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Email Sent Successfully!</h3>
               <p className="text-gray-600 mb-6">
-                We've sent a password reset link to <strong>{email}</strong>. 
-                Please check your email and follow the instructions to reset your password.
+                We've sent a password reset link to <strong>{email}</strong>. Please check your
+                email and follow the instructions to reset your password.
               </p>
               <button
                 onClick={handleClose}
@@ -111,7 +107,7 @@ export const PasswordResetModal: React.FC<PasswordResetModalProps> = ({
                     <input
                       type="email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={e => setEmail(e.target.value)}
                       className="w-full ps-10 pe-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="Enter your email address"
                       required

@@ -2,14 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatRelativeTime } from '../../i18n';
 import { AdminAlert } from '../../types/admin';
-import { 
-  AlertTriangle, 
-  AlertCircle, 
-  Info, 
-  Clock,
-  Filter,
-  ChevronDown
-} from 'lucide-react';
+import { AlertTriangle, AlertCircle, Info, Clock, Filter, ChevronDown } from 'lucide-react';
 
 interface AdminAlertsPanelProps {
   onAlertSelect: (alert: AdminAlert) => void;
@@ -41,8 +34,8 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
         metadata: {
           farm_name: 'Green Valley Farm',
           device_type: 'water_pump',
-          error_code: 'PUMP_NO_RESPONSE'
-        }
+          error_code: 'PUMP_NO_RESPONSE',
+        },
       },
       {
         id: '2',
@@ -60,8 +53,8 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
           farm_name: 'Sunny Organic Farm',
           current_temperature: 28.5,
           threshold: 26.0,
-          duration_hours: 2
-        }
+          duration_hours: 2,
+        },
       },
       {
         id: '3',
@@ -79,8 +72,8 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
         metadata: {
           farm_name: 'Desert Bloom Farm',
           maintenance_type: 'filter_replacement',
-          days_remaining: 3
-        }
+          days_remaining: 3,
+        },
       },
       {
         id: '4',
@@ -97,8 +90,8 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
         metadata: {
           farm_name: 'Berry Fresh Farms',
           device_type: 'led_controller',
-          offline_duration_minutes: 45
-        }
+          offline_duration_minutes: 45,
+        },
       },
       {
         id: '5',
@@ -115,8 +108,8 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
           farm_name: 'Green Valley Farm',
           crop_type: 'butterhead_lettuce',
           section: 'A',
-          estimated_yield: '25 kg'
-        }
+          estimated_yield: '25 kg',
+        },
       },
       {
         id: '6',
@@ -131,9 +124,9 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
         acknowledged_at: '2024-02-10T17:00:00Z',
         metadata: {
           update_version: '2.1.4',
-          affected_devices: 156
-        }
-      }
+          affected_devices: 156,
+        },
+      },
     ];
 
     setAlerts(mockAlerts);
@@ -160,31 +153,46 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
 
   const getSeverityIcon = (severity: string) => {
     switch (severity) {
-      case 'critical': return <AlertTriangle className="w-4 h-4" />;
-      case 'warning': return <AlertCircle className="w-4 h-4" />;
-      case 'info': return <Info className="w-4 h-4" />;
-      default: return <Info className="w-4 h-4" />;
+      case 'critical':
+        return <AlertTriangle className="w-4 h-4" />;
+      case 'warning':
+        return <AlertCircle className="w-4 h-4" />;
+      case 'info':
+        return <Info className="w-4 h-4" />;
+      default:
+        return <Info className="w-4 h-4" />;
     }
   };
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'critical': return 'text-red-600 bg-red-50 border-red-200';
-      case 'warning': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-      case 'info': return 'text-blue-600 bg-blue-50 border-blue-200';
-      default: return 'text-gray-600 bg-gray-50 border-gray-200';
+      case 'critical':
+        return 'text-red-600 bg-red-50 border-red-200';
+      case 'warning':
+        return 'text-yellow-600 bg-yellow-50 border-yellow-200';
+      case 'info':
+        return 'text-blue-600 bg-blue-50 border-blue-200';
+      default:
+        return 'text-gray-600 bg-gray-50 border-gray-200';
     }
   };
 
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case 'device_fault': return '🔧';
-      case 'threshold_exceeded': return '🌡️';
-      case 'maintenance_due': return '⚙️';
-      case 'connectivity_issue': return '📡';
-      case 'harvest_ready': return '🌾';
-      case 'system_update': return '🔄';
-      default: return '📋';
+      case 'device_fault':
+        return '🔧';
+      case 'threshold_exceeded':
+        return '🌡️';
+      case 'maintenance_due':
+        return '⚙️';
+      case 'connectivity_issue':
+        return '📡';
+      case 'harvest_ready':
+        return '🌾';
+      case 'system_update':
+        return '🔄';
+      default:
+        return '📋';
     }
   };
 
@@ -214,7 +222,7 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
         <div className="space-y-2">
           <select
             value={severityFilter}
-            onChange={(e) => setSeverityFilter(e.target.value)}
+            onChange={e => setSeverityFilter(e.target.value)}
             className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
           >
             <option value="all">{t('allSeverities')}</option>
@@ -222,10 +230,10 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
             <option value="warning">{t('warning')}</option>
             <option value="info">{t('info')}</option>
           </select>
-          
+
           <select
             value={typeFilter}
-            onChange={(e) => setTypeFilter(e.target.value)}
+            onChange={e => setTypeFilter(e.target.value)}
             className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
           >
             <option value="all">{t('allTypes')}</option>
@@ -248,7 +256,7 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
           </div>
         ) : (
           <div className="p-4 space-y-3">
-            {filteredAlerts.map((alert) => (
+            {filteredAlerts.map(alert => (
               <div
                 key={alert.id}
                 onClick={() => onAlertSelect(alert)}
@@ -260,17 +268,15 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
                   <div className="flex-shrink-0">
                     <span className="text-lg">{getTypeIcon(alert.type)}</span>
                   </div>
-                  
+
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       {getSeverityIcon(alert.severity)}
                       <h4 className="text-sm font-medium truncate">{alert.title}</h4>
                     </div>
-                    
-                    <p className="text-xs opacity-90 line-clamp-2 mb-2">
-                      {alert.message}
-                    </p>
-                    
+
+                    <p className="text-xs opacity-90 line-clamp-2 mb-2">{alert.message}</p>
+
                     <div className="flex items-center justify-between text-xs opacity-75">
                       <span className="truncate">{alert.source}</span>
                       <div className="flex items-center gap-1">
@@ -278,7 +284,7 @@ export const AdminAlertsPanel: React.FC<AdminAlertsPanelProps> = ({ onAlertSelec
                         <span>{formatRelativeTime(alert.created_at)}</span>
                       </div>
                     </div>
-                    
+
                     {alert.acknowledged && (
                       <div className="mt-2 text-xs opacity-60">
                         ✓ {t('acknowledged')} {formatRelativeTime(alert.acknowledged_at!)}

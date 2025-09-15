@@ -31,7 +31,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
     try {
       // Load stored credentials if available
       const storedCredentials = secureStorage.getStoredCredentials();
-      
+
       if (storedCredentials) {
         setEmail(storedCredentials.email);
         setRememberMe(storedCredentials.rememberMe);
@@ -70,7 +70,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
   const handleRememberMeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked;
     setRememberMe(checked);
-    
+
     // If unchecking, clear stored credentials immediately
     if (!checked) {
       secureStorage.clearCredentials();
@@ -92,7 +92,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
 
   const languages = [
     { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-    { code: 'en', name: 'English', flag: '🇺🇸' }
+    { code: 'en', name: 'English', flag: '🇺🇸' },
   ];
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
@@ -108,7 +108,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
     setSuccessMessage('');
     setLoading(true);
 
-
     // Basic validation
     if (!email || !password) {
       setError('Please fill in all required fields');
@@ -118,7 +117,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
 
     try {
       const { error } = await signIn(email, password);
-      
+
       if (error) {
         setError(error.message);
       } else {
@@ -134,7 +133,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
           // Ensure credentials are cleared if remember me is not checked
           secureStorage.clearCredentials();
         }
-        
+
         setSuccessMessage('Login successful! Redirecting...');
       }
     } catch (err) {
@@ -158,12 +157,12 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
               aria-expanded={showLanguageDropdown}
               aria-haspopup="true"
             >
-              <Globe 
-                size={20} 
-                className="text-gray-600 group-hover:text-blue-600 transition-colors" 
+              <Globe
+                size={20}
+                className="text-gray-600 group-hover:text-blue-600 transition-colors"
               />
-              <ChevronDown 
-                size={16} 
+              <ChevronDown
+                size={16}
                 className={`text-gray-600 group-hover:text-blue-600 transition-all duration-200 ${
                   showLanguageDropdown ? 'rotate-180' : ''
                 }`}
@@ -173,20 +172,22 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
             {showLanguageDropdown && (
               <>
                 {/* Backdrop */}
-                <div 
-                  className="fixed inset-0 z-10" 
+                <div
+                  className="fixed inset-0 z-10"
                   onClick={() => setShowLanguageDropdown(false)}
                 />
-                
+
                 {/* Dropdown Menu */}
                 <div className="absolute top-full inset-inline-end-0 mt-2 bg-white rounded-lg shadow-lg border border-gray-200 z-20 min-w-[140px] preserve-position">
-                  {languages.map((language) => (
+                  {languages.map(language => (
                     <button
                       key={language.code}
                       type="button"
                       onClick={() => handleLanguageSelect(language.code)}
                       className={`w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors cursor-pointer first:rounded-t-lg last:rounded-b-lg ${
-                        i18n.language === language.code ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                        i18n.language === language.code
+                          ? 'bg-blue-50 text-blue-700'
+                          : 'text-gray-700'
                       }`}
                       aria-label={`Switch to ${language.name}`}
                     >
@@ -199,11 +200,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
             )}
           </div>
         </div>
-        
+
         <div className="text-center mb-6">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            {t('signInAccount')}
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">{t('signInAccount')}</h2>
           <p className="text-gray-600">{t('welcomeBack')}</p>
         </div>
 
@@ -219,18 +218,15 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
           </div>
         )}
 
-
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              {t('email')}
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">{t('email')}</label>
             <div className="relative">
               <Mail className="absolute inset-inline-start-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
                 className="w-full ps-10 pe-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                 placeholder="admin@hasad.com"
                 required
@@ -239,15 +235,13 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              {t('password')}
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">{t('password')}</label>
             <div className="relative">
               <Lock className="absolute inset-inline-start-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type={showPassword ? 'text' : 'password'}
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
                 className="w-full ps-10 pe-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                 required
               />
@@ -272,9 +266,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
                 className="w-4 h-4 text-blue-600 bg-white border-2 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 focus:ring-offset-0 transition-all duration-200 cursor-pointer hover:border-blue-400 hover:bg-blue-50 preserve-position"
                 aria-describedby="remember-me-description"
               />
-              <span 
+              <span
                 id="remember-me-description"
-                className="ms-2 text-sm text-gray-600 cursor-pointer select-none hover:text-gray-800 transition-colors font-medium preserve-position" 
+                className="ms-2 text-sm text-gray-600 cursor-pointer select-none hover:text-gray-800 transition-colors font-medium preserve-position"
                 onClick={handleRememberMeChange}
               >
                 {t('rememberMe')}
@@ -287,7 +281,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
               className="text-sm text-blue-600 hover:text-blue-700 hover:underline transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1 font-medium active:text-blue-800 no-underline preserve-position"
               role="button"
               tabIndex={0}
-              onKeyDown={(e) => {
+              onKeyDown={e => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
                   handleForgotPassword();
@@ -302,8 +296,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
           {rememberMe && (
             <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
               <p className="text-xs text-blue-700">
-                <span className="font-medium">Security Notice:</span> Your email will be remembered for 30 days. 
-                Your password is never stored for security reasons.
+                <span className="font-medium">Security Notice:</span> Your email will be remembered
+                for 30 days. Your password is never stored for security reasons.
               </p>
             </div>
           )}
@@ -328,7 +322,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
               className="text-blue-600 hover:text-blue-700 font-medium transition-all duration-200 hover:underline cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-1 py-0.5 inline-block active:text-blue-800 no-underline"
               role="button"
               tabIndex={0}
-              onKeyDown={(e) => {
+              onKeyDown={e => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
                   handleSignUpClick(e as any);
@@ -342,13 +336,10 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
 
         {/* Remember Me Information Panel */}
         <RememberMeInfo />
-        
+
         {/* Password Reset Modal */}
         {showPasswordReset && (
-          <PasswordResetModal
-            onClose={() => setShowPasswordReset(false)}
-            defaultEmail={email}
-          />
+          <PasswordResetModal onClose={() => setShowPasswordReset(false)} defaultEmail={email} />
         )}
       </div>
     </div>
