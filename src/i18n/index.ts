@@ -509,7 +509,32 @@ const resources = {
       "maintenance_due": "Maintenance Due",
       "connectivity_issue": "Connectivity Issue",
       "harvest_ready": "Harvest Ready",
-      "system_update": "System Update"
+      "system_update": "System Update",
+      
+      // Profile Page
+      "manageYourAccount": "Manage your account and preferences",
+      "paymentMethods": "Payment Methods",
+      "manageYourCards": "Manage your payment cards",
+      "addresses": "Addresses", 
+      "deliveryAddresses": "Delivery addresses",
+      "notificationSettings": "Notifications",
+      "managePreferences": "Manage preferences",
+      "helpAndSupport": "Help & Support",
+      "getAssistance": "Get assistance",
+      "appPreferences": "Settings",
+      "termsAndPrivacy": "Terms & Privacy",
+      "legalInformation": "Legal information",
+      "viewYourPerformance": "View your performance",
+      "productsListed": "Products Listed",
+      "ordersCompleted": "Orders Completed", 
+      "totalEarnings": "Total Earnings",
+      "appVersion": "App Version",
+      "rating": "Rating",
+      "editProfile": "Edit Profile",
+      "saveChanges": "Save Changes",
+      "farmLocation": "Farm Location",
+      "personalInformation": "Personal Information",
+      "accountStats": "Account Statistics"
     }
   },
   ar: {
@@ -1018,7 +1043,32 @@ const resources = {
       "maintenance_due": "صيانة مستحقة",
       "connectivity_issue": "مشكلة في الاتصال",
       "harvest_ready": "جاهز للحصاد",
-      "system_update": "تحديث النظام"
+      "system_update": "تحديث النظام",
+      
+      // Profile Page
+      "manageYourAccount": "إدارة حسابك وتفضيلاتك",
+      "paymentMethods": "طرق الدفع",
+      "manageYourCards": "إدارة بطاقاتك المصرفية",
+      "addresses": "العناوين",
+      "deliveryAddresses": "عناوين التوصيل",
+      "notificationSettings": "الإشعارات",
+      "managePreferences": "إدارة التفضيلات",
+      "helpAndSupport": "المساعدة والدعم",
+      "getAssistance": "الحصول على المساعدة",
+      "appPreferences": "الإعدادات",
+      "termsAndPrivacy": "الشروط والخصوصية",
+      "legalInformation": "المعلومات القانونية",
+      "viewYourPerformance": "عرض أدائك",
+      "productsListed": "المنتجات المدرجة",
+      "ordersCompleted": "الطلبات المكتملة",
+      "totalEarnings": "إجمالي الأرباح",
+      "appVersion": "إصدار التطبيق",
+      "rating": "التقييم",
+      "editProfile": "تعديل الملف الشخصي",
+      "saveChanges": "حفظ التغييرات",
+      "farmLocation": "موقع المزرعة",
+      "personalInformation": "المعلومات الشخصية",
+      "accountStats": "إحصائيات الحساب"
     }
   }
 };
