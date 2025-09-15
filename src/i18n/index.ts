@@ -1,6 +1,47 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+// Pseudo-locale for testing
+const createPseudoTranslations = (translations: Record<string, string>) => {
+  const pseudo: Record<string, string> = {};
+  
+  Object.keys(translations).forEach(key => {
+    const original = translations[key];
+    // Expand text by 30% and add brackets to reveal truncation
+    const expanded = `[${original}ـــ]`;
+    pseudo[key] = expanded;
+  });
+  
+  return pseudo;
+};
+
+// Missing key tracker for development
+class MissingKeyTracker {
+  private missingKeys = new Set<string>();
+  private reportedKeys = new Set<string>();
+
+  track(key: string, namespace: string = 'translation') {
+    const fullKey = `${namespace}:${key}`;
+    this.missingKeys.add(fullKey);
+    
+    if (!this.reportedKeys.has(fullKey) && import.meta.env.DEV) {
+      console.warn(`🔍 Missing translation key: ${fullKey}`);
+      this.reportedKeys.add(fullKey);
+    }
+  }
+
+  getMissingKeys() {
+    return Array.from(this.missingKeys);
+  }
+
+  clear() {
+    this.missingKeys.clear();
+    this.reportedKeys.clear();
+  }
+}
+
+export const missingKeyTracker = new MissingKeyTracker();
+
 // Translation resources
 const resources = {
   en: {
@@ -1142,7 +1183,58 @@ const resources = {
       "myActiveSubscriptions": "اشتراكاتي النشطة",
       "availableSubscriptionPlans": "خطط الاشتراك المتاحة"
       
-      // Marketplace & Cart
+  },
+  // Pseudo-locale for testing
+  pseudo: {
+    translation: createPseudoTranslations({
+      // Core auth strings
+      "signInAccount": "Sign in to your account",
+      "createAccount": "Create your account",
+      "email": "Email",
+      "password": "Password",
+      "login": "Login",
+      "signup": "Sign Up",
+      
+      // Profile strings
+      "profile": "Profile",
+      "editProfile": "Edit Profile",
+      "saveChanges": "Save Changes",
+      "cancel": "Cancel",
+      "paymentMethods": "Payment Methods",
+      "addresses": "Addresses",
+      "notificationSettings": "Notifications",
+      "helpAndSupport": "Help & Support",
+      "appPreferences": "Settings",
+      "termsAndPrivacy": "Terms & Privacy",
+      "logout": "Logout",
+      
+      // Plans strings
+      "subscriptionPlans": "Subscription Plans",
+      "myActiveSubscriptions": "My Active Subscriptions",
+      "availableSubscriptionPlans": "Available Subscription Plans",
+      "modify": "Modify",
+      "pause": "Pause",
+      "resume": "Resume",
+      "schedule": "Schedule",
+      "nextDelivery": "Next delivery",
+      
+      // Cart strings
+      "shoppingCart": "Shopping Cart",
+      "addToCart": "Add to Cart",
+      "removeFromCart": "Remove from Cart",
+      "clearCart": "Clear Cart",
+      "checkout": "Checkout",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      
+      // Common strings
+      "loading": "Loading",
+      "error": "Error",
+      "success": "Success",
+      "active": "Active",
+      "inactive": "Inactive",
+    })
+  }
       "searchProducts": "Search products...",
       "allCategories": "All Categories",
       "sortBy": "Sort by",
@@ -1266,6 +1358,11 @@ const initI18n = async () => {
       resources,
       lng: initialLanguage,
       fallbackLng: 'en',
+      // Custom missing key handler
+      missingKeyHandler: (lng, ns, key, fallbackValue) => {
+        missingKeyTracker.track(key, ns);
+        return fallbackValue || key;
+      },
       interpolation: {
         escapeValue: false
       },
