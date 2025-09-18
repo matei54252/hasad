@@ -181,8 +181,8 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
             <p className="body-sm text-gray-600">{t('ordersCompleted')}</p>
           </div>
           <div className="card text-center">
-            <div className="text-xl sm:text-2xl font-bold text-orange-600 font-mono" dir="ltr">
-              {formatCurrency(8450).replace(/[٠-٩]/g, (d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d).toString())}
+            <div className="revenue-number text-orange-600 font-bold" dir="ltr">
+              {formatCurrency(8450)}
             </div>
             <p className="body-sm text-gray-600">{t('totalEarnings')}</p>
           </div>
