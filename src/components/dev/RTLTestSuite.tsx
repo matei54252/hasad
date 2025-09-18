@@ -42,7 +42,7 @@ export const RTLTestSuite: React.FC = () => {
           title="Open RTL Test Suite"
         >
           <TestTube className="w-5 h-5" />
-          {missingKeys.length > 0 && (
+          {Object.values(testResults).filter(r => r === 'fail').length > 0 && (
             <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
               {testResults && Object.values(testResults).filter(r => r === 'fail').length}
             </div>
@@ -163,7 +163,6 @@ export const RTLTestSuite: React.FC = () => {
           </button>
         </div>
         <div className="flex items-center justify-between mt-2">
-          <div className="flex items-center gap-2">
           <div className="flex items-center gap-2">
             <span className="text-xs bg-blue-700 px-2 py-1 rounded">
               Current: {i18n.language.toUpperCase()}
