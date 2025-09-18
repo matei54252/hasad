@@ -302,6 +302,14 @@ export const HomeScreen: React.FC = () => {
                 <p className="body-sm text-gray-600">{action.subtitle}</p>
               </div>
             </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Dashboard Stats - Farmer Only */}
+      {user?.type === 'farmer' ? (
+        <div className="mb-6">
+          <h2 className="heading-md mb-4">{t('farmOverview')}</h2>
           <div className="space-y-3">
             {/* Revenue Widget - Full Width */}
             <div className="card text-center">
@@ -319,14 +327,6 @@ export const HomeScreen: React.FC = () => {
                 <div className="text-2xl font-bold text-green-600">12</div>
                 <p className="body-sm text-gray-600">{t('activeCrops')}</p>
               </div>
-            </div>
-            <div className="card text-center">
-              <div className="text-2xl font-bold text-blue-600">8</div>
-              <p className="body-sm text-gray-600">{t('pendingOrders')}</p>
-            </div>
-            <div className="card text-center">
-              <div className="text-2xl font-bold text-orange-600">$2,450</div>
-              <p className="body-sm text-gray-600">{t('thisMonth')}</p>
             </div>
           </div>
         </div>
