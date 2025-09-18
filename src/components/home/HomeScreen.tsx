@@ -46,7 +46,7 @@ export const HomeScreen: React.FC = () => {
           },
           {
             icon: '🛒',
-            title: t('marketplace'),
+            title: t('hasadMarketplace'),
             subtitle: t('sellProducts'),
             action: 'add-product',
           },
@@ -54,7 +54,7 @@ export const HomeScreen: React.FC = () => {
       : [
           {
             icon: '🛒',
-            title: t('marketplace'),
+            title: t('hasadMarketplace'),
             subtitle: t('freshProduce'),
             action: 'marketplace',
           },

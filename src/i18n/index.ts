@@ -102,6 +102,7 @@ const resources = {
 
       // Marketplace
       hasadMarketplace: 'HASAD Marketplace',
+      marketplace: 'Marketplace',
       searchProducts: 'Search products and farms...',
       searchProductsFarms: 'Search products and farms...',
       allProducts: 'All Products',
@@ -568,6 +569,7 @@ const resources = {
 
       // Marketplace
       hasadMarketplace: 'سوق حصاد',
+      marketplace: 'السوق',
       searchProducts: 'البحث في المنتجات والمزارع...',
       searchProductsFarms: 'البحث في المنتجات والمزارع...',
       allProducts: 'جميع المنتجات',
