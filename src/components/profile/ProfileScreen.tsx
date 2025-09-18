@@ -182,17 +182,22 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
           <div className="grid grid-cols-2 gap-3">
             <div className="card">
               <div className="flex flex-col items-center justify-center py-4">
+                <div className="text-3xl font-bold text-blue-600 bidi-isolate mb-3" dir="ltr">
+                  156
+                </div>
+                <p className="body-sm text-gray-600 text-center">{t('ordersCompleted')}</p>
+              </div>
+            </div>
+            <div className="card">
+              <div className="flex flex-col items-center justify-center py-4">
                 <div className="text-3xl font-bold text-green-600 bidi-isolate mb-3" dir="ltr">
                   24
                 </div>
                 <p className="body-sm text-gray-600 text-center">{t('productsListed')}</p>
               </div>
             </div>
-            <div className="card">
-              <div className="flex flex-col items-center justify-center py-4">
-                <div className="text-3xl font-bold text-blue-600 bidi-isolate mb-3" dir="ltr">
-                  156
-                </div>
+          </div>
+        </div>
                 <p className="body-sm text-gray-600 text-center">{t('ordersCompleted')}</p>
               </div>
             </div>
