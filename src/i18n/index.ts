@@ -1,1484 +1,996 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-// Pseudo-locale for testing
-const createPseudoTranslations = (translations: Record<string, string>) => {
-  const pseudo: Record<string, string> = {};
-  
-  Object.keys(translations).forEach(key => {
-    const original = translations[key];
-    // Expand text by 30% and add brackets to reveal truncation
-    const expanded = `[${original}ـــ]`;
-    pseudo[key] = expanded;
-  });
-  
-  return pseudo;
-};
-
-// Missing key tracker for development
-class MissingKeyTracker {
-  private missingKeys = new Set<string>();
-  private reportedKeys = new Set<string>();
-
-  track(key: string, namespace: string = 'translation') {
-    const fullKey = `${namespace}:${key}`;
-    this.missingKeys.add(fullKey);
-    
-    if (!this.reportedKeys.has(fullKey) && import.meta.env.DEV) {
-      console.warn(`🔍 Missing translation key: ${fullKey}`);
-      this.reportedKeys.add(fullKey);
-    }
-  }
-
-  getMissingKeys() {
-    return Array.from(this.missingKeys);
-  }
-
-  clear() {
-    this.missingKeys.clear();
-    this.reportedKeys.clear();
-  }
-}
-
-export const missingKeyTracker = new MissingKeyTracker();
-
 // Translation resources
 const resources = {
   en: {
     translation: {
       // Authentication
-      "signInAccount": "Sign in to your account",
-      "createAccount": "Create your account",
-      "welcomeBack": "Welcome back",
-      "email": "Email",
-      "password": "Password",
-      "confirmPassword": "Confirm Password",
-      "login": "Login",
-      "signup": "Sign Up",
-      "logout": "Logout",
-      "loading": "Loading...",
-      "rememberMe": "Remember me",
-      "forgotPassword": "Forgot password?",
-      "dontHaveAccount": "Don't have an account?",
-      "alreadyHaveAccount": "Already have an account?",
-      "passwordsDoNotMatch": "Passwords do not match",
-      
-      // Navigation & Layout
-      "administration": "Administration",
-      "readOnly": "Read-only",
-      "dashboard": "Dashboard",
-      "farmers": "Farmers",
-      "consumers": "Consumers",
-      "alerts": "Alerts",
-      "settings": "Settings",
-      "profile": "Profile",
-      "home": "Home",
-      "marketplace": "Marketplace",
-      "shopping": "Shopping",
-      "plans": "Plans",
-      "crops": "Crops",
-      "cart": "Cart",
-      "orders": "Orders",
-      "messages": "Messages",
-      "analytics": "Analytics",
-      
-      // Contact Management
-      "contacts": "Contacts",
-      "addContact": "Add Contact",
-      "editContact": "Edit Contact",
-      "deleteContact": "Delete Contact",
-      "deleteConfirm": "Are you sure you want to delete this contact?",
-      "manageContacts": "Manage your contacts efficiently",
-      "noContacts": "No contacts found",
-      "personalInfo": "Personal Information",
-      "contactInfo": "Contact Information",
-      "name": "Name",
-      "type": "Type",
-      "nationality": "Nationality",
-      "uploadId": "Upload ID",
-      "chooseFile": "Choose file",
-      "mobile": "Mobile",
-      "telephone": "Telephone",
-      "address": "Address",
-      "city": "City",
-      "country": "Country",
-      "postcode": "Postcode",
-      "consumer": "Consumer",
-      "institutional": "Institutional",
-      "corporate": "Corporate",
-      "save": "Save",
-      "cancel": "Cancel",
-      "edit": "Edit",
-      "delete": "Delete",
-      "search": "Search",
-      "filter": "Filter",
-      
-      // KPI Cards
-      "totalFarmers": "Total Farmers",
-      "totalConsumers": "Total Consumers",
-      "activeDevices": "Active Devices",
-      "openAlerts": "Open Alerts",
-      "monthlyRevenue": "Monthly Revenue",
-      "systemUptime": "System Uptime",
-      "dataProcessed": "Data Processed",
-      "avgResponseTime": "Avg Response Time",
-      
-      // Table Headers
-      "status": "Status",
-      "location": "Location",
-      "joinDate": "Join Date",
-      "lastActive": "Last Active",
-      "farmSites": "Farm Sites",
-      "totalOrders": "Total Orders",
-      "revenue": "Revenue",
-      "devices": "Devices",
-      "subscription": "Subscription",
-      "tier": "Tier",
-      "actions": "Actions",
-      
-      // Status Values
-      "active": "Active",
-      "inactive": "Inactive",
-      "suspended": "Suspended",
-      "pending": "Pending",
-      "verified": "Verified",
-      "unverified": "Unverified",
-      "online": "Online",
-      "offline": "Offline",
-      "maintenance": "Maintenance",
-      
-      // Subscription Tiers
-      "basic": "Basic",
-      "premium": "Premium",
-      "enterprise": "Enterprise",
-      "trial": "Trial",
-      
-      // Common Actions
-      "view": "View",
-      "sort": "Sort",
-      "export": "Export",
-      "refresh": "Refresh",
-      "close": "Close",
-      "noData": "No data available",
-      "error": "Error",
-      
-      // Search & Filters
-      "searchUsers": "Search users...",
-      "searchFarmers": "Search farmers...",
-      "searchConsumers": "Search consumers...",
-      "filterByStatus": "Filter by status",
-      "filterByLocation": "Filter by location",
-      "filterByTier": "Filter by tier",
-      "allStatuses": "All Statuses",
-      "allLocations": "All Locations",
-      "allTiers": "All Tiers",
-      
-      // Detail Drawer
-      "userDetails": "User Details",
-      "accountInformation": "Account Information",
-      "contactInformation": "Contact Information",
-      "farmInformation": "Farm Information",
-      "deviceStatus": "Device Status",
-      "recentActivity": "Recent Activity",
-      "iotControls": "IoT Controls",
-      "subscriptionDetails": "Subscription Details",
-      "orderHistory": "Order History",
-      
-      // Alerts
-      "criticalAlerts": "Critical Alerts",
-      "warningAlerts": "Warning Alerts",
-      "infoAlerts": "Info Alerts",
-      "alertDetails": "Alert Details",
-      "acknowledgeAlert": "Acknowledge Alert",
-      "resolveAlert": "Resolve Alert",
-      "severity": "Severity",
-      "timestamp": "Timestamp",
-      "source": "Source",
-      "message": "Message",
-      
-      // Time & Dates
-      "today": "Today",
-      "yesterday": "Yesterday",
-      "thisWeek": "This Week",
-      "thisMonth": "This Month",
-      "lastMonth": "Last Month",
-      "minutesAgo": "{{count}} minutes ago",
-      "hoursAgo": "{{count}} hours ago",
-      "daysAgo": "{{count}} days ago",
-      "hourAgo": "1 hour ago",
-      "dayAgo": "1 day ago",
-      
-      // Language
-      "selectLanguage": "Select Language",
-      "arabic": "Arabic",
-      "english": "English",
-      "switchTo": "Switch to ",
-      
-      // Accessibility
-      "adminReadOnlyNotice": "This is a read-only administrative interface. No changes can be made to user accounts or system settings.",
-      "viewUserDetails": "View user details",
-      "sortBy": "Sort by {{field}}",
-      "filterBy": "Filter by {{field}}",
-      "currentPage": "Page {{current}} of {{total}}",
-      
-      // Device Types
-      "waterPump": "Water Pump",
-      "irrigation": "Irrigation",
-      "lighting": "Lighting",
-      "ventilation": "Ventilation",
-      "sensors": "Sensors",
-      "nutrientDoser": "Nutrient Doser",
-      
-      // Metrics
-      "temperature": "Temperature",
-      "humidity": "Humidity",
-      "ph": "pH Level",
-      "waterLevel": "Water Level",
-      "lightIntensity": "Light Intensity",
-      "co2Level": "CO₂ Level",
-      "uptime": "Uptime",
-      "lastUpdate": "Last Update",
-      
-      // Empty States
-      "noFarmersFound": "No farmers found",
-      "noConsumersFound": "No consumers found",
-      "noAlertsFound": "No alerts found",
-      "noDevicesFound": "No devices found",
-      "noActivityFound": "No recent activity found",
-      
-      // Pagination
-      "previous": "Previous",
-      "next": "Next",
-      "page": "Page",
-      "of": "of",
-      "showing": "Showing",
-      "to": "to",
-      "entries": "entries",
-      "totalEntries": "total entries",
-      
-      // App Content
-      "goodMorning": "Good morning",
-      "manageFarmEfficiently": "Manage your farm efficiently",
-      "discoverFreshProduce": "Discover fresh produce",
-      "quickActions": "Quick Actions",
-      "realTimeMonitoring": "Real-time monitoring",
-      "deviceManagement": "Device management",
-      "trackGrowth": "Track growth",
-      "maintenanceSchedule": "Maintenance schedule",
-      "performanceReports": "Performance reports",
-      "sellProducts": "Sell products",
-      "freshProduce": "Fresh produce",
-      "deliveryPlans": "Delivery plans",
-      "yourItems": "Your items",
-      "orderHistory": "Order history",
-      "chatWithFarmers": "Chat with farmers",
-      "yourInsights": "Your insights",
-      "todaysWeather": "Today's weather",
-      "partlyCloudy": "Partly cloudy",
-      "uvIndex": "UV Index",
-      "farmOverview": "Farm overview",
-      "activeCrops": "Active crops",
-      "pendingOrders": "Pending orders",
-      "thisMonth": "This month",
-      "featuredProducts": "Featured products",
-      "freshLettuce": "Fresh lettuce",
-      "organicTomatoes": "Organic tomatoes",
-      "sweetCorn": "Sweet corn",
-      "kg": "kg",
-      "greenValleyFarm": "Green Valley Farm",
-      "sunnyOrganicFarm": "Sunny Organic Farm",
-      "harvestHills": "Harvest Hills",
-      "orderCompleted": "Order {{orderId}} completed",
-      "newOrderReceived": "New order received",
-      "lettuceHarvestReady": "Lettuce harvest ready",
-      "orderDelivered": "Order delivered",
-      "orderShipped": "Order shipped",
-      "paymentProcessed": "Payment processed",
-      
-      // Subscription Plans
-      "subscriptionPlans": "Subscription Plans",
-      "freshProduceDelivered": "Fresh produce delivered to your door",
-      "myActiveSubscriptions": "My Active Subscriptions",
-      "availableSubscriptionPlans": "Available Subscription Plans",
-      "everyWeek": "Every week",
-      "everyTwoWeeks": "Every two weeks",
-      "everyMonth": "Every month",
-      "sunday": "Sunday",
-      "monday": "Monday",
-      "tuesday": "Tuesday",
-      "wednesday": "Wednesday",
-      "thursday": "Thursday",
-      "friday": "Friday",
-      "saturday": "Saturday",
-      "modify": "Modify",
-      "pause": "Pause",
-      "resume": "Resume",
-      "schedule": "Schedule",
-      "nextDelivery": "Next delivery",
-      "includedProducts": "Included products",
-      "mostPopular": "Most Popular",
-      "subscribeNow": "Subscribe Now",
-      "subscribeTo": "Subscribe to",
-      "subscriptionDuration": "Subscription Duration",
-      "preferredDeliveryDay": "Preferred Delivery Day",
-      "deliveryTimeSlot": "Delivery Time Slot",
-      "morning": "Morning",
-      "afternoon": "Afternoon",
-      "evening": "Evening",
-      "deliveryAddress": "Delivery Address",
-      "specialInstructions": "Special Instructions",
-      "optional": "Optional",
-      "enterCompleteAddress": "Enter your complete address",
-      "specialInstructionsPlaceholder": "Any special delivery instructions...",
-      "planPrice": "Plan price",
-      "frequency": "Frequency",
-      "totalPerDelivery": "Total per delivery",
-      "per": "per",
-      "weeks": "weeks",
-      "months": "months",
-      
-      // Marketplace
-      "hasadMarketplace": "HASAD Marketplace",
-      "searchProductsFarms": "Search products and farms...",
-      "allProducts": "All Products",
-      "leafyGreens": "Leafy Greens",
-      "vegetables": "Vegetables",
-      "herbs": "Herbs",
-      "fruits": "Fruits",
-      "grains": "Grains",
-      "newestFirst": "Newest first",
-      "priceLowToHigh": "Price: Low to High",
-      "priceHighToLow": "Price: High to Low",
-      "highestRated": "Highest rated",
-      "filters": "Filters",
-      "organic": "Organic",
-      "daysFresh": "days fresh",
-      "reviews": "reviews",
-      "harvested": "Harvested",
-      "addToCart": "Add to Cart",
-      "outOfStock": "Out of Stock",
-      "noProductsFound": "No products found",
-      "adjustSearchCriteria": "Try adjusting your search criteria",
-      "advancedFilters": "Advanced Filters",
-      "priceRange": "Price Range",
-      "min": "Min",
-      "max": "Max",
-      "farmingMethod": "Farming Method",
-      "hydroponic": "Hydroponic",
-      "conventional": "Conventional",
-      "certifications": "Certifications",
-      "fairTrade": "Fair Trade",
-      "allLocations": "All Locations",
-      "riyadh": "Riyadh",
-      "jeddah": "Jeddah",
-      "dammam": "Dammam",
-      "mecca": "Mecca",
-      "availability": "Availability",
-      "inStockOnly": "In stock only",
-      "sameDayDelivery": "Same day delivery",
-      "clearFilters": "Clear Filters",
-      "applyFilters": "Apply Filters",
-      "available": "Available",
-      "minOrder": "Min order",
-      
-      // Shopping Cart
-      "shoppingCart": "Shopping Cart",
-      "yourCartIsEmpty": "Your cart is empty",
-      "addFreshProduce": "Add some fresh produce to get started",
-      "browseMarketplace": "Browse Marketplace",
-      "clearAll": "Clear All",
-      "subtotal": "Subtotal",
-      "deliveryFee": "Delivery fee",
-      "tax": "Tax",
-      "total": "Total",
-      "proceedToCheckout": "Proceed to Checkout",
-      "freeDeliveryOver": "Free delivery over",
-      "estimatedDelivery": "Estimated delivery",
-      "tomorrowTwoPm": "Tomorrow at 2 PM",
-      "orderSummary": "Order Summary",
-      
-      // Settings
-      "appPreferences": "App Preferences",
-      "helpAndSupport": "Help & Support",
-      "notifications": "Notifications",
-      "smartFarmingFingerTips": "Smart farming at your fingertips",
-      
-      // Admin Dashboard
-      "hasadAdminPanel": "HASAD Admin Panel",
-      "adminPortal": "Admin Portal",
-      "monitoringOnly": "Monitoring Only",
-      "adminReadOnlyNotice": "This is a read-only administrative interface. No changes can be made to user accounts or system settings.",
-      
+      login: 'Login',
+      signup: 'Sign Up',
+      logout: 'Logout',
+      email: 'Email',
+      password: 'Password',
+      confirmPassword: 'Confirm Password',
+      rememberMe: 'Remember Me',
+      forgotPassword: 'Forgot Password?',
+      createAccount: 'Create Account',
+      signInAccount: 'Sign In to Your Account',
+      alreadyHaveAccount: 'Already have an account?',
+      dontHaveAccount: "Don't have an account?",
+      welcomeBack: 'Welcome back',
+      loading: 'Loading...',
+      passwordsDoNotMatch: 'Passwords do not match',
+
       // Navigation
-      "reports": "Reports",
-      
-      // KPI Cards
-      "totalFarmers": "Total Farmers",
-      "totalConsumers": "Total Consumers", 
-      "activeDevices": "Active Devices",
-      "openAlerts": "Open Alerts",
-      "monthlyRevenue": "Monthly Revenue",
-      "systemUptime": "System Uptime",
-      "dataProcessed": "Data Processed",
-      "avgResponseTime": "Avg Response Time",
-      
-      // Table Headers & Actions
-      "name": "Name",
-      "status": "Status",
-      "location": "Location",
-      "joinDate": "Join Date",
-      "lastActive": "Last Active",
-      "farmSites": "Farm Sites",
-      "totalOrders": "Total Orders",
-      "revenue": "Revenue",
-      "devices": "Devices",
-      "subscription": "Subscription",
-      "tier": "Tier",
-      "actions": "Actions",
-      "view": "View",
-      
-      // Status Values
-      "active": "Active",
-      "inactive": "Inactive",
-      "suspended": "Suspended",
-      "pending": "Pending",
-      "verified": "Verified",
-      "unverified": "Unverified",
-      "online": "Online",
-      "offline": "Offline",
-      "maintenance": "Maintenance",
-      
-      // Subscription Tiers
-      "basic": "Basic",
-      "premium": "Premium",
-      "enterprise": "Enterprise",
-      "trial": "Trial",
-      
-      // Search & Filters
-      "searchUsers": "Search users...",
-      "searchFarmers": "Search farmers...",
-      "searchConsumers": "Search consumers...",
-      "allStatuses": "All Statuses",
-      "allLocations": "All Locations",
-      "allTiers": "All Tiers",
-      
-      // Detail Drawer
-      "userDetails": "User Details",
-      "accountInformation": "Account Information",
-      "contactInformation": "Contact Information",
-      "farmInformation": "Farm Information",
-      "deviceStatus": "Device Status",
-      "recentActivity": "Recent Activity",
-      "subscriptionDetails": "Subscription Details",
-      
-      // Alerts
-      "criticalAlerts": "Critical Alerts",
-      "warningAlerts": "Warning Alerts",
-      "infoAlerts": "Info Alerts",
-      "alertDetails": "Alert Details",
-      "severity": "Severity",
-      "timestamp": "Timestamp",
-      "source": "Source",
-      "message": "Message",
-      
-      // Pagination
-      "previous": "Previous",
-      "next": "Next",
-      "page": "Page",
-      "of": "of",
-      "showing": "Showing",
-      "to": "to",
-      "entries": "entries",
-      
-      // Empty States
-      "noFarmersFound": "No farmers found",
-      "noConsumersFound": "No consumers found",
-      "noAlertsFound": "No alerts found",
-      
-      // Accessibility
-      "viewUserDetails": "View user details",
-      "switchTo": "Switch to ",
-      
-      // Additional Admin Strings
-      "adminUser": "Admin User",
-      "systemAdministrator": "System Administrator",
-      "adjustSearchCriteria": "Try adjusting your search or filter criteria",
-      "allSeverities": "All Severities",
-      "allTypes": "All Types",
-      "critical": "Critical",
-      "warning": "Warning",
-      "info": "Info",
-      "deviceFaults": "Device Faults",
-      "thresholdAlerts": "Threshold Alerts",
-      "maintenanceDue": "Maintenance",
-      "connectivityIssues": "Connectivity",
-      "harvestReady": "Harvest Ready",
-      "systemUpdates": "System Updates",
-      "acknowledged": "Acknowledged",
-      "readOnlyView": "Read-Only View",
-      "readOnlyViewDescription": "This is a monitoring interface. No changes can be made to user accounts or settings.",
-      "readOnlyAlertDescription": "This is a monitoring interface. Alerts cannot be acknowledged or resolved from this view.",
-      "alertId": "Alert ID",
-      "type": "Type",
-      "created": "Created",
-      "additionalInformation": "Additional Information",
-      "statusInformation": "Status Information",
-      "resolved": "Resolved",
-      "yes": "Yes",
-      "no": "No",
-      "role": "Role",
-      "phone": "Phone",
-      "farmName": "Farm Name",
-      "farmType": "Farm Type",
-      "certifications": "Certifications",
-      "lastUpdate": "Last Update",
-      "expiryDate": "Expiry Date",
-      
-      // Additional table and UI strings
-      "sites": "sites",
-      "ordersCount": "orders",
-      "farmer": "Farmer",
-      "consumer": "Consumer",
-      "hydroponic": "Hydroponic",
-      "organic": "Organic",
-      "greenhouse": "Greenhouse",
-      "conventional": "Conventional",
-      
-      // Alert types
-      "device_fault": "Device Fault",
-      "threshold_exceeded": "Threshold Exceeded",
-      "maintenance_due": "Maintenance Due",
-      "connectivity_issue": "Connectivity Issue",
-      "harvest_ready": "Harvest Ready",
-      "system_update": "System Update",
-      
-      // Profile Page
-      "manageYourAccount": "Manage your account and preferences",
-      "paymentMethods": "Payment Methods",
-      "manageYourCards": "Manage your payment cards",
-      "addresses": "Addresses", 
-      "deliveryAddresses": "Delivery addresses",
-      "notificationSettings": "Notifications",
-      "managePreferences": "Manage preferences",
-      "helpAndSupport": "Help & Support",
-      "getAssistance": "Get assistance",
-      "appPreferences": "Settings",
-      "termsAndPrivacy": "Terms & Privacy",
-      "legalInformation": "Legal information",
-      "viewYourPerformance": "View your performance",
-      "productsListed": "Products Listed",
-      "ordersCompleted": "Orders Completed", 
-      "totalEarnings": "Total Earnings",
-      "appVersion": "App Version",
-      "rating": "Rating",
-      "editProfile": "Edit Profile",
-      "saveChanges": "Save Changes",
-      "farmLocation": "Farm Location",
-      "personalInformation": "Personal Information",
-      "accountStats": "Account Statistics",
-      
-      // Subscription Plans - Additional
-      "starterFreshBox": "Starter Fresh Box",
-      "familyFreshBox": "Family Fresh Box",
-      "adoptARooftop": "Adopt-a-Rooftop",
-      "seasonalSpecialtyBox": "Seasonal Specialty Box",
-      "perfectForSmallFamilies": "Perfect for small families - 3-4 varieties of fresh produce",
-      "idealForFamilies": "Ideal for families - 6-8 varieties of fresh produce",
-      "sponsorYourOwnSection": "Sponsor your own section of a rooftop farm",
-      "curatedSelectionSeasonal": "Curated selection of seasonal specialties and rare varieties",
-      "freshSeasonalVegetables": "Fresh seasonal vegetables",
-      "recipeCardsIncluded": "Recipe cards included",
-      "flexibleDeliverySchedule": "Flexible delivery schedule",
-      "cancelAnytime": "Cancel anytime",
-      "premiumSeasonalVegetablesFruits": "Premium seasonal vegetables & fruits",
-      "recipeCardsCookingTips": "Recipe cards & cooking tips",
-      "priorityDeliverySlots": "Priority delivery slots",
-      "substitutionPreferences": "Substitution preferences",
-      "yourOwnDedicatedGrowingSpace": "Your own dedicated growing space",
-      "monthlyHarvestDelivery": "Monthly harvest delivery",
-      "farmVisitAccess": "Farm visit access",
-      "growthProgressUpdates": "Growth progress updates",
-      "personalizedCropSelection": "Personalized crop selection",
-      "rareSpecialtyVarieties": "Rare & specialty varieties",
-      "seasonalPeakFreshness": "Seasonal peak freshness",
-      "educationalContent": "Educational content",
-      "chefCollaborationRecipes": "Chef collaboration recipes",
-      "premiumPackaging": "Premium packaging",
-      "durationOptions": "Duration Options",
-      "weeklyFreshBox": "Weekly Fresh Box",
-      "myRooftopGarden": "My Rooftop Garden",
-      "paused": "Paused",
-      "cancelled": "Cancelled",
-      "expired": "Expired",
-      "myActiveSubscriptions": "My Active Subscriptions",
-      "availableSubscriptionPlans": "Available Subscription Plans",
-      
-      // Marketplace & Cart
-      "searchProducts": "Search products...",
-      "allCategories": "All Categories",
-      "sortBy": "Sort by",
-      "priceAscending": "Price: Low to High",
-      "priceDescending": "Price: High to Low",
-      "ratingHighest": "Highest Rated",
-      "newest": "Newest",
-      "addToCart": "Add to Cart",
-      "outOfStock": "Out of Stock",
-      "inStock": "In Stock",
-      "lowStock": "Low Stock",
-      "quantity": "Quantity",
-      "remove": "Remove",
-      "clearCart": "Clear Cart",
-      "cartEmpty": "Cart is empty",
-      "startShopping": "Start shopping",
-      "cartSummary": "Cart Summary",
-      "itemsInCart": "item in cart",
-      "itemsInCartPlural": "items in cart",
-      "checkout": "Checkout",
-      "continueShopping": "Continue Shopping",
-      "unit": "unit",
-      "piece": "piece",
-      "bunch": "bunch",
-      "box": "box",
-      "perKg": "per kg",
-      "perPiece": "per piece",
-      "perBunch": "per bunch",
-      "perBox": "per box",
-      "productDetails": "Product Details",
-      "farmerInfo": "Farmer Information",
-      "nutritionFacts": "Nutrition Facts",
-      "customerReviews": "Customer Reviews",
-      "writeReview": "Write Review",
-      "verified": "Verified",
-      "helpfulVotes": "helpful votes",
-      "sortReviews": "Sort Reviews",
-      "mostHelpful": "Most Helpful",
-      "mostRecent": "Most Recent",
-      "highestRating": "Highest Rating",
-      "lowestRating": "Lowest Rating"
+      home: 'Home',
+      profile: 'Profile',
+      settings: 'Settings',
+      dashboard: 'Dashboard',
+      contacts: 'Contacts',
+      shopping: 'Shopping',
+      plans: 'Plans',
+      cart: 'Cart',
+
+      // Common actions
+      save: 'Save',
+      cancel: 'Cancel',
+      edit: 'Edit',
+      delete: 'Delete',
+      add: 'Add',
+      remove: 'Remove',
+      search: 'Search',
+      filter: 'Filter',
+      view: 'View',
+      close: 'Close',
+      back: 'Back',
+
+      // Contact management
+      manageContacts: 'Manage your contacts efficiently',
+      addContact: 'Add Contact',
+      editContact: 'Edit Contact',
+      deleteConfirm: 'Are you sure you want to delete this contact?',
+      noContacts: 'No contacts found',
+      personalInfo: 'Personal Information',
+      contactInfo: 'Contact Information',
+      name: 'Name',
+      type: 'Type',
+      mobile: 'Mobile',
+      telephone: 'Telephone',
+      address: 'Address',
+      city: 'City',
+      country: 'Country',
+      postcode: 'Postcode',
+      nationality: 'Nationality',
+      uploadId: 'Upload ID Document',
+      chooseFile: 'Choose File',
+
+      // Contact types
+      consumer: 'Consumer',
+      institutional: 'Institutional',
+      corporate: 'Corporate',
+
+      // Profile
+      manageYourAccount: 'Manage your account and preferences',
+      editProfile: 'Edit Profile',
+      saveChanges: 'Save Changes',
+      analytics: 'Analytics',
+      viewYourPerformance: 'View your performance',
+      paymentMethods: 'Payment Methods',
+      manageYourCards: 'Manage your payment cards',
+      addresses: 'Addresses',
+      deliveryAddresses: 'Manage delivery addresses',
+      notificationSettings: 'Notification Settings',
+      managePreferences: 'Manage your preferences',
+      helpAndSupport: 'Help & Support',
+      getAssistance: 'Get assistance when you need it',
+      appPreferences: 'App Preferences',
+      termsAndPrivacy: 'Terms & Privacy',
+      legalInformation: 'Legal information and policies',
+      productsListed: 'Products Listed',
+      ordersCompleted: 'Orders Completed',
+      totalEarnings: 'Total Earnings',
+      smartFarmingFingerTips: 'Smart farming at your fingertips',
+      rating: 'Rating',
+      farmLocation: 'Farm Location',
+
+      // Settings
+      selectLanguage: 'Select Language',
+      darkMode: 'Dark Mode',
+      notifications: 'Notifications',
+      helpAndSupport: 'Help & Support',
+
+      // Marketplace
+      hasadMarketplace: 'HASAD Marketplace',
+      searchProducts: 'Search products and farms...',
+      searchProductsFarms: 'Search products and farms...',
+      allProducts: 'All Products',
+      allCategories: 'All Categories',
+      leafyGreens: 'Leafy Greens',
+      vegetables: 'Vegetables',
+      herbs: 'Herbs',
+      fruits: 'Fruits',
+      grains: 'Grains',
+      newest: 'Newest',
+      newestFirst: 'Newest First',
+      priceLowToHigh: 'Price: Low to High',
+      priceHighToLow: 'Price: High to Low',
+      priceAscending: 'Price: Low to High',
+      priceDescending: 'Price: High to Low',
+      highestRated: 'Highest Rated',
+      ratingHighest: 'Highest Rated',
+      filters: 'Filters',
+      advancedFilters: 'Advanced Filters',
+      priceRange: 'Price Range',
+      min: 'Min',
+      max: 'Max',
+      farmingMethod: 'Farming Method',
+      hydroponic: 'Hydroponic',
+      organic: 'Organic',
+      conventional: 'Conventional',
+      certifications: 'Certifications',
+      fairTrade: 'Fair Trade',
+      location: 'Location',
+      allLocations: 'All Locations',
+      riyadh: 'Riyadh',
+      jeddah: 'Jeddah',
+      dammam: 'Dammam',
+      mecca: 'Mecca',
+      availability: 'Availability',
+      inStockOnly: 'In Stock Only',
+      sameDayDelivery: 'Same Day Delivery',
+      clearFilters: 'Clear Filters',
+      applyFilters: 'Apply Filters',
+      noProductsFound: 'No products found',
+      adjustSearchCriteria: 'Try adjusting your search or filter criteria',
+      addToCart: 'Add to Cart',
+      outOfStock: 'Out of Stock',
+      inStock: 'In Stock',
+      lowStock: 'Low Stock',
+      available: 'Available',
+      daysFresh: 'days fresh',
+      reviews: 'reviews',
+      harvested: 'Harvested',
+      minOrder: 'Min order',
+
+      // Shopping Cart
+      shoppingCart: 'Shopping Cart',
+      cartEmpty: 'Your cart is empty',
+      startShopping: 'Start shopping to add items to your cart',
+      continueShopping: 'Continue Shopping',
+      clearCart: 'Clear Cart',
+      cartSummary: 'Cart Summary',
+      subtotal: 'Subtotal',
+      deliveryFee: 'Delivery Fee',
+      tax: 'Tax',
+      total: 'Total',
+      checkout: 'Checkout',
+      freeDeliveryOver: 'Free delivery over',
+      estimatedDelivery: 'Estimated delivery',
+      tomorrowTwoPm: 'Tomorrow at 2 PM',
+      per: 'per',
+      kg: 'kg',
+      piece: 'piece',
+      bunch: 'bunch',
+      box: 'box',
+
+      // Home screen
+      goodMorning: 'Good morning',
+      manageFarmEfficiently: 'Manage your farm efficiently',
+      discoverFreshProduce: 'Discover fresh, local produce',
+      quickActions: 'Quick Actions',
+      todaysWeather: "Today's Weather",
+      partlyCloudy: 'Partly Cloudy',
+      humidity: 'Humidity',
+      uvIndex: 'UV Index',
+      farmOverview: 'Farm Overview',
+      activeCrops: 'Active Crops',
+      pendingOrders: 'Pending Orders',
+      thisMonth: 'This Month',
+      featuredProducts: 'Featured Products',
+      freshLettuce: 'Fresh Lettuce',
+      organicTomatoes: 'Organic Tomatoes',
+      sweetCorn: 'Sweet Corn',
+      greenValleyFarm: 'Green Valley Farm',
+      sunnyOrganicFarm: 'Sunny Organic Farm',
+      harvestHills: 'Harvest Hills',
+      recentActivity: 'Recent Activity',
+
+      // Activity types
+      orderCompleted: 'Order {{orderId}} completed',
+      newOrderReceived: 'New order received',
+      lettuceHarvestReady: 'Lettuce harvest ready',
+      orderDelivered: 'Order delivered',
+      orderShipped: 'Order shipped',
+      paymentProcessed: 'Payment processed',
+      hoursAgo: '{{count}} hour ago',
+      hoursAgo_other: '{{count}} hours ago',
+      dayAgo: '1 day ago',
+      daysAgo: '{{count}} day ago',
+      daysAgo_other: '{{count}} days ago',
+      hourAgo: '1 hour ago',
+
+      // Subscription Plans
+      subscriptionPlans: 'Subscription Plans',
+      freshProduceDelivered: 'Fresh produce delivered to your door',
+      myActiveSubscriptions: 'My Active Subscriptions',
+      availableSubscriptionPlans: 'Available Subscription Plans',
+      weeklyFreshBox: 'Weekly Fresh Box',
+      freshSeasonalVegetables: 'Fresh seasonal vegetables and herbs',
+      myRooftopGarden: 'My Rooftop Garden',
+      sponsorYourOwnSection: 'Sponsor your own growing section',
+      nextDelivery: 'Next Delivery',
+      includedProducts: 'Included Products',
+      modify: 'Modify',
+      pause: 'Pause',
+      resume: 'Resume',
+      schedule: 'Schedule',
+      subscribeTo: 'Subscribe to',
+      subscriptionDuration: 'Subscription Duration',
+      preferredDeliveryDay: 'Preferred Delivery Day',
+      deliveryTimeSlot: 'Delivery Time Slot',
+      deliveryAddress: 'Delivery Address',
+      specialInstructions: 'Special Instructions',
+      optional: 'Optional',
+      specialInstructionsPlaceholder: 'Any special delivery instructions...',
+      planPrice: 'Plan Price',
+      frequency: 'Frequency',
+      totalPerDelivery: 'Total per Delivery',
+      subscribeNow: 'Subscribe Now',
+      enterCompleteAddress: 'Enter your complete delivery address...',
+
+      // Subscription Plan Details
+      starterFreshBox: 'Starter Fresh Box',
+      perfectForSmallFamilies: 'Perfect for small families and individuals',
+      familyFreshBox: 'Family Fresh Box',
+      idealForFamilies: 'Ideal for families of 3-5 people',
+      adoptARooftop: 'Adopt a Rooftop',
+      seasonalSpecialtyBox: 'Seasonal Specialty Box',
+      curatedSelectionSeasonal: 'Curated selection of seasonal specialties',
+      mostPopular: 'Most Popular',
+      everyWeek: 'Every Week',
+      everyTwoWeeks: 'Every Two Weeks',
+      everyMonth: 'Every Month',
+      months: 'months',
+      weeks: 'weeks',
+      durationOptions: 'Duration Options',
+
+      // Plan Features
+      freshSeasonalVegetables: 'Fresh seasonal vegetables',
+      recipeCardsIncluded: 'Recipe cards included',
+      flexibleDeliverySchedule: 'Flexible delivery schedule',
+      cancelAnytime: 'Cancel anytime',
+      premiumSeasonalVegetablesFruits: 'Premium seasonal vegetables & fruits',
+      recipeCardsCookingTips: 'Recipe cards & cooking tips',
+      priorityDeliverySlots: 'Priority delivery slots',
+      substitutionPreferences: 'Substitution preferences',
+      yourOwnDedicatedGrowingSpace: 'Your own dedicated growing space',
+      monthlyHarvestDelivery: 'Monthly harvest delivery',
+      farmVisitAccess: 'Farm visit access',
+      growthProgressUpdates: 'Growth progress updates',
+      personalizedCropSelection: 'Personalized crop selection',
+      rareSpecialtyVarieties: 'Rare & specialty varieties',
+      seasonalPeakFreshness: 'Seasonal peak freshness',
+      educationalContent: 'Educational content',
+      chefCollaborationRecipes: 'Chef collaboration recipes',
+      premiumPackaging: 'Premium packaging',
+
+      // Days of week
+      monday: 'Monday',
+      tuesday: 'Tuesday',
+      wednesday: 'Wednesday',
+      thursday: 'Thursday',
+      friday: 'Friday',
+      saturday: 'Saturday',
+      sunday: 'Sunday',
+
+      // Time periods
+      morning: 'Morning',
+      afternoon: 'Afternoon',
+      evening: 'Evening',
+
+      // Status
+      active: 'Active',
+      inactive: 'Inactive',
+      paused: 'Paused',
+      cancelled: 'Cancelled',
+      expired: 'Expired',
+      pending: 'Pending',
+      suspended: 'Suspended',
+
+      // Admin Dashboard
+      hasadAdminPanel: 'HASAD Admin Panel',
+      adminPortal: 'Admin Portal',
+      readOnly: 'Read Only',
+      monitoringOnly: 'Monitoring Only',
+      adminReadOnlyNotice: 'This is a read-only admin panel for monitoring purposes only',
+      adminUser: 'Admin User',
+      systemAdministrator: 'System Administrator',
+      farmers: 'Farmers',
+      consumers: 'Consumers',
+      orders: 'Orders',
+      alerts: 'Alerts',
+      totalFarmers: 'Total Farmers',
+      totalConsumers: 'Total Consumers',
+      activeDevices: 'Active Devices',
+      openAlerts: 'Open Alerts',
+      monthlyRevenue: 'Monthly Revenue',
+      systemUptime: 'System Uptime',
+      dataProcessed: 'Data Processed',
+      avgResponseTime: 'Avg Response Time',
+      searchFarmers: 'Search farmers...',
+      searchConsumers: 'Search consumers...',
+      allStatuses: 'All Statuses',
+      allLocations: 'All Locations',
+      allTiers: 'All Tiers',
+      allSeverities: 'All Severities',
+      allTypes: 'All Types',
+      farmSites: 'Farm Sites',
+      revenue: 'Revenue',
+      devices: 'Devices',
+      actions: 'Actions',
+      subscription: 'Subscription',
+      totalOrders: 'Total Orders',
+      userDetails: 'User Details',
+      alertDetails: 'Alert Details',
+      accountInformation: 'Account Information',
+      contactInformation: 'Contact Information',
+      farmInformation: 'Farm Information',
+      deviceStatus: 'Device Status',
+      subscriptionDetails: 'Subscription Details',
+      recentActivity: 'Recent Activity',
+      readOnlyView: 'Read-Only View',
+      readOnlyViewDescription: 'This is a monitoring view only. No changes can be made.',
+      readOnlyAlertDescription: 'Alert details are shown for monitoring purposes only.',
+      joinDate: 'Join Date',
+      lastActive: 'Last Active',
+      role: 'Role',
+      phone: 'Phone',
+      farmName: 'Farm Name',
+      farmType: 'Farm Type',
+      tier: 'Tier',
+      status: 'Status',
+      expiryDate: 'Expiry Date',
+      online: 'Online',
+      offline: 'Offline',
+      maintenance: 'Maintenance',
+      lastUpdate: 'Last Update',
+      verified: 'Verified',
+      ordersCount: 'orders',
+      sites: 'sites',
+      showing: 'Showing',
+      to: 'to',
+      of: 'of',
+      entries: 'entries',
+      page: 'Page',
+      previous: 'Previous',
+      next: 'Next',
+      noFarmersFound: 'No farmers found',
+      noConsumersFound: 'No consumers found',
+      adjustSearchCriteria: 'Try adjusting your search criteria',
+      alertId: 'Alert ID',
+      created: 'Created',
+      acknowledged: 'Acknowledged',
+      additionalInformation: 'Additional Information',
+      statusInformation: 'Status Information',
+      resolved: 'Resolved',
+      yes: 'Yes',
+      no: 'No',
+      noAlertsFound: 'No alerts found',
+      critical: 'Critical',
+      warning: 'Warning',
+      info: 'Info',
+      deviceFaults: 'Device Faults',
+      thresholdAlerts: 'Threshold Alerts',
+      maintenanceDue: 'Maintenance Due',
+      connectivityIssues: 'Connectivity Issues',
+      harvestReady: 'Harvest Ready',
+      systemUpdates: 'System Updates',
+
+      // Tiers
+      basic: 'Basic',
+      premium: 'Premium',
+      enterprise: 'Enterprise',
+      trial: 'Trial',
+
+      // Farm types
+      greenhouse: 'Greenhouse',
+      rooftop: 'Rooftop',
+      indoor: 'Indoor',
+      outdoor: 'Outdoor',
+
+      // IoT and Farm Management
+      iotControls: 'IoT Controls',
+      deviceManagement: 'Device management',
+      cropManagement: 'Crop Management',
+      trackGrowth: 'Track growth progress',
+      tasks: 'Tasks',
+      maintenanceSchedule: 'Maintenance schedule',
+      performanceReports: 'Performance reports',
+      sellProducts: 'Sell your products',
+      realTimeMonitoring: 'Real-time monitoring',
+      freshProduce: 'Fresh produce',
+      deliveryPlans: 'Delivery plans',
+      yourItems: 'Your items',
+      orderHistory: 'Order history',
+      chatWithFarmers: 'Chat with farmers',
+      yourInsights: 'Your insights',
     }
   },
   ar: {
     translation: {
       // Authentication
-      "signInAccount": "تسجيل الدخول إلى حسابك",
-      "createAccount": "إنشاء حساب جديد",
-      "welcomeBack": "مرحباً بعودتك",
-      "email": "البريد الإلكتروني",
-      "password": "كلمة المرور",
-      "confirmPassword": "تأكيد كلمة المرور",
-      "login": "تسجيل الدخول",
-      "signup": "إنشاء حساب",
-      "logout": "تسجيل الخروج",
-      "loading": "جاري التحميل...",
-      "rememberMe": "تذكرني",
-      "forgotPassword": "نسيت كلمة المرور؟",
-      "dontHaveAccount": "ليس لديك حساب؟",
-      "alreadyHaveAccount": "لديك حساب بالفعل؟",
-      "passwordsDoNotMatch": "كلمات المرور غير متطابقة",
-      
-      // Navigation & Layout
-      "administration": "الإدارة",
-      "readOnly": "للقراءة فقط",
-      "dashboard": "لوحة التحكم",
-      "farmers": "المزارعون",
-      "consumers": "المستهلكون",
-      "alerts": "التنبيهات",
-      "settings": "الإعدادات",
-      "profile": "الملف الشخصي",
-      "home": "الرئيسية",
-      "marketplace": "السوق",
-      "shopping": "التسوق",
-      "plans": "الخطط",
-      "crops": "المحاصيل",
-      "cart": "السلة",
-      "orders": "الطلبات",
-      "messages": "الرسائل",
-      "analytics": "التحليلات",
-      
-      // Contact Management
-      "contacts": "جهات الاتصال",
-      "addContact": "إضافة جهة اتصال",
-      "editContact": "تعديل جهة الاتصال",
-      "deleteContact": "حذف جهة الاتصال",
-      "deleteConfirm": "هل أنت متأكد من حذف جهة الاتصال هذه؟",
-      "manageContacts": "إدارة جهات الاتصال بكفاءة",
-      "noContacts": "لا توجد جهات اتصال",
-      "personalInfo": "المعلومات الشخصية",
-      "contactInfo": "معلومات الاتصال",
-      "name": "الاسم",
-      "type": "النوع",
-      "nationality": "الجنسية",
-      "uploadId": "رفع الهوية",
-      "chooseFile": "اختر ملف",
-      "mobile": "الجوال",
-      "telephone": "الهاتف",
-      "address": "العنوان",
-      "city": "المدينة",
-      "country": "البلد",
-      "postcode": "الرمز البريدي",
-      "consumer": "مستهلك",
-      "institutional": "مؤسسي",
-      "corporate": "شركة",
-      "save": "حفظ",
-      "cancel": "إلغاء",
-      "edit": "تعديل",
-      "delete": "حذف",
-      "search": "بحث",
-      "filter": "تصفية",
-      
-      // KPI Cards
-      "totalFarmers": "إجمالي المزارعين",
-      "totalConsumers": "إجمالي المستهلكين",
-      "activeDevices": "الأجهزة النشطة",
-      "openAlerts": "التنبيهات المفتوحة",
-      "monthlyRevenue": "الإيرادات الشهرية",
-      "systemUptime": "وقت تشغيل النظام",
-      "dataProcessed": "البيانات المعالجة",
-      "avgResponseTime": "متوسط وقت الاستجابة",
-      
-      // Table Headers
-      "status": "الحالة",
-      "location": "الموقع",
-      "joinDate": "تاريخ الانضمام",
-      "lastActive": "آخر نشاط",
-      "farmSites": "مواقع المزارع",
-      "totalOrders": "إجمالي الطلبات",
-      "revenue": "الإيرادات",
-      "devices": "الأجهزة",
-      "subscription": "الاشتراك",
-      "tier": "المستوى",
-      "actions": "الإجراءات",
-      
-      // Status Values
-      "active": "نشط",
-      "inactive": "غير نشط",
-      "suspended": "معلق",
-      "pending": "معلق",
-      "verified": "موثق",
-      "unverified": "غير موثق",
-      "online": "متصل",
-      "offline": "غير متصل",
-      "maintenance": "صيانة",
-      
-      // Subscription Tiers
-      "basic": "أساسي",
-      "premium": "مميز",
-      "enterprise": "مؤسسي",
-      "trial": "تجريبي",
-      
-      // Common Actions
-      "view": "عرض",
-      "sort": "ترتيب",
-      "export": "تصدير",
-      "refresh": "تحديث",
-      "close": "إغلاق",
-      "noData": "لا توجد بيانات متاحة",
-      "error": "خطأ",
-      
-      // Search & Filters
-      "searchUsers": "البحث عن المستخدمين...",
-      "searchFarmers": "البحث عن المزارعين...",
-      "searchConsumers": "البحث عن المستهلكين...",
-      "filterByStatus": "تصفية حسب الحالة",
-      "filterByLocation": "تصفية حسب الموقع",
-      "filterByTier": "تصفية حسب المستوى",
-      "allStatuses": "جميع الحالات",
-      "allLocations": "جميع المواقع",
-      "allTiers": "جميع المستويات",
-      
-      // Detail Drawer
-      "userDetails": "تفاصيل المستخدم",
-      "accountInformation": "معلومات الحساب",
-      "contactInformation": "معلومات الاتصال",
-      "farmInformation": "معلومات المزرعة",
-      "deviceStatus": "حالة الأجهزة",
-      "recentActivity": "النشاط الأخير",
-      "iotControls": "تحكم إنترنت الأشياء",
-      "subscriptionDetails": "تفاصيل الاشتراك",
-      "orderHistory": "تاريخ الطلبات",
-      
-      // Alerts
-      "criticalAlerts": "تنبيهات حرجة",
-      "warningAlerts": "تنبيهات تحذيرية",
-      "infoAlerts": "تنبيهات إعلامية",
-      "alertDetails": "تفاصيل التنبيه",
-      "acknowledgeAlert": "إقرار التنبيه",
-      "resolveAlert": "حل التنبيه",
-      "severity": "الخطورة",
-      "timestamp": "الطابع الزمني",
-      "source": "المصدر",
-      "message": "الرسالة",
-      
-      // Time & Dates
-      "today": "اليوم",
-      "yesterday": "أمس",
-      "thisWeek": "هذا الأسبوع",
-      "thisMonth": "هذا الشهر",
-      "lastMonth": "الشهر الماضي",
-      "minutesAgo": "منذ {{count}} دقيقة",
-      "hoursAgo": "منذ {{count}} ساعة",
-      "daysAgo": "منذ {{count}} يوم",
-      "hourAgo": "منذ ساعة واحدة",
-      "dayAgo": "منذ يوم واحد",
-      
-      // Language
-      "selectLanguage": "اختر اللغة",
-      "arabic": "العربية",
-      "english": "الإنجليزية",
-      "switchTo": "التبديل إلى ",
-      
-      // Accessibility
-      "adminReadOnlyNotice": "هذه واجهة إدارية للقراءة فقط. لا يمكن إجراء تغييرات على حسابات المستخدمين أو إعدادات النظام.",
-      "viewUserDetails": "عرض تفاصيل المستخدم",
-      "sortBy": "ترتيب حسب {{field}}",
-      "filterBy": "تصفية حسب {{field}}",
-      "currentPage": "الصفحة {{current}} من {{total}}",
-      
-      // Device Types
-      "waterPump": "مضخة المياه",
-      "irrigation": "الري",
-      "lighting": "الإضاءة",
-      "ventilation": "التهوية",
-      "sensors": "أجهزة الاستشعار",
-      "nutrientDoser": "موزع المغذيات",
-      
-      // Metrics
-      "temperature": "درجة الحرارة",
-      "humidity": "الرطوبة",
-      "ph": "مستوى الحموضة",
-      "waterLevel": "مستوى المياه",
-      "lightIntensity": "شدة الإضاءة",
-      "co2Level": "مستوى ثاني أكسيد الكربون",
-      "uptime": "وقت التشغيل",
-      "lastUpdate": "آخر تحديث",
-      
-      // Empty States
-      "noFarmersFound": "لم يتم العثور على مزارعين",
-      "noConsumersFound": "لم يتم العثور على مستهلكين",
-      "noAlertsFound": "لم يتم العثور على تنبيهات",
-      "noDevicesFound": "لم يتم العثور على أجهزة",
-      "noActivityFound": "لم يتم العثور على نشاط حديث",
-      
-      // Pagination
-      "previous": "السابق",
-      "next": "التالي",
-      "page": "صفحة",
-      "of": "من",
-      "showing": "عرض",
-      "to": "إلى",
-      "entries": "إدخالات",
-      "totalEntries": "إجمالي الإدخالات",
-      
-      // App Content
-      "goodMorning": "صباح الخير",
-      "manageFarmEfficiently": "إدارة مزرعتك بكفاءة",
-      "discoverFreshProduce": "اكتشف المنتجات الطازجة",
-      "quickActions": "الإجراءات السريعة",
-      "realTimeMonitoring": "المراقبة في الوقت الفعلي",
-      "deviceManagement": "إدارة الأجهزة",
-      "trackGrowth": "تتبع النمو",
-      "maintenanceSchedule": "جدولة الصيانة",
-      "performanceReports": "تقارير الأداء",
-      "sellProducts": "بيع المنتجات",
-      "freshProduce": "المنتجات الطازجة",
-      "deliveryPlans": "خطط التوصيل",
-      "yourItems": "عناصرك",
-      "orderHistory": "تاريخ الطلبات",
-      "chatWithFarmers": "تحدث مع المزارعين",
-      "yourInsights": "رؤاك التحليلية",
-      "todaysWeather": "طقس اليوم",
-      "partlyCloudy": "غائم جزئياً",
-      "uvIndex": "مؤشر الأشعة فوق البنفسجية",
-      "farmOverview": "نظرة عامة على المزرعة",
-      "activeCrops": "المحاصيل النشطة",
-      "pendingOrders": "الطلبات المعلقة",
-      "thisMonth": "هذا الشهر",
-      "featuredProducts": "المنتجات المميزة",
-      "freshLettuce": "خس طازج",
-      "organicTomatoes": "طماطم عضوية",
-      "sweetCorn": "ذرة حلوة",
-      "kg": "كيلو",
-      "greenValleyFarm": "مزرعة الوادي الأخضر",
-      "sunnyOrganicFarm": "مزرعة صني العضوية",
-      "harvestHills": "تلال الحصاد",
-      "orderCompleted": "تم إكمال الطلب {{orderId}}",
-      "newOrderReceived": "تم استلام طلب جديد",
-      "lettuceHarvestReady": "الخس جاهز للحصاد",
-      "orderDelivered": "تم توصيل الطلب",
-      "orderShipped": "تم شحن الطلب",
-      "paymentProcessed": "تم معالجة الدفع",
-      
-      // Subscription Plans
-      "subscriptionPlans": "خطط الاشتراك",
-      "freshProduceDelivered": "توصيل المنتجات الطازجة إلى بابك",
-      "myActiveSubscriptions": "اشتراكاتي النشطة",
-      "availableSubscriptionPlans": "خطط الاشتراك المتاحة",
-      "everyWeek": "كل أسبوع",
-      "everyTwoWeeks": "كل أسبوعين",
-      "everyMonth": "كل شهر",
-      "sunday": "الأحد",
-      "monday": "الاثنين",
-      "tuesday": "الثلاثاء",
-      "wednesday": "الأربعاء",
-      "thursday": "الخميس",
-      "friday": "الجمعة",
-      "saturday": "السبت",
-      "modify": "تعديل",
-      "pause": "إيقاف مؤقت",
-      "resume": "استئناف",
-      "schedule": "جدولة",
-      "nextDelivery": "التوصيل التالي",
-      "includedProducts": "المنتجات المشمولة",
-      "mostPopular": "الأكثر شعبية",
-      "subscribeNow": "اشترك الآن",
-      "subscribeTo": "اشترك في",
-      "subscriptionDuration": "مدة الاشتراك",
-      "preferredDeliveryDay": "يوم التوصيل المفضل",
-      "deliveryTimeSlot": "فترة التوصيل",
-      "morning": "الصباح",
-      "afternoon": "بعد الظهر",
-      "evening": "المساء",
-      "deliveryAddress": "عنوان التوصيل",
-      "specialInstructions": "تعليمات خاصة",
-      "optional": "اختياري",
-      "enterCompleteAddress": "أدخل عنوانك الكامل",
-      "specialInstructionsPlaceholder": "أي تعليمات خاصة للتوصيل...",
-      "planPrice": "سعر الخطة",
-      "frequency": "التكرار",
-      "totalPerDelivery": "الإجمالي لكل توصيل",
-      "per": "لكل",
-      "weeks": "أسابيع",
-      "months": "أشهر",
-      
-      // Marketplace
-      "hasadMarketplace": "سوق حصاد",
-      "searchProductsFarms": "البحث في المنتجات والمزارع...",
-      "allProducts": "جميع المنتجات",
-      "leafyGreens": "الخضروات الورقية",
-      "vegetables": "الخضروات",
-      "herbs": "الأعشاب",
-      "fruits": "الفواكه",
-      "grains": "الحبوب",
-      "newestFirst": "الأحدث أولاً",
-      "priceLowToHigh": "السعر: من الأقل إلى الأعلى",
-      "priceHighToLow": "السعر: من الأعلى إلى الأقل",
-      "highestRated": "الأعلى تقييماً",
-      "filters": "المرشحات",
-      "organic": "عضوي",
-      "daysFresh": "أيام طازجة",
-      "reviews": "تقييمات",
-      "harvested": "تم حصاده",
-      "addToCart": "أضف إلى السلة",
-      "outOfStock": "نفد المخزون",
-      "noProductsFound": "لم يتم العثور على منتجات",
-      "adjustSearchCriteria": "جرب تعديل معايير البحث",
-      "advancedFilters": "مرشحات متقدمة",
-      "priceRange": "نطاق السعر",
-      "min": "الحد الأدنى",
-      "max": "الحد الأقصى",
-      "farmingMethod": "طريقة الزراعة",
-      "hydroponic": "زراعة مائية",
-      "conventional": "تقليدية",
-      "certifications": "الشهادات",
-      "fairTrade": "التجارة العادلة",
-      "allLocations": "جميع المواقع",
-      "riyadh": "الرياض",
-      "jeddah": "جدة",
-      "dammam": "الدمام",
-      "mecca": "مكة",
-      "availability": "التوفر",
-      "inStockOnly": "المتوفر فقط",
-      "sameDayDelivery": "توصيل في نفس اليوم",
-      "clearFilters": "مسح المرشحات",
-      "applyFilters": "تطبيق المرشحات",
-      "available": "متوفر",
-      "minOrder": "الحد الأدنى للطلب",
-      
-      // Shopping Cart
-      "shoppingCart": "سلة التسوق",
-      "yourCartIsEmpty": "سلتك فارغة",
-      "addFreshProduce": "أضف بعض المنتجات الطازجة للبدء",
-      "browseMarketplace": "تصفح السوق",
-      "clearAll": "مسح الكل",
-      "subtotal": "المجموع الفرعي",
-      "deliveryFee": "رسوم التوصيل",
-      "tax": "الضريبة",
-      "total": "الإجمالي",
-      "proceedToCheckout": "المتابعة للدفع",
-      "freeDeliveryOver": "توصيل مجاني للطلبات أكثر من",
-      "estimatedDelivery": "التوصيل المتوقع",
-      "tomorrowTwoPm": "غداً في الساعة 2 مساءً",
-      "orderSummary": "ملخص الطلب",
-      
-      // Settings
-      "appPreferences": "تفضيلات التطبيق",
-      "helpAndSupport": "المساعدة والدعم",
-      "notifications": "الإشعارات",
-      "smartFarmingFingerTips": "الزراعة الذكية في متناول يدك",
-      
-      // Admin Dashboard
-      "hasadAdminPanel": "لوحة إدارة حصاد",
-      "adminPortal": "بوابة الإدارة",
-      "monitoringOnly": "للمراقبة فقط",
-      "adminReadOnlyNotice": "هذه واجهة إدارية للقراءة فقط. لا يمكن إجراء تغييرات على حسابات المستخدمين أو إعدادات النظام.",
-      
+      login: 'تسجيل الدخول',
+      signup: 'إنشاء حساب',
+      logout: 'تسجيل الخروج',
+      email: 'البريد الإلكتروني',
+      password: 'كلمة المرور',
+      confirmPassword: 'تأكيد كلمة المرور',
+      rememberMe: 'تذكرني',
+      forgotPassword: 'نسيت كلمة المرور؟',
+      createAccount: 'إنشاء حساب',
+      signInAccount: 'تسجيل الدخول إلى حسابك',
+      alreadyHaveAccount: 'لديك حساب بالفعل؟',
+      dontHaveAccount: 'ليس لديك حساب؟',
+      welcomeBack: 'مرحباً بعودتك',
+      loading: 'جاري التحميل...',
+      passwordsDoNotMatch: 'كلمات المرور غير متطابقة',
+
       // Navigation
-      "reports": "التقارير",
-      
-      // KPI Cards
-      "totalFarmers": "إجمالي المزارعين",
-      "totalConsumers": "إجمالي المستهلكين", 
-      "activeDevices": "الأجهزة النشطة",
-      "openAlerts": "التنبيهات المفتوحة",
-      "monthlyRevenue": "الإيرادات الشهرية",
-      "systemUptime": "وقت تشغيل النظام",
-      "dataProcessed": "البيانات المعالجة",
-      "avgResponseTime": "متوسط وقت الاستجابة",
-      
-      // Table Headers & Actions
-      "name": "الاسم",
-      "status": "الحالة",
-      "location": "الموقع",
-      "joinDate": "تاريخ الانضمام",
-      "lastActive": "آخر نشاط",
-      "farmSites": "مواقع المزارع",
-      "totalOrders": "إجمالي الطلبات",
-      "revenue": "الإيرادات",
-      "devices": "الأجهزة",
-      "subscription": "الاشتراك",
-      "tier": "المستوى",
-      "actions": "الإجراءات",
-      "view": "عرض",
-      
-      // Status Values
-      "active": "نشط",
-      "inactive": "غير نشط",
-      "suspended": "معلق",
-      "pending": "معلق",
-      "verified": "موثق",
-      "unverified": "غير موثق",
-      "online": "متصل",
-      "offline": "غير متصل",
-      "maintenance": "صيانة",
-      
-      // Subscription Tiers
-      "basic": "أساسي",
-      "premium": "مميز",
-      "enterprise": "مؤسسي",
-      "trial": "تجريبي",
-      
-      // Search & Filters
-      "searchUsers": "البحث عن المستخدمين...",
-      "searchFarmers": "البحث عن المزارعين...",
-      "searchConsumers": "البحث عن المستهلكين...",
-      "allStatuses": "جميع الحالات",
-      "allLocations": "جميع المواقع",
-      "allTiers": "جميع المستويات",
-      
-      // Detail Drawer
-      "userDetails": "تفاصيل المستخدم",
-      "accountInformation": "معلومات الحساب",
-      "contactInformation": "معلومات الاتصال",
-      "farmInformation": "معلومات المزرعة",
-      "deviceStatus": "حالة الأجهزة",
-      "recentActivity": "النشاط الأخير",
-      "subscriptionDetails": "تفاصيل الاشتراك",
-      
-      // Alerts
-      "criticalAlerts": "تنبيهات حرجة",
-      "warningAlerts": "تنبيهات تحذيرية",
-      "infoAlerts": "تنبيهات إعلامية",
-      "alertDetails": "تفاصيل التنبيه",
-      "severity": "الخطورة",
-      "timestamp": "الطابع الزمني",
-      "source": "المصدر",
-      "message": "الرسالة",
-      
-      // Pagination
-      "previous": "السابق",
-      "next": "التالي",
-      "page": "صفحة",
-      "of": "من",
-      "showing": "عرض",
-      "to": "إلى",
-      "entries": "إدخالات",
-      
-      // Empty States
-      "noFarmersFound": "لم يتم العثور على مزارعين",
-      "noConsumersFound": "لم يتم العثور على مستهلكين",
-      "noAlertsFound": "لم يتم العثور على تنبيهات",
-      
-      // Accessibility
-      "viewUserDetails": "عرض تفاصيل المستخدم",
-      "switchTo": "التبديل إلى ",
-      
-      // Additional Admin Strings
-      "adminUser": "مستخدم إداري",
-      "systemAdministrator": "مدير النظام",
-      "adjustSearchCriteria": "جرب تعديل معايير البحث أو التصفية",
-      "allSeverities": "جميع مستويات الخطورة",
-      "allTypes": "جميع الأنواع",
-      "critical": "حرج",
-      "warning": "تحذير",
-      "info": "معلومات",
-      "deviceFaults": "أعطال الأجهزة",
-      "thresholdAlerts": "تنبيهات العتبة",
-      "maintenanceDue": "صيانة مستحقة",
-      "connectivityIssues": "مشاكل الاتصال",
-      "harvestReady": "جاهز للحصاد",
-      "systemUpdates": "تحديثات النظام",
-      "acknowledged": "مُقر",
-      "readOnlyView": "عرض للقراءة فقط",
-      "readOnlyViewDescription": "هذه واجهة مراقبة. لا يمكن إجراء تغييرات على حسابات المستخدمين أو الإعدادات.",
-      "readOnlyAlertDescription": "هذه واجهة مراقبة. لا يمكن إقرار التنبيهات أو حلها من هذا العرض.",
-      "alertId": "معرف التنبيه",
-      "type": "النوع",
-      "created": "تم الإنشاء",
-      "additionalInformation": "معلومات إضافية",
-      "statusInformation": "معلومات الحالة",
-      "resolved": "تم الحل",
-      "yes": "نعم",
-      "no": "لا",
-      "role": "الدور",
-      "phone": "الهاتف",
-      "farmName": "اسم المزرعة",
-      "farmType": "نوع المزرعة",
-      "certifications": "الشهادات",
-      "lastUpdate": "آخر تحديث",
-      "expiryDate": "تاريخ الانتهاء",
-      
-      // Additional table and UI strings
-      "sites": "مواقع",
-      "ordersCount": "طلبات",
-      "farmer": "مزارع",
-      "consumer": "مستهلك",
-      "hydroponic": "زراعة مائية",
-      "organic": "عضوي",
-      "greenhouse": "بيت محمي",
-      "conventional": "تقليدي",
-      
-      // Alert types
-      "device_fault": "عطل في الجهاز",
-      "threshold_exceeded": "تجاوز العتبة",
-      "maintenance_due": "صيانة مستحقة",
-      "connectivity_issue": "مشكلة في الاتصال",
-      "harvest_ready": "جاهز للحصاد",
-      "system_update": "تحديث النظام",
-      
-      // Profile Page
-      "manageYourAccount": "إدارة حسابك وتفضيلاتك",
-      "paymentMethods": "طرق الدفع",
-      "manageYourCards": "إدارة بطاقاتك المصرفية",
-      "addresses": "العناوين",
-      "deliveryAddresses": "عناوين التوصيل",
-      "notificationSettings": "الإشعارات",
-      "managePreferences": "إدارة التفضيلات",
-      "helpAndSupport": "المساعدة والدعم",
-      "getAssistance": "الحصول على المساعدة",
-      "appPreferences": "الإعدادات",
-      "termsAndPrivacy": "الشروط والخصوصية",
-      "legalInformation": "المعلومات القانونية",
-      "viewYourPerformance": "عرض أدائك",
-      "productsListed": "المنتجات المدرجة",
-      "ordersCompleted": "الطلبات المكتملة",
-      "totalEarnings": "إجمالي الأرباح",
-      "appVersion": "إصدار التطبيق",
-      "rating": "التقييم",
-      "editProfile": "تعديل الملف الشخصي",
-      "saveChanges": "حفظ التغييرات",
-      "farmLocation": "موقع المزرعة",
-      "personalInformation": "المعلومات الشخصية",
-      "accountStats": "إحصائيات الحساب",
-      
-      // Subscription Plans - Additional
-      "starterFreshBox": "صندوق البداية الطازج",
-      "familyFreshBox": "صندوق العائلة الطازج",
-      "adoptARooftop": "تبني سطح",
-      "seasonalSpecialtyBox": "صندوق التخصصات الموسمية",
-      "perfectForSmallFamilies": "مثالي للعائلات الصغيرة - ٣-٤ أنواع من المنتجات الطازجة",
-      "idealForFamilies": "مثالي للعائلات - ٦-٨ أنواع من المنتجات الطازجة",
-      "sponsorYourOwnSection": "ارعى قسمك الخاص من مزرعة الأسطح",
-      "curatedSelectionSeasonal": "مجموعة منتقاة من التخصصات الموسمية والأصناف النادرة",
-      "freshSeasonalVegetables": "خضروات موسمية طازجة",
-      "recipeCardsIncluded": "بطاقات الوصفات مشمولة",
-      "flexibleDeliverySchedule": "جدولة توصيل مرنة",
-      "cancelAnytime": "إلغاء في أي وقت",
-      "premiumSeasonalVegetablesFruits": "خضروات وفواكه موسمية مميزة",
-      "recipeCardsCookingTips": "بطاقات الوصفات ونصائح الطبخ",
-      "priorityDeliverySlots": "مواعيد توصيل أولوية",
-      "substitutionPreferences": "تفضيلات الاستبدال",
-      "yourOwnDedicatedGrowingSpace": "مساحة زراعة مخصصة لك",
-      "monthlyHarvestDelivery": "توصيل الحصاد الشهري",
-      "farmVisitAccess": "إمكانية زيارة المزرعة",
-      "growthProgressUpdates": "تحديثات تقدم النمو",
-      "personalizedCropSelection": "اختيار محاصيل شخصي",
-      "rareSpecialtyVarieties": "أصناف نادرة ومتخصصة",
-      "seasonalPeakFreshness": "نضارة الذروة الموسمية",
-      "educationalContent": "محتوى تعليمي",
-      "chefCollaborationRecipes": "وصفات بالتعاون مع الطهاة",
-      "premiumPackaging": "تغليف مميز",
-      "durationOptions": "خيارات المدة",
-      "weeklyFreshBox": "صندوق أسبوعي طازج",
-      "myRooftopGarden": "حديقة سطحي",
-      "paused": "متوقف مؤقتاً",
-      "cancelled": "ملغي",
-      "expired": "منتهي الصلاحية",
-      "myActiveSubscriptions": "اشتراكاتي النشطة",
-      "availableSubscriptionPlans": "خطط الاشتراك المتاحة",
-      
-      // Marketplace & Cart
-      "searchProducts": "البحث في المنتجات...",
-      "allCategories": "جميع الفئات",
-      "sortBy": "ترتيب حسب",
-      "priceAscending": "السعر: من الأقل إلى الأعلى",
-      "priceDescending": "السعر: من الأعلى إلى الأقل",
-      "ratingHighest": "الأعلى تقييماً",
-      "newest": "الأحدث",
-      "addToCart": "أضف إلى السلة",
-      "outOfStock": "نفد المخزون",
-      "inStock": "متوفر",
-      "lowStock": "مخزون قليل",
-      "quantity": "الكمية",
-      "remove": "إزالة",
-      "clearCart": "مسح السلة",
-      "cartEmpty": "السلة فارغة",
-      "startShopping": "ابدأ التسوق",
-      "cartSummary": "ملخص السلة",
-      "itemsInCart": "عنصر في السلة",
-      "itemsInCartPlural": "عناصر في السلة",
-      "checkout": "الدفع",
-      "continueShopping": "متابعة التسوق",
-      "unit": "وحدة",
-      "piece": "قطعة",
-      "bunch": "حزمة",
-      "box": "صندوق",
-      "perKg": "للكيلو",
-      "perPiece": "للقطعة",
-      "perBunch": "للحزمة",
-      "perBox": "للصندوق",
-      "productDetails": "تفاصيل المنتج",
-      "farmerInfo": "معلومات المزارع",
-      "nutritionFacts": "القيم الغذائية",
-      "customerReviews": "تقييمات العملاء",
-      "writeReview": "اكتب تقييم",
-      "verified": "موثق",
-      "helpfulVotes": "أصوات مفيدة",
-      "sortReviews": "ترتيب التقييمات",
-      "mostHelpful": "الأكثر فائدة",
-      "mostRecent": "الأحدث",
-      "highestRating": "أعلى تقييم",
-      "lowestRating": "أقل تقييم"
+      home: 'الرئيسية',
+      profile: 'الملف الشخصي',
+      settings: 'الإعدادات',
+      dashboard: 'لوحة التحكم',
+      contacts: 'جهات الاتصال',
+      shopping: 'التسوق',
+      plans: 'الخطط',
+      cart: 'السلة',
+
+      // Common actions
+      save: 'حفظ',
+      cancel: 'إلغاء',
+      edit: 'تعديل',
+      delete: 'حذف',
+      add: 'إضافة',
+      remove: 'إزالة',
+      search: 'بحث',
+      filter: 'تصفية',
+      view: 'عرض',
+      close: 'إغلاق',
+      back: 'رجوع',
+
+      // Contact management
+      manageContacts: 'إدارة جهات الاتصال بكفاءة',
+      addContact: 'إضافة جهة اتصال',
+      editContact: 'تعديل جهة الاتصال',
+      deleteConfirm: 'هل أنت متأكد من حذف جهة الاتصال هذه؟',
+      noContacts: 'لا توجد جهات اتصال',
+      personalInfo: 'المعلومات الشخصية',
+      contactInfo: 'معلومات الاتصال',
+      name: 'الاسم',
+      type: 'النوع',
+      mobile: 'الجوال',
+      telephone: 'الهاتف',
+      address: 'العنوان',
+      city: 'المدينة',
+      country: 'البلد',
+      postcode: 'الرمز البريدي',
+      nationality: 'الجنسية',
+      uploadId: 'رفع وثيقة الهوية',
+      chooseFile: 'اختيار ملف',
+
+      // Contact types
+      consumer: 'مستهلك',
+      institutional: 'مؤسسي',
+      corporate: 'شركات',
+
+      // Profile
+      manageYourAccount: 'إدارة حسابك وتفضيلاتك',
+      editProfile: 'تعديل الملف الشخصي',
+      saveChanges: 'حفظ التغييرات',
+      analytics: 'التحليلات',
+      viewYourPerformance: 'عرض أداءك',
+      paymentMethods: 'طرق الدفع',
+      manageYourCards: 'إدارة بطاقاتك',
+      addresses: 'العناوين',
+      deliveryAddresses: 'إدارة عناوين التوصيل',
+      notificationSettings: 'إعدادات الإشعارات',
+      managePreferences: 'إدارة تفضيلاتك',
+      helpAndSupport: 'المساعدة والدعم',
+      getAssistance: 'احصل على المساعدة عند الحاجة',
+      appPreferences: 'تفضيلات التطبيق',
+      termsAndPrivacy: 'الشروط والخصوصية',
+      legalInformation: 'المعلومات القانونية والسياسات',
+      productsListed: 'المنتجات المدرجة',
+      ordersCompleted: 'الطلبات المكتملة',
+      totalEarnings: 'إجمالي الأرباح',
+      smartFarmingFingerTips: 'الزراعة الذكية في متناول يدك',
+      rating: 'التقييم',
+      farmLocation: 'موقع المزرعة',
+
+      // Settings
+      selectLanguage: 'اختيار اللغة',
+      darkMode: 'الوضع المظلم',
+      notifications: 'الإشعارات',
+      helpAndSupport: 'المساعدة والدعم',
+
+      // Marketplace
+      hasadMarketplace: 'سوق حصاد',
+      searchProducts: 'البحث في المنتجات والمزارع...',
+      searchProductsFarms: 'البحث في المنتجات والمزارع...',
+      allProducts: 'جميع المنتجات',
+      allCategories: 'جميع الفئات',
+      leafyGreens: 'الخضروات الورقية',
+      vegetables: 'الخضروات',
+      herbs: 'الأعشاب',
+      fruits: 'الفواكه',
+      grains: 'الحبوب',
+      newest: 'الأحدث',
+      newestFirst: 'الأحدث أولاً',
+      priceLowToHigh: 'السعر: من الأقل للأعلى',
+      priceHighToLow: 'السعر: من الأعلى للأقل',
+      priceAscending: 'السعر: من الأقل للأعلى',
+      priceDescending: 'السعر: من الأعلى للأقل',
+      highestRated: 'الأعلى تقييماً',
+      ratingHighest: 'الأعلى تقييماً',
+      filters: 'المرشحات',
+      advancedFilters: 'المرشحات المتقدمة',
+      priceRange: 'نطاق السعر',
+      min: 'الحد الأدنى',
+      max: 'الحد الأعلى',
+      farmingMethod: 'طريقة الزراعة',
+      hydroponic: 'الزراعة المائية',
+      organic: 'عضوي',
+      conventional: 'تقليدي',
+      certifications: 'الشهادات',
+      fairTrade: 'التجارة العادلة',
+      location: 'الموقع',
+      allLocations: 'جميع المواقع',
+      riyadh: 'الرياض',
+      jeddah: 'جدة',
+      dammam: 'الدمام',
+      mecca: 'مكة',
+      availability: 'التوفر',
+      inStockOnly: 'المتوفر فقط',
+      sameDayDelivery: 'التوصيل في نفس اليوم',
+      clearFilters: 'مسح المرشحات',
+      applyFilters: 'تطبيق المرشحات',
+      noProductsFound: 'لم يتم العثور على منتجات',
+      adjustSearchCriteria: 'جرب تعديل معايير البحث أو التصفية',
+      addToCart: 'إضافة للسلة',
+      outOfStock: 'غير متوفر',
+      inStock: 'متوفر',
+      lowStock: 'مخزون منخفض',
+      available: 'متوفر',
+      daysFresh: 'أيام طازجة',
+      reviews: 'تقييمات',
+      harvested: 'تم الحصاد',
+      minOrder: 'الحد الأدنى للطلب',
+
+      // Shopping Cart
+      shoppingCart: 'سلة التسوق',
+      cartEmpty: 'سلتك فارغة',
+      startShopping: 'ابدأ التسوق لإضافة عناصر إلى سلتك',
+      continueShopping: 'متابعة التسوق',
+      clearCart: 'مسح السلة',
+      cartSummary: 'ملخص السلة',
+      subtotal: 'المجموع الفرعي',
+      deliveryFee: 'رسوم التوصيل',
+      tax: 'الضريبة',
+      total: 'المجموع',
+      checkout: 'الدفع',
+      freeDeliveryOver: 'توصيل مجاني للطلبات أكثر من',
+      estimatedDelivery: 'التوصيل المتوقع',
+      tomorrowTwoPm: 'غداً الساعة 2 مساءً',
+      per: 'لكل',
+      kg: 'كيلو',
+      piece: 'قطعة',
+      bunch: 'حزمة',
+      box: 'صندوق',
+
+      // Home screen
+      goodMorning: 'صباح الخير',
+      manageFarmEfficiently: 'إدارة مزرعتك بكفاءة',
+      discoverFreshProduce: 'اكتشف المنتجات الطازجة المحلية',
+      quickActions: 'الإجراءات السريعة',
+      todaysWeather: 'طقس اليوم',
+      partlyCloudy: 'غائم جزئياً',
+      humidity: 'الرطوبة',
+      uvIndex: 'مؤشر الأشعة فوق البنفسجية',
+      farmOverview: 'نظرة عامة على المزرعة',
+      activeCrops: 'المحاصيل النشطة',
+      pendingOrders: 'الطلبات المعلقة',
+      thisMonth: 'هذا الشهر',
+      featuredProducts: 'المنتجات المميزة',
+      freshLettuce: 'خس طازج',
+      organicTomatoes: 'طماطم عضوية',
+      sweetCorn: 'ذرة حلوة',
+      greenValleyFarm: 'مزرعة الوادي الأخضر',
+      sunnyOrganicFarm: 'مزرعة صني العضوية',
+      harvestHills: 'تلال الحصاد',
+      recentActivity: 'النشاط الأخير',
+
+      // Activity types
+      orderCompleted: 'تم إكمال الطلب {{orderId}}',
+      newOrderReceived: 'تم استلام طلب جديد',
+      lettuceHarvestReady: 'الخس جاهز للحصاد',
+      orderDelivered: 'تم توصيل الطلب',
+      orderShipped: 'تم شحن الطلب',
+      paymentProcessed: 'تمت معالجة الدفع',
+      hoursAgo: 'منذ {{count}} ساعة',
+      hoursAgo_other: 'منذ {{count}} ساعات',
+      dayAgo: 'منذ يوم واحد',
+      daysAgo: 'منذ {{count}} يوم',
+      daysAgo_other: 'منذ {{count}} أيام',
+      hourAgo: 'منذ ساعة واحدة',
+
+      // Subscription Plans
+      subscriptionPlans: 'خطط الاشتراك',
+      freshProduceDelivered: 'منتجات طازجة توصل إلى بابك',
+      myActiveSubscriptions: 'اشتراكاتي النشطة',
+      availableSubscriptionPlans: 'خطط الاشتراك المتاحة',
+      weeklyFreshBox: 'صندوق طازج أسبوعي',
+      freshSeasonalVegetables: 'خضروات وأعشاب موسمية طازجة',
+      myRooftopGarden: 'حديقة السطح الخاصة بي',
+      sponsorYourOwnSection: 'ارعى قسمك الخاص للزراعة',
+      nextDelivery: 'التوصيل التالي',
+      includedProducts: 'المنتجات المشمولة',
+      modify: 'تعديل',
+      pause: 'إيقاف مؤقت',
+      resume: 'استئناف',
+      schedule: 'الجدولة',
+      subscribeTo: 'الاشتراك في',
+      subscriptionDuration: 'مدة الاشتراك',
+      preferredDeliveryDay: 'يوم التوصيل المفضل',
+      deliveryTimeSlot: 'فترة التوصيل',
+      deliveryAddress: 'عنوان التوصيل',
+      specialInstructions: 'تعليمات خاصة',
+      optional: 'اختياري',
+      specialInstructionsPlaceholder: 'أي تعليمات خاصة للتوصيل...',
+      planPrice: 'سعر الخطة',
+      frequency: 'التكرار',
+      totalPerDelivery: 'المجموع لكل توصيل',
+      subscribeNow: 'اشترك الآن',
+      enterCompleteAddress: 'أدخل عنوان التوصيل الكامل...',
+
+      // Subscription Plan Details
+      starterFreshBox: 'صندوق البداية الطازج',
+      perfectForSmallFamilies: 'مثالي للعائلات الصغيرة والأفراد',
+      familyFreshBox: 'صندوق العائلة الطازج',
+      idealForFamilies: 'مثالي للعائلات من 3-5 أشخاص',
+      adoptARooftop: 'تبني سطح',
+      seasonalSpecialtyBox: 'صندوق التخصصات الموسمية',
+      curatedSelectionSeasonal: 'مجموعة منتقاة من التخصصات الموسمية',
+      mostPopular: 'الأكثر شعبية',
+      everyWeek: 'كل أسبوع',
+      everyTwoWeeks: 'كل أسبوعين',
+      everyMonth: 'كل شهر',
+      months: 'أشهر',
+      weeks: 'أسابيع',
+      durationOptions: 'خيارات المدة',
+
+      // Plan Features
+      freshSeasonalVegetables: 'خضروات موسمية طازجة',
+      recipeCardsIncluded: 'بطاقات وصفات مشمولة',
+      flexibleDeliverySchedule: 'جدولة توصيل مرنة',
+      cancelAnytime: 'إلغاء في أي وقت',
+      premiumSeasonalVegetablesFruits: 'خضروات وفواكه موسمية مميزة',
+      recipeCardsCookingTips: 'بطاقات وصفات ونصائح طبخ',
+      priorityDeliverySlots: 'أوقات توصيل أولوية',
+      substitutionPreferences: 'تفضيلات الاستبدال',
+      yourOwnDedicatedGrowingSpace: 'مساحة زراعة مخصصة لك',
+      monthlyHarvestDelivery: 'توصيل حصاد شهري',
+      farmVisitAccess: 'إمكانية زيارة المزرعة',
+      growthProgressUpdates: 'تحديثات تقدم النمو',
+      personalizedCropSelection: 'اختيار محاصيل شخصي',
+      rareSpecialtyVarieties: 'أصناف نادرة ومتخصصة',
+      seasonalPeakFreshness: 'نضارة موسمية في الذروة',
+      educationalContent: 'محتوى تعليمي',
+      chefCollaborationRecipes: 'وصفات بالتعاون مع الطهاة',
+      premiumPackaging: 'تغليف مميز',
+
+      // Days of week
+      monday: 'الاثنين',
+      tuesday: 'الثلاثاء',
+      wednesday: 'الأربعاء',
+      thursday: 'الخميس',
+      friday: 'الجمعة',
+      saturday: 'السبت',
+      sunday: 'الأحد',
+
+      // Time periods
+      morning: 'الصباح',
+      afternoon: 'بعد الظهر',
+      evening: 'المساء',
+
+      // Status
+      active: 'نشط',
+      inactive: 'غير نشط',
+      paused: 'متوقف مؤقتاً',
+      cancelled: 'ملغي',
+      expired: 'منتهي الصلاحية',
+      pending: 'معلق',
+      suspended: 'معلق',
+
+      // Admin Dashboard
+      hasadAdminPanel: 'لوحة إدارة حصاد',
+      adminPortal: 'بوابة الإدارة',
+      readOnly: 'للقراءة فقط',
+      monitoringOnly: 'للمراقبة فقط',
+      adminReadOnlyNotice: 'هذه لوحة إدارة للقراءة فقط لأغراض المراقبة',
+      adminUser: 'مستخدم إداري',
+      systemAdministrator: 'مدير النظام',
+      farmers: 'المزارعون',
+      consumers: 'المستهلكون',
+      orders: 'الطلبات',
+      alerts: 'التنبيهات',
+      totalFarmers: 'إجمالي المزارعين',
+      totalConsumers: 'إجمالي المستهلكين',
+      activeDevices: 'الأجهزة النشطة',
+      openAlerts: 'التنبيهات المفتوحة',
+      monthlyRevenue: 'الإيرادات الشهرية',
+      systemUptime: 'وقت تشغيل النظام',
+      dataProcessed: 'البيانات المعالجة',
+      avgResponseTime: 'متوسط وقت الاستجابة',
+      searchFarmers: 'البحث في المزارعين...',
+      searchConsumers: 'البحث في المستهلكين...',
+      allStatuses: 'جميع الحالات',
+      allLocations: 'جميع المواقع',
+      allTiers: 'جميع المستويات',
+      allSeverities: 'جميع مستويات الخطورة',
+      allTypes: 'جميع الأنواع',
+      farmSites: 'مواقع المزارع',
+      revenue: 'الإيرادات',
+      devices: 'الأجهزة',
+      actions: 'الإجراءات',
+      subscription: 'الاشتراك',
+      totalOrders: 'إجمالي الطلبات',
+      userDetails: 'تفاصيل المستخدم',
+      alertDetails: 'تفاصيل التنبيه',
+      accountInformation: 'معلومات الحساب',
+      contactInformation: 'معلومات الاتصال',
+      farmInformation: 'معلومات المزرعة',
+      deviceStatus: 'حالة الأجهزة',
+      subscriptionDetails: 'تفاصيل الاشتراك',
+      recentActivity: 'النشاط الأخير',
+      readOnlyView: 'عرض للقراءة فقط',
+      readOnlyViewDescription: 'هذا عرض للمراقبة فقط. لا يمكن إجراء تغييرات.',
+      readOnlyAlertDescription: 'تفاصيل التنبيه معروضة لأغراض المراقبة فقط.',
+      joinDate: 'تاريخ الانضمام',
+      lastActive: 'آخر نشاط',
+      role: 'الدور',
+      phone: 'الهاتف',
+      farmName: 'اسم المزرعة',
+      farmType: 'نوع المزرعة',
+      tier: 'المستوى',
+      status: 'الحالة',
+      expiryDate: 'تاريخ الانتهاء',
+      online: 'متصل',
+      offline: 'غير متصل',
+      maintenance: 'صيانة',
+      lastUpdate: 'آخر تحديث',
+      verified: 'موثق',
+      ordersCount: 'طلبات',
+      sites: 'مواقع',
+      showing: 'عرض',
+      to: 'إلى',
+      of: 'من',
+      entries: 'إدخالات',
+      page: 'صفحة',
+      previous: 'السابق',
+      next: 'التالي',
+      noFarmersFound: 'لم يتم العثور على مزارعين',
+      noConsumersFound: 'لم يتم العثور على مستهلكين',
+      adjustSearchCriteria: 'جرب تعديل معايير البحث',
+      alertId: 'معرف التنبيه',
+      created: 'تم الإنشاء',
+      acknowledged: 'تم الإقرار',
+      additionalInformation: 'معلومات إضافية',
+      statusInformation: 'معلومات الحالة',
+      resolved: 'تم الحل',
+      yes: 'نعم',
+      no: 'لا',
+      noAlertsFound: 'لم يتم العثور على تنبيهات',
+      critical: 'حرج',
+      warning: 'تحذير',
+      info: 'معلومات',
+      deviceFaults: 'أعطال الأجهزة',
+      thresholdAlerts: 'تنبيهات العتبة',
+      maintenanceDue: 'صيانة مستحقة',
+      connectivityIssues: 'مشاكل الاتصال',
+      harvestReady: 'جاهز للحصاد',
+      systemUpdates: 'تحديثات النظام',
+
+      // Tiers
+      basic: 'أساسي',
+      premium: 'مميز',
+      enterprise: 'مؤسسي',
+      trial: 'تجريبي',
+
+      // Farm types
+      greenhouse: 'بيت محمي',
+      rooftop: 'سطح',
+      indoor: 'داخلي',
+      outdoor: 'خارجي',
+
+      // IoT and Farm Management
+      iotControls: 'التحكم في إنترنت الأشياء',
+      deviceManagement: 'إدارة الأجهزة',
+      cropManagement: 'إدارة المحاصيل',
+      trackGrowth: 'تتبع تقدم النمو',
+      tasks: 'المهام',
+      maintenanceSchedule: 'جدولة الصيانة',
+      performanceReports: 'تقارير الأداء',
+      sellProducts: 'بيع منتجاتك',
+      realTimeMonitoring: 'المراقبة في الوقت الفعلي',
+      freshProduce: 'منتجات طازجة',
+      deliveryPlans: 'خطط التوصيل',
+      yourItems: 'عناصرك',
+      orderHistory: 'تاريخ الطلبات',
+      chatWithFarmers: 'الدردشة مع المزارعين',
+      yourInsights: 'رؤاك التحليلية',
     }
-  },
-  // Pseudo-locale for testing
-  pseudo: {
-    translation: createPseudoTranslations({
-      // Core auth strings
-      "signInAccount": "Sign in to your account",
-      "createAccount": "Create your account",
-      "email": "Email",
-      "password": "Password",
-      "login": "Login",
-      "signup": "Sign Up",
-      
-      // Profile strings
-      "profile": "Profile",
-      "editProfile": "Edit Profile",
-      "saveChanges": "Save Changes",
-      "cancel": "Cancel",
-      "paymentMethods": "Payment Methods",
-      "addresses": "Addresses",
-      "notificationSettings": "Notifications",
-      "helpAndSupport": "Help & Support",
-      "appPreferences": "Settings",
-      "termsAndPrivacy": "Terms & Privacy",
-      "logout": "Logout",
-      
-      // Plans strings
-      "subscriptionPlans": "Subscription Plans",
-      "myActiveSubscriptions": "My Active Subscriptions",
-      "availableSubscriptionPlans": "Available Subscription Plans",
-      "modify": "Modify",
-      "pause": "Pause",
-      "resume": "Resume",
-      "schedule": "Schedule",
-      "nextDelivery": "Next delivery",
-      
-      // Cart strings
-      "shoppingCart": "Shopping Cart",
-      "addToCart": "Add to Cart",
-      "removeFromCart": "Remove from Cart",
-      "clearCart": "Clear Cart",
-      "checkout": "Checkout",
-      "subtotal": "Subtotal",
-      "total": "Total",
-      
-      // Common strings
-      "loading": "Loading",
-      "error": "Error",
-      "success": "Success",
-      "active": "Active",
-      "inactive": "Inactive"
-    })
   }
 };
 
-// Get stored language preference or default to Arabic
-const getStoredLanguage = (): 'ar' | 'en' => {
-  try {
-    const stored = localStorage.getItem('hasad-language');
-    return (stored === 'ar' || stored === 'en') ? stored : 'ar';
-  } catch {
-    return 'ar';
-  }
-};
+// Missing key tracker for development
+class MissingKeyTracker {
+  private missingKeys = new Set<string>();
 
-// Store language preference
-const storeLanguage = (language: 'ar' | 'en') => {
+  addMissingKey(key: string) {
+    if (import.meta.env.DEV) {
+      this.missingKeys.add(key);
+      console.warn(`🔍 Missing translation key: ${key}`);
+    }
+  }
+
+  getMissingKeys(): string[] {
+    return Array.from(this.missingKeys);
+  }
+
+  clear() {
+    this.missingKeys.clear();
+  }
+}
+
+export const missingKeyTracker = new MissingKeyTracker();
+
+// Initialize i18next
+i18n
+  .use(initReactI18next)
+  .init({
+    resources,
+    lng: 'ar', // Default to Arabic
+    fallbackLng: 'en',
+    debug: import.meta.env.DEV,
+    
+    interpolation: {
+      escapeValue: false,
+    },
+
+    // Handle missing keys
+    missingKeyHandler: (lng, ns, key) => {
+      missingKeyTracker.addMissingKey(key);
+      return key; // Return the key itself as fallback
+    },
+
+    // React i18next options
+    react: {
+      useSuspense: false,
+    },
+  });
+
+// Get current language for formatting functions
+const getCurrentLanguage = () => i18n.language || 'ar';
+
+// Formatting utility functions
+export const formatDate = (date: Date | string | number, locale?: string): string => {
   try {
-    localStorage.setItem('hasad-language', language);
+    const targetLocale = locale || getCurrentLanguage();
+    const dateObj = new Date(date);
+    
+    if (isNaN(dateObj.getTime())) {
+      return String(date);
+    }
+
+    return new Intl.DateTimeFormat(targetLocale === 'ar' ? 'ar-SA' : 'en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    }).format(dateObj);
   } catch (error) {
-    console.warn('Failed to store language preference:', error);
+    console.warn('Date formatting failed:', error);
+    return String(date);
   }
 };
 
-// Set document direction and language attributes
-const setDocumentDirection = (language: 'ar' | 'en') => {
-  const isRTL = language === 'ar';
-  document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
-  document.documentElement.lang = language;
-};
-
-// Initialize i18n
-const initI18n = async () => {
+export const formatNumber = (number: number, options?: Intl.NumberFormatOptions): string => {
   try {
-    const initialLanguage = getStoredLanguage();
-    
-    await i18n.use(initReactI18next).init({
-      resources,
-      lng: initialLanguage,
-      fallbackLng: 'en',
-      // Custom missing key handler
-      missingKeyHandler: (lng, ns, key, fallbackValue) => {
-        missingKeyTracker.track(key, ns);
-        return fallbackValue || key;
-      },
-      interpolation: {
-        escapeValue: false
-      },
-      react: {
-        useSuspense: false
-      },
-      debug: import.meta.env.DEV
-    });
-    
-    // Set initial document direction
-    setDocumentDirection(initialLanguage);
-    
-    console.log('✅ i18n initialized successfully with language:', initialLanguage);
+    const locale = getCurrentLanguage();
+    return new Intl.NumberFormat(locale === 'ar' ? 'ar-SA' : 'en-US', options).format(number);
   } catch (error) {
-    console.error('❌ Failed to initialize i18n:', error);
-    // Fallback to Arabic
-    setDocumentDirection('ar');
+    console.warn('Number formatting failed:', error);
+    return String(number);
   }
 };
 
-// Language change handler
-export const changeLanguage = (language: 'ar' | 'en') => {
+export const formatCurrency = (amount: number, currency = 'SAR', locale?: string): string => {
   try {
-    i18n.changeLanguage(language);
-    setDocumentDirection(language);
-    storeLanguage(language);
-    
-    // Trigger a re-render by dispatching a custom event
-    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language } }));
-    
-    console.log('✅ Language changed to:', language);
-  } catch (error) {
-    console.error('❌ Failed to change language:', error);
-  }
-};
-
-// Format numbers according to locale
-export const formatI18nNumber = (value: number, locale?: string): string => {
-  const currentLocale = locale || i18n.language;
-  const localeCode = currentLocale === 'ar' ? 'ar-SA-u-nu-arab' : 'en-US';
-  
-  try {
-    return new Intl.NumberFormat(localeCode, {
-      numberingSystem: currentLocale === 'ar' ? 'arab' : 'latn'
-    }).format(value);
-  } catch {
-    return value.toString();
-  }
-};
-
-// Format currency according to locale
-export const formatI18nCurrency = (value: number, currency = 'SAR', locale?: string): string => {
-  const currentLocale = locale || i18n.language;
-  const localeCode = currentLocale === 'ar' ? 'ar-SA-u-nu-arab' : 'en-US';
-  
-  try {
-    return new Intl.NumberFormat(localeCode, {
+    const targetLocale = locale || getCurrentLanguage();
+    return new Intl.NumberFormat(targetLocale === 'ar' ? 'ar-SA' : 'en-US', {
       style: 'currency',
       currency: currency,
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
-      numberingSystem: currentLocale === 'ar' ? 'arab' : 'latn'
-    }).format(value);
-  } catch {
-    return `${currency} ${value.toFixed(2)}`;
+    }).format(amount);
+  } catch (error) {
+    console.warn('Currency formatting failed:', error);
+    return `${currency} ${amount.toFixed(2)}`;
   }
 };
 
-// Format dates according to locale
-export const formatI18nDate = (date: string | Date, locale?: string): string => {
-  const currentLocale = locale || i18n.language;
-  const localeCode = currentLocale === 'ar' ? 'ar-SA' : 'en-US';
-  
+export const formatRelativeTime = (date: Date | string | number): string => {
   try {
-    return new Intl.DateTimeFormat(localeCode, {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    }).format(new Date(date));
-  } catch {
-    return new Date(date).toLocaleDateString();
-  }
-};
-
-// Format relative time according to locale
-export const formatI18nRelativeTime = (date: string | Date, locale?: string): string => {
-  const currentLocale = locale || i18n.language;
-  const localeCode = currentLocale === 'ar' ? 'ar-SA' : 'en-US';
-  
-  try {
-    const rtf = new Intl.RelativeTimeFormat(localeCode, { numeric: 'auto' });
+    const locale = getCurrentLanguage();
     const now = new Date();
     const targetDate = new Date(date);
-    const diffInSeconds = (targetDate.getTime() - now.getTime()) / 1000;
     
-    if (Math.abs(diffInSeconds) < 60) {
-      return rtf.format(Math.round(diffInSeconds), 'second');
-    } else if (Math.abs(diffInSeconds) < 3600) {
-      return rtf.format(Math.round(diffInSeconds / 60), 'minute');
-    } else if (Math.abs(diffInSeconds) < 86400) {
-      return rtf.format(Math.round(diffInSeconds / 3600), 'hour');
-    } else {
-      return rtf.format(Math.round(diffInSeconds / 86400), 'day');
+    if (isNaN(targetDate.getTime())) {
+      return String(date);
     }
-  } catch {
-    // Fallback to simple format
-    const diffInHours = (new Date(date).getTime() - new Date().getTime()) / (1000 * 60 * 60);
-    if (Math.abs(diffInHours) < 24) {
-      return i18n.t('hoursAgo', { count: Math.abs(Math.round(diffInHours)) });
+
+    const diffMs = targetDate.getTime() - now.getTime();
+    const diffMinutes = Math.round(diffMs / (1000 * 60));
+    const diffHours = Math.round(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
+
+    const rtf = new Intl.RelativeTimeFormat(locale === 'ar' ? 'ar-SA' : 'en-US', { 
+      numeric: 'auto' 
+    });
+
+    if (Math.abs(diffMinutes) < 60) {
+      return rtf.format(diffMinutes, 'minute');
+    } else if (Math.abs(diffHours) < 24) {
+      return rtf.format(diffHours, 'hour');
+    } else if (Math.abs(diffDays) < 30) {
+      return rtf.format(diffDays, 'day');
     } else {
-      return i18n.t('daysAgo', { count: Math.abs(Math.round(diffInHours / 24)) });
+      return formatDate(date, locale);
     }
+  } catch (error) {
+    console.warn('Relative time formatting failed:', error);
+    return formatDate(date);
   }
 };
 
-// Initialize i18n
-initI18n();
+// Internationalized formatting functions for components
+export const formatI18nCurrency = (amount: number, currency = 'SAR', locale?: string): string => {
+  return formatCurrency(amount, currency, locale);
+};
+
+export const formatI18nNumber = (number: number, options?: Intl.NumberFormatOptions): string => {
+  return formatNumber(number, options);
+};
+
+// Language change function with proper direction handling
+export const changeLanguage = (language: 'ar' | 'en') => {
+  i18n.changeLanguage(language);
+  
+  // Update document direction and language
+  document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+  document.documentElement.lang = language;
+  
+  // Store preference
+  try {
+    localStorage.setItem('hasad-language', language);
+  } catch (error) {
+    console.warn('Could not save language preference:', error);
+  }
+  
+  // Dispatch custom event for components that need to react to language changes
+  window.dispatchEvent(new CustomEvent('languageChanged', { 
+    detail: { language } 
+  }));
+};
 
 export default i18n;
