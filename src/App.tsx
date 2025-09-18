@@ -27,6 +27,7 @@ import { SettingsProvider } from './contexts/SettingsContext';
 import { useAuth } from './contexts/AuthContext';
 import { I18nDevTools } from './components/dev/I18nDevTools';
 import { MissingKeyOverlay } from './components/dev/MissingKeyOverlay';
+import { RTLTestSuite } from './components/dev/RTLTestSuite';
 import { I18nStorybook } from './components/dev/I18nStorybook';
 import { FarmSite } from './types';
 import './App.css';
@@ -210,6 +211,7 @@ function App() {
                 <>
                   <I18nDevTools show={true} />
                   <MissingKeyOverlay />
+                  <RTLTestSuite />
                   <I18nStorybook />
                 </>
               )}
