@@ -198,7 +198,6 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
             </div>
           </div>
         </div>
-                <p className="body-sm text-gray-600 text-center">{t('ordersCompleted')}</p>
               </div>
             </div>
           </div>
