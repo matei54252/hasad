@@ -206,13 +206,13 @@ export const FarmDashboard: React.FC<FarmDashboardProps> = ({
               >
                 <div className="flex items-start justify-between">
                   <div>
-                    <h4 className="font-medium">{alert.title}</h4>
-                    <p className="text-sm opacity-80">{alert.message}</p>
+                    <h4 className="font-medium">{t(alert.title.toLowerCase().replace(/\s+/g, ''))}</h4>
+                    <p className="text-sm opacity-80">{t(alert.message.toLowerCase().replace(/\s+/g, '').replace(/[^\w]/g, ''))}</p>
                     <p className="text-xs opacity-60 mt-1">
                       {new Date(alert.created_at).toLocaleString(i18n.language === 'ar' ? 'ar-SA' : 'en-US')}
                     </p>
                   </div>
-                  <button className="text-xs px-2 py-1 bg-white rounded border hover:bg-gray-50 text-start">
+                  <button className="text-xs px-2 py-1 bg-white rounded border hover:bg-gray-50">
                     {t('acknowledge')}
                   </button>
                 </div>
