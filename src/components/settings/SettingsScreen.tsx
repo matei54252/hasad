@@ -216,7 +216,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
                       {item.toggle ? (
                         <button
                           onClick={item.action}
-                          className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 ${
+                          className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 flex-shrink-0 ${
                             item.toggleValue ? 'bg-green-600' : 'bg-gray-300'
                           }`}
                           role="switch"
@@ -224,19 +224,19 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
                           aria-label={`Toggle ${item.label}`}
                         >
                           <span
-                            className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                              item.toggleValue ? 'translate-x-6' : 'translate-x-1'
+                            className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform shadow-sm ${
+                              item.toggleValue ? 'translate-x-5' : 'translate-x-1'
                             }`}
                           />
                         </button>
                       ) : (
                         <>
-                          <span className="text-sm text-gray-500 font-medium truncate max-w-[120px]">
+                          <span className="text-sm text-gray-500 font-medium truncate max-w-[100px] flex-shrink-0">
                             {item.value}
                           </span>
                           <button
                             onClick={item.action}
-                            className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
+                            className="p-1 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0"
                             aria-label={`Change ${item.label}`}
                           >
                             <ChevronRight className="w-4 h-4 text-gray-400" />
