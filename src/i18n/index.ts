@@ -496,6 +496,12 @@ const resources = {
       tasksAndMaintenance: 'Tasks & Maintenance',
       reports: 'Reports',
       squareMeters: 'm²',
+
+      // Alert translations
+      highTemperature: 'High Temperature',
+      temperatureHasExceeded26CFor2Hours: 'Temperature has exceeded 26°C for 2 hours',
+      filterReplacementDue: 'Filter Replacement Due',
+      waterFilterNeedsReplacementIn3Days: 'Water filter needs replacement in 3 days',
     }
   },
   ar: {
@@ -991,6 +997,12 @@ const resources = {
       tasksAndMaintenance: 'المهام والصيانة',
       reports: 'التقارير',
       squareMeters: 'م²',
+
+      // Alert translations
+      highTemperature: 'درجة حرارة عالية',
+      temperatureHasExceeded26CFor2Hours: 'تجاوزت درجة الحرارة 26°م لمدة ساعتين',
+      filterReplacementDue: 'استبدال المرشح مستحق',
+      waterFilterNeedsReplacementIn3Days: 'يحتاج مرشح المياه للاستبدال خلال 3 أيام',
     }
   }
 };

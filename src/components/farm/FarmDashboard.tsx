@@ -206,8 +206,8 @@ export const FarmDashboard: React.FC<FarmDashboardProps> = ({
               >
                 <div className="flex items-start justify-between">
                   <div>
-                    <h4 className="font-medium">{t(alert.title.toLowerCase().replace(/\s+/g, ''))}</h4>
-                    <p className="text-sm opacity-80">{t(alert.message.toLowerCase().replace(/\s+/g, '').replace(/[^\w]/g, ''))}</p>
+                    <h4 className="font-medium">{alert.title === 'High Temperature' ? t('highTemperature') : alert.title === 'Filter Replacement Due' ? t('filterReplacementDue') : alert.title}</h4>
+                    <p className="text-sm opacity-80">{alert.message === 'Temperature has exceeded 26°C for 2 hours' ? t('temperatureHasExceeded26CFor2Hours') : alert.message === 'Water filter needs replacement in 3 days' ? t('waterFilterNeedsReplacementIn3Days') : alert.message}</p>
                     <p className="text-xs opacity-60 mt-1">
                       {new Date(alert.created_at).toLocaleString(i18n.language === 'ar' ? 'ar-SA' : 'en-US')}
                     </p>
