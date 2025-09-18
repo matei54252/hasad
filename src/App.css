@@ -606,29 +606,27 @@ body {
 .revenue-number {
   font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
   direction: ltr;
-  text-align: center;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.025em;
+  text-align: center;
+  line-height: 1.1;
 }
 
 @media (max-width: 375px) {
   .revenue-number {
-    font-size: 1.25rem;
-    line-height: 1.3;
+    font-size: 1.75rem;
   }
 }
 
 @media (min-width: 376px) and (max-width: 480px) {
   .revenue-number {
-    font-size: 1.5rem;
-    line-height: 1.3;
+    font-size: 2rem;
   }
 }
 
 @media (min-width: 481px) {
   .revenue-number {
-    font-size: 1.75rem;
-    line-height: 1.3;
+    font-size: 2.25rem;
   }
 }
 

@@ -167,24 +167,35 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
 
       {/* Stats (for farmers) */}
       {user?.type === 'farmer' && (
-        <div className="grid grid-cols-3 gap-3 mb-6">
-          <div className="card text-center">
-            <div className="text-2xl font-bold text-green-600 bidi-isolate" dir="ltr">
-              24
+        <div className="space-y-3 mb-6">
+          {/* Revenue Widget - Full Width */}
+          <div className="card">
+            <div className="flex flex-col items-center justify-center py-4">
+              <div className="revenue-number text-orange-600 font-bold mb-3" dir="ltr">
+                {formatCurrency(8450)}
+              </div>
+              <p className="body-sm text-gray-600 text-center">{t('totalEarnings')}</p>
             </div>
-            <p className="body-sm text-gray-600">{t('productsListed')}</p>
           </div>
-          <div className="card text-center">
-            <div className="text-2xl font-bold text-blue-600 bidi-isolate" dir="ltr">
-              156
+          
+          {/* Other Stats - Two Columns */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="card">
+              <div className="flex flex-col items-center justify-center py-4">
+                <div className="text-3xl font-bold text-green-600 bidi-isolate mb-3" dir="ltr">
+                  24
+                </div>
+                <p className="body-sm text-gray-600 text-center">{t('productsListed')}</p>
+              </div>
             </div>
-            <p className="body-sm text-gray-600">{t('ordersCompleted')}</p>
-          </div>
-          <div className="card text-center">
-            <div className="revenue-number text-orange-600 font-bold" dir="ltr">
-              {formatCurrency(8450)}
+            <div className="card">
+              <div className="flex flex-col items-center justify-center py-4">
+                <div className="text-3xl font-bold text-blue-600 bidi-isolate mb-3" dir="ltr">
+                  156
+                </div>
+                <p className="body-sm text-gray-600 text-center">{t('ordersCompleted')}</p>
+              </div>
             </div>
-            <p className="body-sm text-gray-600">{t('totalEarnings')}</p>
           </div>
         </div>
       )}
