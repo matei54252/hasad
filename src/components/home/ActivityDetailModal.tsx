@@ -204,12 +204,12 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
             </span>
           </div>
           {activity.details.deliveryNotes && (
-            <div dir="rtl" className="delivery-instructions mt-3 p-3 bg-yellow-50 rounded-lg">
+            <div className="delivery-instructions mt-3 p-3 bg-yellow-50 rounded-lg" dir="rtl">
               <div className="flex justify-between items-start gap-3">
-                <span className="instruction-label text-sm font-medium text-yellow-800" dir="rtl">
+                <span className="instruction-label" dir="rtl">
                   {t('deliveryNotes')}؍
                 </span>
-                <span className="instruction-value text-sm text-yellow-800" dir="ltr">
+                <span className="instruction-value" dir="ltr">
                   {activity.details.deliveryNotes}
                 </span>
               </div>
@@ -384,7 +384,7 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden" dir="rtl">
         {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+        <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 rounded-t-2xl">
           <div className="flex items-center gap-3">
             <div
               className={`w-10 h-10 rounded-full flex items-center justify-center ${
@@ -414,7 +414,7 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto max-h-[calc(90vh-80px)] space-y-6">
+        <div className="p-6 overflow-y-auto flex-1 space-y-6" style={{ maxHeight: 'calc(90vh - 160px)' }}>
           {activity.type === 'order' ? renderOrderDetails() : renderCropDetails()}
         </div>
 
