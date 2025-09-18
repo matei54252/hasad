@@ -235,6 +235,37 @@ main {
   margin-inline-start: 0.25rem;
 }
 
+/* Allow instructions to wrap and expand */
+.instructions-text {
+  white-space: pre-wrap;      /* Preserve line breaks */
+  word-wrap: break-word;      /* Break long words */
+  overflow-wrap: anywhere;    /* Break anywhere if needed */
+  text-align: start;          /* Respect RTL container direction */
+  margin: 0;
+  line-height: 1.5;
+  hyphens: auto;
+}
+
+/* Ensure container can grow */
+.delivery-instructions {
+  display: block;
+  width: 100%;
+}
+
+/* Remove any fixed height or overflow restrictions */
+.card .delivery-instructions,
+.card .card-body {
+  height: auto !important;
+  overflow: visible !important;
+  min-height: auto !important;
+}
+
+/* Ensure modal content can expand */
+.modal-content .delivery-instructions {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
 /* Widget responsive adjustments for RTL */
 @media (max-width: 640px) {
   .widget-card {
@@ -244,6 +275,11 @@ main {
   .widget-card .flex {
     align-items: flex-start;
     text-align: start;
+  }
+  
+  .instructions-text {
+    font-size: 0.875rem;
+    line-height: 1.6;
   }
 }
 

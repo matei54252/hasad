@@ -204,9 +204,9 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
             </span>
           </div>
           {activity.details.deliveryNotes && (
-            <div className="mt-3 p-3 bg-yellow-50 rounded-lg">
-              <p className="text-sm text-yellow-800">
-                <strong>{t('deliveryNotes')}:</strong> {activity.details.deliveryNotes}
+            <div className="delivery-instructions mt-3 p-3 bg-yellow-50 rounded-lg">
+              <p className="instructions-text text-sm text-yellow-800">
+                <strong>{t('deliveryNotes')}؍</strong> {activity.details.deliveryNotes}
               </p>
             </div>
           )}
