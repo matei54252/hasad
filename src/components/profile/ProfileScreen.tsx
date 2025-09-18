@@ -167,9 +167,9 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
 
       {/* Stats (for farmers) */}
       {user?.type === 'farmer' && (
-        <div className="grid grid-cols-3 gap-3 mb-6">
-          {/* Revenue Widget - First Position */}
-          <div className="card text-center">
+        <div className="space-y-3 mb-6">
+          {/* Revenue Widget - Full Width */}
+          <div className="card">
             <div className="flex flex-col items-center justify-center py-4">
               <div className="revenue-number text-orange-600 font-bold mb-3" dir="ltr">
                 {formatCurrency(8450)}
@@ -178,23 +178,23 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ onNavigateToSettin
             </div>
           </div>
           
-          {/* Active Farms Widget - Second Position */}
-          <div className="card text-center">
-            <div className="flex flex-col items-center justify-center py-4">
-              <div className="text-3xl font-bold text-green-600 bidi-isolate mb-3" dir="ltr">
-                24
+          {/* Other Stats - Two Columns */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="card">
+              <div className="flex flex-col items-center justify-center py-4">
+                <div className="text-3xl font-bold text-green-600 bidi-isolate mb-3" dir="ltr">
+                  24
+                </div>
+                <p className="body-sm text-gray-600 text-center">{t('productsListed')}</p>
               </div>
-              <p className="body-sm text-gray-600 text-center">{t('productsListed')}</p>
             </div>
-          </div>
-          
-          {/* Orders Widget - Third Position */}
-          <div className="card text-center">
-            <div className="flex flex-col items-center justify-center py-4">
-              <div className="text-3xl font-bold text-blue-600 bidi-isolate mb-3" dir="ltr">
-                156
+            <div className="card">
+              <div className="flex flex-col items-center justify-center py-4">
+                <div className="text-3xl font-bold text-blue-600 bidi-isolate mb-3" dir="ltr">
+                  156
+                </div>
+                <p className="body-sm text-gray-600 text-center">{t('ordersCompleted')}</p>
               </div>
-              <p className="body-sm text-gray-600 text-center">{t('ordersCompleted')}</p>
             </div>
           </div>
         </div>
