@@ -28,6 +28,7 @@ export const FarmDashboard: React.FC<FarmDashboardProps> = ({
   sites,
 }) => {
   const { t } = useTranslation();
+  const { i18n } = useTranslation();
   const [sensorData, setSensorData] = useState<SensorData | null>(null);
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [metrics, setMetrics] = useState<PerformanceMetrics | null>(null);
@@ -148,13 +149,13 @@ export const FarmDashboard: React.FC<FarmDashboardProps> = ({
   }
 
   return (
-    <div className="p-4 space-y-6">
+    <div className="p-4 space-y-6" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'} lang={i18n.language}>
       {/* Site Selector */}
       <div className="bg-white rounded-xl shadow-lg p-4">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
             <MapPin className="w-5 h-5 text-green-600" />
-            {selectedSite.name}
+            {t('farmDashboard')} - {selectedSite.name}
           </h2>
           <select
             value={selectedSite.id}
@@ -183,10 +184,10 @@ export const FarmDashboard: React.FC<FarmDashboardProps> = ({
                     : 'bg-red-500'
               }`}
             />
-            {selectedSite.status}
+            {t(selectedSite.status)}
           </span>
           <span>{selectedSite.location.address}</span>
-          <span>{selectedSite.size}m²</span>
+          <span>{selectedSite.size} {t('squareMeters')}</span>
         </div>
       </div>
 
@@ -195,7 +196,7 @@ export const FarmDashboard: React.FC<FarmDashboardProps> = ({
         <div className="bg-white rounded-xl shadow-lg p-4">
           <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
             <AlertTriangle className="w-5 h-5 text-yellow-600" />
-            Active Alerts ({alerts.length})
+            {t('activeAlerts')} ({alerts.length})
           </h3>
           <div className="space-y-2">
             {alerts.map(alert => (
@@ -208,11 +209,11 @@ export const FarmDashboard: React.FC<FarmDashboardProps> = ({
                     <h4 className="font-medium">{alert.title}</h4>
                     <p className="text-sm opacity-80">{alert.message}</p>
                     <p className="text-xs opacity-60 mt-1">
-                      {new Date(alert.created_at).toLocaleString()}
+                      {new Date(alert.created_at).toLocaleString(i18n.language === 'ar' ? 'ar-SA' : 'en-US')}
                     </p>
                   </div>
-                  <button className="text-xs px-2 py-1 bg-white rounded border hover:bg-gray-50">
-                    Acknowledge
+                  <button className="text-xs px-2 py-1 bg-white rounded border hover:bg-gray-50 text-start">
+                    {t('acknowledge')}
                   </button>
                 </div>
               </div>
@@ -225,7 +226,7 @@ export const FarmDashboard: React.FC<FarmDashboardProps> = ({
       <div className="bg-white rounded-xl shadow-lg p-4">
         <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
           <Activity className="w-5 h-5 text-green-600" />
-          Real-time Monitoring
+          {t('realTimeMonitoring')}
         </h3>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -234,12 +235,12 @@ export const FarmDashboard: React.FC<FarmDashboardProps> = ({
               <div className="bg-gradient-to-br from-red-50 to-orange-50 p-4 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <Thermometer className="w-5 h-5 text-red-600" />
-                  <span className="text-sm font-medium text-gray-700">Temperature</span>
+                  <span className="text-sm font-medium text-gray-700">{t('temperature')}</span>
                 </div>
                 <div
                   className={`text-2xl font-bold ${getStatusColor(sensorData.temperature, 'temperature')}`}
                 >
-                  {sensorData.temperature}°C
+                  <span dir="ltr">{sensorData.temperature}°C</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
                   <div
@@ -252,12 +253,12 @@ export const FarmDashboard: React.FC<FarmDashboardProps> = ({
               <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-4 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <Droplets className="w-5 h-5 text-blue-600" />
-                  <span className="text-sm font-medium text-gray-700">Humidity</span>
+                  <span className="text-sm font-medium text-gray-700">{t('humidity')}</span>
                 </div>
                 <div
                   className={`text-2xl font-bold ${getStatusColor(sensorData.humidity, 'humidity')}`}
                 >
-                  {sensorData.humidity}%
+                  <span dir="ltr">{sensorData.humidity}%</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
                   <div
@@ -270,62 +271,64 @@ export const FarmDashboard: React.FC<FarmDashboardProps> = ({
               <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <Leaf className="w-5 h-5 text-green-600" />
-                  <span className="text-sm font-medium text-gray-700">pH Level</span>
+                  <span className="text-sm font-medium text-gray-700">{t('phLevel')}</span>
                 </div>
                 <div className={`text-2xl font-bold ${getStatusColor(sensorData.ph, 'ph')}`}>
-                  {sensorData.ph}
+                  <span dir="ltr">{sensorData.ph}</span>
                 </div>
-                <div className="text-xs text-gray-500 mt-1">EC: {sensorData.ec} mS/cm</div>
+                <div className="text-xs text-gray-500 mt-1" dir="ltr">EC: {sensorData.ec} mS/cm</div>
               </div>
 
               <div className="bg-gradient-to-br from-purple-50 to-indigo-50 p-4 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <Droplets className="w-5 h-5 text-purple-600" />
-                  <span className="text-sm font-medium text-gray-700">Water Level</span>
+                  <span className="text-sm font-medium text-gray-700">{t('waterLevel')}</span>
                 </div>
                 <div
                   className={`text-2xl font-bold ${getStatusColor(sensorData.water_level, 'water_level')}`}
                 >
-                  {sensorData.water_level}%
+                  <span dir="ltr">{sensorData.water_level}%</span>
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
-                  Flow: {sensorData.water_flow} L/min
+                  <span dir="ltr">{t('flow')}: {sensorData.water_flow} L/min</span>
                 </div>
               </div>
 
               <div className="bg-gradient-to-br from-yellow-50 to-orange-50 p-4 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <Sun className="w-5 h-5 text-yellow-600" />
-                  <span className="text-sm font-medium text-gray-700">Solar Generation</span>
+                  <span className="text-sm font-medium text-gray-700">{t('solarGeneration')}</span>
                 </div>
                 <div className="text-2xl font-bold text-yellow-600">
-                  {sensorData.solar_generation} kWh
+                  <span dir="ltr">{sensorData.solar_generation} kWh</span>
                 </div>
                 <div className="text-xs text-gray-500 mt-1 truncate">
-                  Consumption: {sensorData.energy_consumption} kWh
+                  <span dir="ltr">{t('consumption')}: {sensorData.energy_consumption} kWh</span>
                 </div>
               </div>
 
               <div className="bg-gradient-to-br from-gray-50 to-slate-50 p-4 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <Wifi className="w-5 h-5 text-gray-600" />
-                  <span className="text-sm font-medium text-gray-700">System Status</span>
+                  <span className="text-sm font-medium text-gray-700">{t('systemStatus')}</span>
                 </div>
-                <div className="text-2xl font-bold text-green-600">{metrics?.metrics.uptime}%</div>
-                <div className="text-xs text-gray-500 mt-1 truncate">Uptime</div>
+                <div className="text-2xl font-bold text-green-600">
+                  <span dir="ltr">{metrics?.metrics.uptime}%</span>
+                </div>
+                <div className="text-xs text-gray-500 mt-1 truncate">{t('uptime')}</div>
               </div>
 
               <div className="bg-gradient-to-br from-emerald-50 to-green-50 p-4 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <Leaf className="w-5 h-5 text-emerald-600" />
-                  <span className="text-sm font-medium text-gray-700">Nutrients</span>
+                  <span className="text-sm font-medium text-gray-700">{t('nutrients')}</span>
                 </div>
                 <div className="space-y-1">
-                  <div className="flex justify-between text-xs gap-1">
+                  <div className="flex justify-between text-xs gap-1" dir="ltr">
                     <span>N: {sensorData.nutrient_levels.nitrogen}ppm</span>
                     <span>P: {sensorData.nutrient_levels.phosphorus}ppm</span>
                   </div>
-                  <div className="text-xs truncate">
+                  <div className="text-xs truncate" dir="ltr">
                     K: {sensorData.nutrient_levels.potassium}ppm
                   </div>
                 </div>
@@ -334,13 +337,13 @@ export const FarmDashboard: React.FC<FarmDashboardProps> = ({
               <div className="bg-gradient-to-br from-indigo-50 to-blue-50 p-4 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <BarChart3 className="w-5 h-5 text-indigo-600" />
-                  <span className="text-sm font-medium text-gray-700">Environment</span>
+                  <span className="text-sm font-medium text-gray-700">{t('environment')}</span>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-xs truncate">
-                    Light: {(sensorData.light_intensity / 1000).toFixed(1)}k lux
+                  <div className="text-xs truncate" dir="ltr">
+                    {t('light')}: {(sensorData.light_intensity / 1000).toFixed(1)}k lux
                   </div>
-                  <div className="text-xs truncate">CO₂: {sensorData.co2_level} ppm</div>
+                  <div className="text-xs truncate" dir="ltr">CO₂: {sensorData.co2_level} ppm</div>
                 </div>
               </div>
             </>
@@ -353,40 +356,40 @@ export const FarmDashboard: React.FC<FarmDashboardProps> = ({
         <div className="bg-white rounded-xl shadow-lg p-4">
           <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
             <TrendingUp className="w-5 h-5 text-green-600" />
-            Performance Metrics (This Week)
+            {t('performanceMetrics')} ({t('thisWeek')})
           </h3>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="text-center p-3 bg-blue-50 rounded-lg">
               <div className="text-2xl font-bold text-blue-600">
-                {metrics.metrics.water_per_kg}L
+                <span dir="ltr">{metrics.metrics.water_per_kg}L</span>
               </div>
-              <div className="text-sm text-gray-600">Water per kg</div>
-              <div className="text-xs text-green-600 mt-1">↓ 15% vs last week</div>
+              <div className="text-sm text-gray-600">{t('waterPerKg')}</div>
+              <div className="text-xs text-green-600 mt-1" dir="ltr">↓ 15% {t('vsLastWeek')}</div>
             </div>
 
             <div className="text-center p-3 bg-yellow-50 rounded-lg">
               <div className="text-2xl font-bold text-yellow-600">
-                {metrics.metrics.energy_per_kg} kWh
+                <span dir="ltr">{metrics.metrics.energy_per_kg} kWh</span>
               </div>
-              <div className="text-sm text-gray-600">Energy per kg</div>
-              <div className="text-xs text-green-600 mt-1">↓ 8% vs last week</div>
+              <div className="text-sm text-gray-600">{t('energyPerKg')}</div>
+              <div className="text-xs text-green-600 mt-1" dir="ltr">↓ 8% {t('vsLastWeek')}</div>
             </div>
 
             <div className="text-center p-3 bg-green-50 rounded-lg">
               <div className="text-2xl font-bold text-green-600">
-                {metrics.metrics.carbon_offset} kg
+                <span dir="ltr">{metrics.metrics.carbon_offset} kg</span>
               </div>
-              <div className="text-sm text-gray-600">CO₂ Offset</div>
-              <div className="text-xs text-green-600 mt-1">↑ 12% vs last week</div>
+              <div className="text-sm text-gray-600">{t('carbonOffset')}</div>
+              <div className="text-xs text-green-600 mt-1" dir="ltr">↑ 12% {t('vsLastWeek')}</div>
             </div>
 
             <div className="text-center p-3 bg-purple-50 rounded-lg">
               <div className="text-2xl font-bold text-purple-600">
-                {metrics.metrics.food_miles_saved} km
+                <span dir="ltr">{metrics.metrics.food_miles_saved} km</span>
               </div>
-              <div className="text-sm text-gray-600">Miles Saved</div>
-              <div className="text-xs text-green-600 mt-1">↑ 5% vs last week</div>
+              <div className="text-sm text-gray-600">{t('milesSaved')}</div>
+              <div className="text-xs text-green-600 mt-1" dir="ltr">↑ 5% {t('vsLastWeek')}</div>
             </div>
           </div>
         </div>
@@ -396,28 +399,28 @@ export const FarmDashboard: React.FC<FarmDashboardProps> = ({
       <div className="bg-white rounded-xl shadow-lg p-4">
         <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
           <Settings className="w-5 h-5 text-gray-600" />
-          Quick Actions
+          {t('quickActions')}
         </h3>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           <button className="p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors text-center">
             <Zap className="w-6 h-6 text-blue-600 mx-auto mb-1" />
-            <div className="text-sm font-medium text-blue-800">IoT Controls</div>
+            <div className="text-sm font-medium text-blue-800">{t('iotControls')}</div>
           </button>
 
           <button className="p-3 bg-green-50 hover:bg-green-100 rounded-lg transition-colors text-center">
             <Leaf className="w-6 h-6 text-green-600 mx-auto mb-1" />
-            <div className="text-sm font-medium text-green-800">Crop Management</div>
+            <div className="text-sm font-medium text-green-800">{t('cropManagement')}</div>
           </button>
 
           <button className="p-3 bg-yellow-50 hover:bg-yellow-100 rounded-lg transition-colors text-center">
             <Activity className="w-6 h-6 text-yellow-600 mx-auto mb-1" />
-            <div className="text-sm font-medium text-yellow-800">Tasks & Maintenance</div>
+            <div className="text-sm font-medium text-yellow-800">{t('tasksAndMaintenance')}</div>
           </button>
 
           <button className="p-3 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors text-center">
             <BarChart3 className="w-6 h-6 text-purple-600 mx-auto mb-1" />
-            <div className="text-sm font-medium text-purple-800">Reports</div>
+            <div className="text-sm font-medium text-purple-800">{t('reports')}</div>
           </button>
         </div>
       </div>
