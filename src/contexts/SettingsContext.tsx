@@ -139,15 +139,20 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const formatCurrency = (amount: number): string => {
     try {
-      // Use Intl.NumberFormat for proper currency formatting
-      const formatter = new Intl.NumberFormat(language === 'ar' ? 'ar-SA' : 'en-US', {
+      // Always use English numerals for currency formatting
+      const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: currency.code,
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
 
-      return formatter.format(amount);
+      const formatted = formatter.format(amount);
+      
+      // Ensure English numerals are used regardless of language
+      return formatted.replace(/[٠-٩]/g, (d) => {
+        return '٠١٢٣٤٥٦٧٨٩'.indexOf(d).toString();
+      });
     } catch (error) {
       // Fallback formatting if Intl.NumberFormat fails
       console.warn('Currency formatting failed, using fallback:', error);
