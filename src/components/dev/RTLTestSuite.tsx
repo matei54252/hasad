@@ -9,7 +9,8 @@ import {
   CheckCircle, 
   AlertTriangle,
   Eye,
-  Camera
+  Camera,
+  X
 } from 'lucide-react';
 
 interface RTLTestCase {
@@ -23,12 +24,32 @@ interface RTLTestCase {
 
 export const RTLTestSuite: React.FC = () => {
   const { t, i18n } = useTranslation();
+  const [isOpen, setIsOpen] = useState(false);
   const [selectedTest, setSelectedTest] = useState<string | null>(null);
   const [testResults, setTestResults] = useState<Record<string, 'pass' | 'fail' | 'pending'>>({});
 
   // Only show in development
   if (!import.meta.env.DEV) {
     return null;
+  }
+
+  if (!isOpen) {
+    return (
+      <div className="fixed top-4 left-4 z-50">
+        <button
+          onClick={() => setIsOpen(true)}
+          className="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors"
+          title="Open RTL Test Suite"
+        >
+          <TestTube className="w-5 h-5" />
+          {missingKeys.length > 0 && (
+            <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              {testResults && Object.values(testResults).filter(r => r === 'fail').length}
+            </div>
+          )}
+        </button>
+      </div>
+    );
   }
 
   const testCases: RTLTestCase[] = [
@@ -133,6 +154,16 @@ export const RTLTestSuite: React.FC = () => {
             <TestTube className="w-5 h-5" />
             <h3 className="font-semibold">RTL Test Suite</h3>
           </div>
+          <button
+            onClick={() => setIsOpen(false)}
+            className="p-1 hover:bg-blue-700 rounded"
+            title="Close RTL Test Suite"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+        <div className="flex items-center justify-between mt-2">
+          <div className="flex items-center gap-2">
           <div className="flex items-center gap-2">
             <span className="text-xs bg-blue-700 px-2 py-1 rounded">
               Current: {i18n.language.toUpperCase()}
