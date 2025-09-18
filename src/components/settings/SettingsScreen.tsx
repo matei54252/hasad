@@ -299,16 +299,16 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
               <div className="flex items-center gap-3 p-4 bg-green-50 rounded-lg border border-green-200">
                 <CheckCircle className="w-6 h-6 text-green-600" />
                 <div>
-                  <p className="text-sm font-semibold text-green-800">متصل</p>
-                  <p className="text-xs text-green-700">الخدمة تعمل بشكل طبيعي</p>
+                  <p className="text-sm font-semibold text-green-800">{t('connected')}</p>
+                  <p className="text-xs text-green-700">{t('serviceRunningNormally')}</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg border border-blue-200">
                 <Info className="w-6 h-6 text-blue-600" />
                 <div>
-                  <p className="text-sm font-semibold text-blue-800">آخر تحديث</p>
-                  <p className="text-xs text-blue-700">منذ دقيقتين</p>
+                  <p className="text-sm font-semibold text-blue-800">{t('lastUpdate')}</p>
+                  <p className="text-xs text-blue-700">{t('twoMinutesAgo')}</p>
                 </div>
               </div>
             </div>
@@ -317,10 +317,9 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
               <div className="flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 text-gray-600 mt-0.5" />
                 <div>
-                  <p className="text-sm font-medium text-gray-800 mb-1">ملاحظة هامة</p>
+                  <p className="text-sm font-medium text-gray-800 mb-1">{t('importantNote')}</p>
                   <p className="text-xs text-gray-700 leading-relaxed">
-                    جميع بياناتك محمية ومشفرة. يتم حفظ التفضيلات محلياً على جهازك لضمان الخصوصية
-                    والأمان.
+                    {t('dataProtectionNotice')}
                   </p>
                 </div>
               </div>
@@ -330,8 +329,8 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ onBack }) => {
 
         {/* App Version Footer */}
         <div className="text-center py-6">
-          <p className="text-sm text-gray-500 mb-1">HASAD v1.0.0</p>
-          <p className="text-xs text-gray-400">الزراعة الذكية في متناول يدك</p>
+          <p className="text-sm text-gray-500 mb-1">{t('appVersion')}</p>
+          <p className="text-xs text-gray-400">{t('smartFarmingFingerTips')}</p>
         </div>
       </div>
 

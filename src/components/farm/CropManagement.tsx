@@ -180,14 +180,14 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
             <Leaf className="w-6 h-6 text-green-600" />
-            Crop Management - {selectedSite.name}
+            {t('cropManagement')} - {selectedSite.name}
           </h2>
           <button
             onClick={() => setShowAddCrop(true)}
             className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
           >
             <Plus className="w-4 h-4" />
-            Add Crop
+            {t('addCrop')}
           </button>
         </div>
 
@@ -195,25 +195,25 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-green-50 p-3 rounded-lg">
             <div className="text-2xl font-bold text-green-600">{crops.length}</div>
-            <div className="text-sm text-gray-600">Active Crops</div>
+            <div className="text-sm text-gray-600">{t('activeCrops')}</div>
           </div>
           <div className="bg-orange-50 p-3 rounded-lg">
             <div className="text-2xl font-bold text-orange-600">
               {crops.filter(c => c.status === 'harvest_ready').length}
             </div>
-            <div className="text-sm text-gray-600">Ready to Harvest</div>
+            <div className="text-sm text-gray-600">{t('readyToHarvest')}</div>
           </div>
           <div className="bg-blue-50 p-3 rounded-lg">
             <div className="text-2xl font-bold text-blue-600">
               {crops.reduce((sum, c) => sum + c.estimated_yield, 0)} kg
             </div>
-            <div className="text-sm text-gray-600">Expected Yield</div>
+            <div className="text-sm text-gray-600">{t('expectedYield')}</div>
           </div>
           <div className="bg-purple-50 p-3 rounded-lg">
             <div className="text-2xl font-bold text-purple-600">
               {Math.round(crops.reduce((sum, c) => sum + c.health_score, 0) / crops.length)}%
             </div>
-            <div className="text-sm text-gray-600">Avg Health Score</div>
+            <div className="text-sm text-gray-600">{t('avgHealthScore')}</div>
           </div>
         </div>
       </div>
@@ -248,7 +248,7 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
             <div className="p-4">
               <div className="mb-4">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm font-medium text-gray-700">Growth Progress</span>
+                  <span className="text-sm font-medium text-gray-700">{t('growthProgress')}</span>
                   <span className="text-sm font-bold text-green-600">{crop.growth_stage}%</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
@@ -261,33 +261,33 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
 
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div>
-                  <div className="text-sm text-gray-600">Health Score</div>
+                  <div className="text-sm text-gray-600">{t('healthScore')}</div>
                   <div className={`text-lg font-bold ${getHealthColor(crop.health_score)}`}>
                     {crop.health_score}%
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-gray-600">Expected Yield</div>
+                  <div className="text-sm text-gray-600">{t('expectedYield')}</div>
                   <div className="text-lg font-bold text-gray-900">{crop.estimated_yield} kg</div>
                 </div>
               </div>
 
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Planted:</span>
+                  <span className="text-gray-600">{t('planted')}:</span>
                   <span className="font-medium text-right">
                     {new Date(crop.planted_date).toLocaleDateString()}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Harvest:</span>
+                  <span className="text-gray-600">{t('harvest')}:</span>
                   <span className="font-medium text-right">
                     {new Date(crop.expected_harvest_date).toLocaleDateString()}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Quantity:</span>
-                  <span className="font-medium text-right">{crop.quantity_planted} plants</span>
+                  <span className="text-gray-600">{t('quantity')}:</span>
+                  <span className="font-medium text-right">{crop.quantity_planted} {t('plants')}</span>
                 </div>
               </div>
 
@@ -305,11 +305,11 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
                 className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors text-sm"
               >
                 <Camera className="w-4 h-4" />
-                Log Growth
+                {t('logGrowth')}
               </button>
               <button className="flex-1 flex items-center justify-center gap-1 px-3 py-2 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors text-sm">
                 <BarChart3 className="w-4 h-4" />
-                Analytics
+                {t('analytics')}
               </button>
               <button className="flex items-center justify-center px-3 py-2 bg-gray-50 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors">
                 <Edit className="w-4 h-4" />
@@ -324,43 +324,43 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900">Add New Crop</h3>
+              <h3 className="text-lg font-semibold text-gray-900">{t('addNewCrop')}</h3>
             </div>
 
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Crop Name</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">{t('cropName')}</label>
                 <input
                   type="text"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                  placeholder="e.g., Butterhead Lettuce"
+                  placeholder={t('cropNamePlaceholder')}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Variety</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">{t('variety')}</label>
                 <input
                   type="text"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                  placeholder="e.g., Boston Bibb"
+                  placeholder={t('varietyPlaceholder')}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">{t('category')}</label>
                 <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
-                  <option value="leafy_greens">Leafy Greens</option>
-                  <option value="vegetables">Vegetables</option>
-                  <option value="herbs">Herbs</option>
-                  <option value="fruits">Fruits</option>
-                  <option value="grains">Grains</option>
+                  <option value="leafy_greens">{t('leafyGreens')}</option>
+                  <option value="vegetables">{t('vegetables')}</option>
+                  <option value="herbs">{t('herbs')}</option>
+                  <option value="fruits">{t('fruits')}</option>
+                  <option value="grains">{t('grains')}</option>
                 </select>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Planted Date
+                    {t('plantedDate')}
                   </label>
                   <input
                     type="date"
@@ -369,7 +369,7 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Expected Harvest
+                    {t('expectedHarvest')}
                   </label>
                   <input
                     type="date"
@@ -381,32 +381,32 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Quantity Planted
+                    {t('quantityPlanted')}
                   </label>
                   <input
                     type="number"
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                    placeholder="200"
+                    placeholder={t('quantityPlaceholder')}
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Expected Yield (kg)
+                    {t('expectedYieldKg')}
                   </label>
                   <input
                     type="number"
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                    placeholder="50"
+                    placeholder={t('yieldPlaceholder')}
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">{t('notes')}</label>
                 <textarea
                   rows={3}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                  placeholder="Any additional notes about this crop..."
+                  placeholder={t('cropNotesPlaceholder')}
                 />
               </div>
             </div>
@@ -416,13 +416,13 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
                 onClick={() => setShowAddCrop(false)}
                 className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
               >
-                Cancel
+                {t('cancel')}
               </button>
               <button
                 onClick={() => setShowAddCrop(false)}
                 className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
               >
-                Add Crop
+                {t('addCrop')}
               </button>
             </div>
           </div>
@@ -435,7 +435,7 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900">
-                Growth Log - {selectedCrop.name}
+                {t('growthLog')} - {selectedCrop.name}
               </h3>
             </div>
 
@@ -443,52 +443,52 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Growth Stage (%)
+                    {t('growthStagePercent')}
                   </label>
                   <input
                     type="number"
                     min="0"
                     max="100"
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                    placeholder="95"
+                    placeholder={t('growthStagePlaceholder')}
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Height (cm)
+                    {t('heightCm')}
                   </label>
                   <input
                     type="number"
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                    placeholder="15"
+                    placeholder={t('heightPlaceholder')}
                   />
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Health Score (0-100)
+                  {t('healthScoreRange')}
                 </label>
                 <input
                   type="number"
                   min="0"
                   max="100"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                  placeholder="92"
+                  placeholder={t('healthScorePlaceholder')}
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Actions Taken
+                  {t('actionsTaken')}
                 </label>
                 <div className="space-y-2">
                   {[
-                    'Watering',
-                    'Nutrient adjustment',
-                    'Pruning',
-                    'pH monitoring',
-                    'Pest control',
+                    t('watering'),
+                    t('nutrientAdjustment'),
+                    t('pruning'),
+                    t('phMonitoring'),
+                    t('pestControl'),
                   ].map(action => (
                     <label key={action} className="flex items-center gap-2">
                       <input type="checkbox" className="w-4 h-4 text-green-600" />
@@ -499,19 +499,19 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">{t('notes')}</label>
                 <textarea
                   rows={3}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                  placeholder="Observations, changes, recommendations..."
+                  placeholder={t('observationsPlaceholder')}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Photos</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">{t('photos')}</label>
                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
                   <Camera className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                  <p className="text-sm text-gray-600">Click to add photos</p>
+                  <p className="text-sm text-gray-600">{t('clickToAddPhotos')}</p>
                 </div>
               </div>
             </div>
@@ -524,7 +524,7 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
                 }}
                 className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
               >
-                Cancel
+                {t('cancel')}
               </button>
               <button
                 onClick={() => {
@@ -533,7 +533,7 @@ export const CropManagement: React.FC<CropManagementProps> = ({ selectedSite }) 
                 }}
                 className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
               >
-                Save Log
+                {t('saveLog')}
               </button>
             </div>
           </div>
