@@ -216,7 +216,7 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
   );
 
   const renderCropDetails = () => (
-    <div className="space-y-6">
+    <div className="space-y-6" dir="rtl">
       {/* Plant Header */}
       <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-4">
         <div className="flex items-center justify-between mb-3">
@@ -226,15 +226,15 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
           </span>
         </div>
         <p className="text-gray-600 text-sm">
-          {t('plantId')}: {activity.details.plantId}
+          {t('plantId')}؍ <span dir="ltr">{activity.details.plantId}</span>
         </p>
         <p className="text-gray-600 text-sm">
-          {t('variety')}: {activity.details.variety}
+          {t('variety')}؍ {activity.details.variety}
         </p>
       </div>
 
       {/* Health Status */}
-      <div className="bg-white border border-gray-200 rounded-lg p-4">
+      <div className="bg-white border border-gray-200 rounded-lg p-4" dir="rtl">
         <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
           <Leaf className="w-5 h-5 text-green-600" />
           {t('healthStatus')}
@@ -243,7 +243,7 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
           <div>
             <div className="flex justify-between items-center">
               <span className="text-sm font-medium text-gray-700">{t('overallHealth')}</span>
-              <span className="text-lg font-bold text-green-600">
+              <span className="text-lg font-bold text-green-600" dir="ltr">
                 {activity.details.healthStatus}%
               </span>
             </div>
@@ -256,68 +256,68 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
           </div>
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <span className="text-gray-600">{t('qualityGrade')}:</span>
+              <span className="text-gray-600">{t('qualityGrade')}؍</span>
               <span className="ml-2 font-medium text-green-600">{t('premium')}</span>
             </div>
             <div>
-              <span className="text-gray-600">{t('expectedYield')}:</span>
-              <span className="ml-2 font-medium">{activity.details.estimatedYield}</span>
+              <span className="text-gray-600">{t('expectedYield')}؍</span>
+              <span className="ml-2 font-medium" dir="ltr">{activity.details.estimatedYield}</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Location Information */}
-      <div className="bg-white border border-gray-200 rounded-lg p-4">
+      <div className="bg-white border border-gray-200 rounded-lg p-4" dir="rtl">
         <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
           <MapPin className="w-5 h-5 text-blue-600" />
           {t('locationDetails')}
         </h4>
         <div className="space-y-2">
           <div className="flex justify-between">
-            <span className="text-gray-600">{t('farm')}:</span>
-            <span className="font-medium text-right break-words">
+            <span className="text-gray-600">{t('farm')}؍</span>
+            <span className="font-medium text-start break-words" dir="ltr">
               {activity.details.location.farm}
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-600">{t('section')}:</span>
+            <span className="text-gray-600">{t('section')}؍</span>
             <span className="font-medium">{activity.details.location.section}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-600">{t('row')}:</span>
+            <span className="text-gray-600">{t('row')}؍</span>
             <span className="font-medium">{activity.details.location.row}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-600">{t('coordinates')}:</span>
-            <span className="font-medium font-mono">{activity.details.location.coordinates}</span>
+            <span className="text-gray-600">{t('coordinates')}؍</span>
+            <span className="font-medium font-mono" dir="ltr">{activity.details.location.coordinates}</span>
           </div>
         </div>
       </div>
 
       {/* Timeline */}
-      <div className="bg-white border border-gray-200 rounded-lg p-4">
+      <div className="bg-white border border-gray-200 rounded-lg p-4" dir="rtl">
         <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
           <Calendar className="w-5 h-5 text-purple-600" />
           {t('growthTimeline')}
         </h4>
         <div className="space-y-2">
           <div className="flex justify-between">
-            <span className="text-gray-600">{t('planted')}:</span>
-            <span className="font-medium">
+            <span className="text-gray-600">{t('planted')}؍</span>
+            <span className="font-medium" dir="ltr">
               {new Date(activity.details.plantedDate).toLocaleDateString()}
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-600">{t('expectedHarvest')}:</span>
-            <span className="font-medium">
+            <span className="text-gray-600">{t('expectedHarvest')}؍</span>
+            <span className="font-medium" dir="ltr">
               {new Date(activity.details.expectedHarvest).toLocaleDateString()}
             </span>
           </div>
           {activity.details.actualHarvest && (
             <div className="flex justify-between">
-              <span className="text-gray-600">{t('actualHarvest')}:</span>
-              <span className="font-medium text-green-600">
+              <span className="text-gray-600">{t('actualHarvest')}؍</span>
+              <span className="font-medium text-green-600" dir="ltr">
                 {new Date(activity.details.actualHarvest).toLocaleDateString()}
               </span>
             </div>
@@ -326,7 +326,7 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
       </div>
 
       {/* Environmental Data */}
-      <div className="bg-white border border-gray-200 rounded-lg p-4">
+      <div className="bg-white border border-gray-200 rounded-lg p-4" dir="rtl">
         <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
           <Thermometer className="w-5 h-5 text-red-600" />
           {t('environmentalConditions')}
@@ -334,29 +334,29 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
         <div className="grid grid-cols-2 gap-4">
           <div className="flex items-center gap-2">
             <Thermometer className="w-4 h-4 text-red-500" />
-            <span className="text-sm text-gray-600">{t('temperature')}:</span>
-            <span className="font-medium">{activity.details.environmentalData.temperature}°C</span>
+            <span className="text-sm text-gray-600">{t('temperature')}؍</span>
+            <span className="font-medium" dir="ltr">{activity.details.environmentalData.temperature}°C</span>
           </div>
           <div className="flex items-center gap-2">
             <Droplets className="w-4 h-4 text-blue-500" />
-            <span className="text-sm text-gray-600">{t('humidity')}:</span>
-            <span className="font-medium">{activity.details.environmentalData.humidity}%</span>
+            <span className="text-sm text-gray-600">{t('humidity')}؍</span>
+            <span className="font-medium" dir="ltr">{activity.details.environmentalData.humidity}%</span>
           </div>
           <div className="flex items-center gap-2">
             <Leaf className="w-4 h-4 text-green-500" />
-            <span className="text-sm text-gray-600">{t('ph')}:</span>
-            <span className="font-medium">{activity.details.environmentalData.ph}</span>
+            <span className="text-sm text-gray-600">{t('ph')}؍</span>
+            <span className="font-medium" dir="ltr">{activity.details.environmentalData.ph}</span>
           </div>
           <div className="flex items-center gap-2">
             <Sun className="w-4 h-4 text-yellow-500" />
-            <span className="text-sm text-gray-600">{t('light')}:</span>
-            <span className="font-medium">{activity.details.environmentalData.lightHours}h</span>
+            <span className="text-sm text-gray-600">{t('light')}؍</span>
+            <span className="font-medium" dir="ltr">{activity.details.environmentalData.lightHours}h</span>
           </div>
         </div>
       </div>
 
       {/* Care History */}
-      <div className="bg-white border border-gray-200 rounded-lg p-4">
+      <div className="bg-white border border-gray-200 rounded-lg p-4" dir="rtl">
         <h4 className="font-semibold text-gray-900 mb-3">{t('careHistory')}</h4>
         <div className="space-y-3">
           {activity.details.careHistory.map((care: any, index: number) => (
@@ -365,7 +365,7 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
               <div className="flex-1">
                 <p className="font-medium text-gray-900">{care.action}</p>
                 <p className="text-sm text-gray-600">
-                  {new Date(care.date).toLocaleDateString()} • {care.worker}
+                  <span dir="ltr">{new Date(care.date).toLocaleDateString()}</span> • {care.worker}
                 </p>
               </div>
             </div>
@@ -377,7 +377,7 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden" dir="rtl">
         {/* Header */}
         <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -409,7 +409,7 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
+        <div className="p-6 overflow-y-auto max-h-[calc(90vh-80px)] space-y-6">
           {activity.type === 'order' ? renderOrderDetails() : renderCropDetails()}
         </div>
 
