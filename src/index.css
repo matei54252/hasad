@@ -217,3 +217,45 @@ main {
 [dir="ltr"] .rtl-scale-x-flip-rtl {
   transform: scaleX(1);
 }
+
+/* Arabic RTL Widget Styling */
+.widget-card {
+  direction: rtl;
+  unicode-bidi: isolate;
+}
+
+/* Ensure numbers and Gregorian dates stay LTR */
+.widget-card [dir="ltr"] {
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+/* Arabic colon spacing */
+.arabic-colon {
+  margin-inline-start: 0.25rem;
+}
+
+/* Widget responsive adjustments for RTL */
+@media (max-width: 640px) {
+  .widget-card {
+    padding: 1rem;
+  }
+  
+  .widget-card .flex {
+    align-items: flex-start;
+    text-align: start;
+  }
+}
+
+/* Ensure proper text alignment in RTL widgets */
+.widget-card .flex.justify-between {
+  text-align: start;
+}
+
+.widget-card .text-start {
+  text-align: start;
+}
+
+.widget-card .text-end {
+  text-align: end;
+}
