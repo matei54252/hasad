@@ -204,10 +204,15 @@ export const ActivityDetailModal: React.FC<ActivityDetailModalProps> = ({ activi
             </span>
           </div>
           {activity.details.deliveryNotes && (
-            <div className="delivery-instructions mt-3 p-3 bg-yellow-50 rounded-lg">
-              <p className="instructions-text text-sm text-yellow-800">
-                <strong>{t('deliveryNotes')}؍</strong> {activity.details.deliveryNotes}
-              </p>
+            <div dir="rtl" className="delivery-instructions mt-3 p-3 bg-yellow-50 rounded-lg">
+              <div className="flex justify-between items-start gap-3">
+                <span className="instruction-label text-sm font-medium text-yellow-800" dir="rtl">
+                  {t('deliveryNotes')}؍
+                </span>
+                <span className="instruction-value text-sm text-yellow-800" dir="ltr">
+                  {activity.details.deliveryNotes}
+                </span>
+              </div>
             </div>
           )}
         </div>

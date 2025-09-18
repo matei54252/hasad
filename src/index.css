@@ -236,34 +236,40 @@ main {
 }
 
 /* Allow instructions to wrap and expand */
-.instructions-text {
-  white-space: pre-wrap;      /* Preserve line breaks */
-  word-wrap: break-word;      /* Break long words */
-  overflow-wrap: anywhere;    /* Break anywhere if needed */
-  text-align: start;          /* Respect RTL container direction */
-  margin: 0;
-  line-height: 1.5;
-  hyphens: auto;
-}
-
-/* Ensure container can grow */
 .delivery-instructions {
-  display: block;
-  width: 100%;
-}
-
-/* Remove any fixed height or overflow restrictions */
-.card .delivery-instructions,
-.card .card-body {
+  direction: rtl;
   height: auto !important;
   overflow: visible !important;
-  min-height: auto !important;
 }
 
-/* Ensure modal content can expand */
+/* Label with its own RTL embed so the colon points correctly */
+.instruction-label {
+  unicode-bidi: embed;
+  direction: rtl;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Value stays LTR so long URLs or dates keep order */
+.instruction-value {
+  unicode-bidi: embed;
+  direction: ltr;
+  text-align: start;
+  overflow-wrap: anywhere;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Remove any truncation or fixed height */
+.card .delivery-instructions,
+.card .card-body,
 .modal-content .delivery-instructions {
-  max-height: none !important;
+  height: auto !important;
   overflow: visible !important;
+  max-height: none !important;
 }
 
 /* Widget responsive adjustments for RTL */
